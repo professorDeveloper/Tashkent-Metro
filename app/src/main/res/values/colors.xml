@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="colorPrimary">#007AFF</color>
+    <color name="colorAccent">#2F7DD3</color>
+    <color name="colorSecondary">#FF9500</color>
+    <color name="whiteMain">#FFFFFF</color>
+    <color name="colorGray">#8E8E93</color>
+    <color name="goldColor">#ffd700</color>
+    <color name="silverColor">#c0c0c0</color>
+    <color name="bronzeColor">#cd7f32</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#000000</color>
+    <color name="white">#F2F2F7</color>
+    <color name="inactive_input">#949494</color>
+    <color name="whiteGray">#9b9dab</color>
+    <color name="place_holder">#C2C2C2</color>
+    <color name="uncheckedColor">#757575</color>
+    <color name="stroke_color">#EFEFEF</color>
+    <color name="violet_400">#91A6FF</color>
+    <color name="violet_700">#3358FF</color>
+    <color name="bg_black_50" alpha="128">#80000000</color>
+    <color name="gradiant_bg_start">#ACACAC</color>
+    <color name="gradiant_bg_end">#00BFAEAE</color>
+    <color name="fav">#ad5edd</color>
+    <color name="incognito">#291B65</color>
+    <color name="filler">#54FF8400</color>
+
+
+</resources>
