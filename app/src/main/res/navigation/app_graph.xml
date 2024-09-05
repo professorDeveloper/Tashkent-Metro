@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_graph"
-    app:startDestination="@id/homeScreen">
+    app:startDestination="@id/button_home">
 
     <fragment
-        android:id="@+id/homeScreen"
+        android:id="@+id/button_home"
         android:name="com.azamovhudstc.tashkentmetro.ui.screens.home.HomeScreen"
         android:label="home_screen"
         tools:layout="@layout/home_screen" />
+    <fragment
+        android:id="@+id/button_maps"
+        android:name="com.azamovhudstc.tashkentmetro.ui.screens.map.MapScreen"
+        android:label="map_screen"
+        tools:layout="@layout/map_screen" />
 </navigation>

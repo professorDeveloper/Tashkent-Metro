@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/_30sdp"
+    android:background="@drawable/shape_map_type"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="@dimen/_40sdp"
+        android:background="@drawable/shape_view"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="@dimen/_4sdp"/>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/_10sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:text="Choose Map"
+            android:layout_weight="1"
+
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_height="wrap_content"/>
+
+
+        <FrameLayout
+            android:id="@+id/button_close"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="@dimen/_26sdp"
+            android:layout_gravity="center"
+            android:layout_height="@dimen/_26sdp">
+            <ImageView
+                android:layout_width="@dimen/_18sdp"
+                android:src="@drawable/icon_xmark"
+                android:alpha=".8"
+                android:layout_gravity="center"
+                android:padding="@dimen/_4sdp"
+                android:layout_height="@dimen/_18sdp"
+                app:tint="@color/black" />
+        </FrameLayout>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/normal_map_option"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/_100sdp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:src="@drawable/img_normal"
+                android:scaleType="centerCrop"
+                android:layout_height="match_parent"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_gravity="bottom"
+                android:paddingVertical="@dimen/_5sdp"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:layout_height="wrap_content">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Standart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_height="wrap_content"/>
+                
+            </LinearLayout>
+            
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/satellite_map_option"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_height="@dimen/_100sdp">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:src="@drawable/img_stailete"
+                android:scaleType="centerCrop"
+                android:layout_height="match_parent"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_gravity="bottom"
+                android:paddingVertical="@dimen/_5sdp"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Hybrid"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </LinearLayout>
+
+</LinearLayout>
