@@ -35,4 +35,25 @@
             android:alpha=".8"
             android:layout_height="match_parent"/>
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:focusable="true"
+        app:cardCornerRadius="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/map_style">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha=".8"
+            android:padding="@dimen/_6sdp"
+            android:src="@drawable/icon_map" />
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

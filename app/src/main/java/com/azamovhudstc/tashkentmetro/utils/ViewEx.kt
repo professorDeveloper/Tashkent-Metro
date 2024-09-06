@@ -132,23 +132,23 @@ fun EditText.requestFocusOpeningScreen() {
 
 }
 
-fun View.slideTop(animTime: Long, startOffset: Long) {
-    val slideUp = AnimationUtils.loadAnimation(App.instance, R.anim.slide_top).apply {
-        duration = animTime
-        interpolator = FastOutSlowInInterpolator()
-        this.startOffset = startOffset
-    }
-    startAnimation(slideUp)
-}
+//fun View.slideTop(animTime: Long, startOffset: Long) {
+//    val slideUp = AnimationUtils.loadAnimation(App.instance, R.anim.slide_top).apply {
+//        duration = animTime
+//        interpolator = FastOutSlowInInterpolator()
+//        this.startOffset = startOffset
+//    }
+//    startAnimation(slideUp)
+//}
 
-fun View.slideStart(animTime: Long, startOffset: Long) {
-    val slideUp = AnimationUtils.loadAnimation(App.instance, R.anim.slide_start).apply {
-        duration = animTime
-        interpolator = FastOutSlowInInterpolator()
-        this.startOffset = startOffset
-    }
-    startAnimation(slideUp)
-}
+//fun View.slideStart(animTime: Long, startOffset: Long) {
+//    val slideUp = AnimationUtils.loadAnimation(App.instance, R.anim.slide_start).apply {
+//        duration = animTime
+//        interpolator = FastOutSlowInInterpolator()
+//        this.startOffset = startOffset
+//    }
+//    startAnimation(slideUp)
+//}
 
 
 fun View.visible() {
@@ -168,14 +168,14 @@ fun View.onlyOneClick() {
     this.postDelayed({ this@onlyOneClick.isEnabled = true }, 400)
 }
 
-fun View.slideUp(animTime: Long, startOffset: Long) {
-    val slideUp = AnimationUtils.loadAnimation(App.instance, R.anim.slide_up).apply {
-        duration = animTime
-        interpolator = FastOutSlowInInterpolator()
-        this.startOffset = startOffset
-    }
-    startAnimation(slideUp)
-}
+//fun View.slideUp(animTime: Long, startOffset: Long) {
+//    val slideUp = AnimationUtils.loadAnimation(App.instance, R.anim.slide_up).apply {
+//        duration = animTime
+//        interpolator = FastOutSlowInInterpolator()
+//        this.startOffset = startOffset
+//    }
+//    startAnimation(slideUp)
+//}
 
 fun animationTransactionClearStack(clearFragmentID: Int): NavOptions.Builder {
     val navBuilder = NavOptions.Builder()
@@ -270,10 +270,10 @@ fun AppCompatEditText.clear() {
     setText("")
 }
 
-
-fun View.vibrationAnimation() {
-    val vibrationAnim =
-        AnimationUtils.loadAnimation(App.instance, R.anim.vibiration_anim)
-    startAnimation(vibrationAnim)
-
-}
+//
+//fun View.vibrationAnimation() {
+//    val vibrationAnim =
+//        AnimationUtils.loadAnimation(App.instance, R.anim.vibiration_anim)
+//    startAnimation(vibrationAnim)
+//
+//}
