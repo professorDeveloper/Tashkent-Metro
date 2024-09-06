@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.azamovhudstc.tashkentmetro.R
 import com.azamovhudstc.tashkentmetro.databinding.ActivityMainBinding
+import com.azamovhudstc.tashkentmetro.utils.initActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-
         viewBinding.homeNavigation.setupWithNavController(navController)
 
     }

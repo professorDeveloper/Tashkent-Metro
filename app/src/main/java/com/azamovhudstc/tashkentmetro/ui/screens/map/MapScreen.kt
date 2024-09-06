@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.Log
+import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import com.azamovhudstc.tashkentmetro.R
 import com.azamovhudstc.tashkentmetro.data.model.station.Line
@@ -55,7 +56,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         setupMetroLines()
 
 
-        drawRouteFromUserInput("beruniy", "mashinasozlar")
+//        drawRouteFromUserInput("beruniy", "mashinasozlar")
 
 
         val southWest = LatLng(41.2000, 69.1200)  // Janubi-g'arbiy nuqta
@@ -178,6 +179,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
         val normalMapOption = view.findViewById<MaterialCardView>(R.id.normal_map_option)
         val satelliteMapOption = view.findViewById<MaterialCardView>(R.id.satellite_map_option)
+        val buttonClose = view.findViewById<FrameLayout>(R.id.button_close)
         if (mMap.mapType != GoogleMap.MAP_TYPE_SATELLITE) normalMapOption.select() else satelliteMapOption.select()
 
         normalMapOption.setOnClickListener {
@@ -192,6 +194,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             normalMapOption.unSelect()
             satelliteMapOption.select()
 //            bottomSheetDialog.dismiss()
+        }
+
+        buttonClose.setOnClickListener {
+            bottomSheetDialog.dismiss()
         }
 
         bottomSheetDialog.setContentView(view)

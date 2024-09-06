@@ -148,7 +148,7 @@
         android:insetRight="0dp"
         android:insetBottom="0dp"
         android:text="Next"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_14ssp"
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

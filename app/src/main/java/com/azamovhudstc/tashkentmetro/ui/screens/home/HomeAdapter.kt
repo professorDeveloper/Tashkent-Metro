@@ -22,11 +22,13 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
             itemBinding.buttonStatusTrain.setOnClickListener {
                 list.remove(model)
                 notifyItemRemoved(pos)
+                notifyItemRangeChanged(pos, list.size)
             }
 
             itemBinding.buttonCancel.setOnClickListener {
                 list.remove(model)
                 notifyItemRemoved(pos)
+                notifyItemRangeChanged(pos, list.size)
             }
         }
     }
