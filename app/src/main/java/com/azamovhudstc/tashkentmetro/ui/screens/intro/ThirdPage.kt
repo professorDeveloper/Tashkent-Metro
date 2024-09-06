@@ -5,9 +5,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import com.azamovhudstc.infinityinsurance.utils.enums.CurrentScreenEnum
 import com.azamovhudstc.infinityinsurance.utils.setSafeOnClickListener
+import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
 import com.azamovhudstc.tashkentmetro.databinding.ThirdPageBinding
-import com.azamovhudstc.tashkentmetro.domain.preference.UserPreferenceManager
 import com.azamovhudstc.tashkentmetro.ui.activity.MainActivity
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
 
@@ -18,7 +19,7 @@ import javax.inject.Inject
 class ThirdPage : BaseFragment<ThirdPageBinding>(ThirdPageBinding::inflate) {
 
     @Inject
-    lateinit var userPreferenceManager: UserPreferenceManager
+    lateinit var userPreferenceManager: AppReference
 
     private val locationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
@@ -36,7 +37,8 @@ class ThirdPage : BaseFragment<ThirdPageBinding>(ThirdPageBinding::inflate) {
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
                 locationPermissionLauncher.launch(
-                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
             } else {
                 getLocation()
             }
@@ -44,16 +46,16 @@ class ThirdPage : BaseFragment<ThirdPageBinding>(ThirdPageBinding::inflate) {
         }
 
         binding.notNowTxt.setSafeOnClickListener {
-
+            userPreferenceManager.currentScreenEnum = CurrentScreenEnum.HOME
             val intent = Intent(requireActivity(), MainActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
-            
+
         }
     }
 
     fun getLocation() {
-        userPreferenceManager.isSeenIntro()
+        userPreferenceManager.currentScreenEnum = CurrentScreenEnum.HOME
         val intent = Intent(requireActivity(), MainActivity::class.java)
         startActivity(intent)
         requireActivity().finish()

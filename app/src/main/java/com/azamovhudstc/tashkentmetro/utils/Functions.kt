@@ -4,12 +4,17 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
+import com.azamovhudstc.infinityinsurance.utils.enums.CurrentScreenEnum
 import com.azamovhudstc.infinityinsurance.utils.snackString
 import com.azamovhudstc.tashkentmetro.app.App
-import java.io.*
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
+import java.io.Serializable
 import kotlin.reflect.KFunction
 
 fun initActivity(a: Activity) {
@@ -17,7 +22,7 @@ fun initActivity(a: Activity) {
     AppCompatDelegate.setDefaultNightMode(
         AppCompatDelegate.MODE_NIGHT_NO
     )
-//    WindowCompat.setDecorFitsSystemWindows(window, false)
+    WindowCompat.setDecorFitsSystemWindows(window, false)
 
 }
 
@@ -41,7 +46,12 @@ fun <T> loadData(fileName: String, context: Context? = null, toast: Boolean = tr
     }
     return null
 }
-
+fun String.screenCurrentEnum(): CurrentScreenEnum {
+    return when (this) {
+        "HOME" -> CurrentScreenEnum.HOME
+        else -> CurrentScreenEnum.INTRO
+    }
+}
 @Suppress("DEPRECATION")
 fun Activity.hideSystemBars() {
     window.decorView.systemUiVisibility = (

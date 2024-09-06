@@ -4,9 +4,13 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
 
-
     </style>
 
+    <style name="Theme.Intro" parent="Theme.TashkentMetro">
+        <item name="android:navigationBarColor">#00656464</item>
+        <item name="android:statusBarColor">#00656464</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 
     <style name="Theme.Main" parent="Theme.Material3.DayNight.NoActionBar">
     <!-- Primary brand color. -->

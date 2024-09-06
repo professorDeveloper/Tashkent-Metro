@@ -70,6 +70,7 @@ dependencies {
      **/
     implementation 'com.zeugmasolutions.localehelper:locale-helper-android:1.5.1'
     implementation 'com.github.prongbang:localization:2.1.2'
+    //
 
     /**
      * Glide

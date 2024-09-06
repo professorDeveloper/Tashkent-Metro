@@ -10,7 +10,12 @@ import com.azamovhudstc.tashkentmetro.utils.BaseFragment
 class FirstPage : BaseFragment<FirstPageBinding>(FirstPageBinding::inflate) {
 
     override fun onViewCreate() {
+        val a = requireActivity()
+//        val window = a.window
+//        WindowCompat.setDecorFitsSystemWindows(window, true)
+
         binding.nextBtn.setSafeOnClickListener {
+
             findNavController().navigate(R.id.secondPage, null, animationTransaction().build())
         }
 
