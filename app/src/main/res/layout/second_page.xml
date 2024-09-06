@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"
+        app:lottie_loop="false"
         app:lottie_rawRes="@raw/troophy" />
 
     <!-- Contribute Title Text -->
@@ -230,7 +230,7 @@
 
             android:layout_gravity="center"
             android:src="@drawable/arrow_forward_24px"
-            android:tint="@color/black" />
+            app:tint="@color/black" />
         <!-- Leaderboard Icon -->
         <!-- Leaderboard Icon with Red Background -->
         <FrameLayout
