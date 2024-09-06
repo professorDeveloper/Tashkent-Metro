@@ -43,6 +43,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         binding.mapStyle.setOnClickListener {
             showMapTypeBottomSheet()
         }
+        binding.buttonCenterCamera.setOnClickListener{
+            setupCameraToCenter()
+        }
     }
 
     override fun onMapReady(p0: GoogleMap) {

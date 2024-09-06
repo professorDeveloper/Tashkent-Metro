@@ -37,7 +37,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-
+        android:id="@+id/button_center_camera"
         android:layout_width="@dimen/_32sdp"
         android:layout_height="@dimen/_32sdp"
         android:layout_marginEnd="@dimen/_6sdp"
@@ -53,7 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha=".8"
-            android:padding="@dimen/_6sdp"
-            android:src="@drawable/icon_map" />
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/icon_paperplane"
+            app:tint="@color/colorPrimary" />
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
