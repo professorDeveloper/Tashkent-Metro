@@ -199,25 +199,19 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
     fun drawRouteFromUserInput(startStationName: String, endStationName: String) {
-        // Foydalanuvchi kiritgan bekat nomlariga mos bekatlarni topamiz
         val startStation = findStationByName(startStationName)
         val endStation = findStationByName(endStationName)
 
-        Log.d("tekshirish", "drawRouteFromUserInput: $startStation va $endStation")
-        // Agar bekatlar topilmasa, foydalanuvchiga xabar beramiz
         if (startStation == null || endStation == null) {
-            Log.e("Metro", "Bekatlar topilmadi: $startStationName yoki $endStationName noto'g'ri")
+            Log.e("Metro", "Bekatlar topilmadi")
             return
         }
 
-        // Marshrutni chizish uchun drawRouteAcrossLines funksiyasini chaqiramiz
         drawRouteAcrossLines(startStation, endStation)
     }
 
     private fun findStationByName(stationName: String): Station? {
-        // Foydalanuvchi kiritgan nom asosida barcha liniyalardan bekat qidiriladi
         return LocalData.metro.flatMap { line -> line.stations }.find {
-            Log.d("tekshirish", "findStationByName: ${it.name}")
             it.name == stationName.toLowerCase()
         }
     }
@@ -227,7 +221,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val endLine = findLineByStation(endStation)
 
         if (startLine == null || endLine == null) {
-            // Agar stansiyalar qaysi liniyada ekanligini aniqlay olmasak
             Log.e("Metro", "Bekatlar liniyalarini topishning iloji bo'lmadi")
             return
         }
@@ -239,15 +232,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             // Transfer bekatni topamiz
             val transferStation = findTransferStation(startLine, endLine)
 
-            Log.d("tekshirish", "drawRouteAcrossLines: transfer $transferStation")
             if (transferStation != null) {
-                // Birinchi liniyada marshrutni chizamiz
                 drawRouteBetweenStations(startLine, startStation, transferStation)
 
-                // Ikkinchi liniyada marshrutni chizamiz
                 drawRouteBetweenStations(endLine, transferStation, endStation)
             } else {
-                Log.e("tekshiramiz", "O'tish bekati topilmadi, liniyalar o'rtasida o'tish mavjud emas")
+                Log.e("Metro", "O'tish bekati topilmadi, liniyalar o'rtasida o'tish mavjud emas")
             }
         }
     }
@@ -255,24 +245,16 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private fun drawRouteBetweenStations(line: StationLine, station1: Station, station2: Station) {
         val polylineOptions = PolylineOptions()
 
-        // Stansiyalarni marshrutga qo'shamiz
         val startIndex = line.stations.indexOf(station1)
         val endIndex = line.stations.indexOf(station2)
 
-        Log.d("chizamiz", "drawRouteBetweenStations: $startIndex")
-        Log.d("chizamiz", "drawRouteBetweenStations: $endIndex")
+         val range = if (startIndex < endIndex) startIndex..endIndex else startIndex downTo endIndex
 
-
-        // Agar startIndex > endIndex bo'lsa, marshrutni teskari yo'nalishda chizamiz
-        val range = if (startIndex < endIndex) startIndex..endIndex else startIndex downTo endIndex
-
-        Log.d("chizamiz", "drawRouteBetweenStations: $range")
         range.forEach { index ->
             val station = line.stations[index]
             val position = LatLng(station.location.latitude, station.location.longitude)
             polylineOptions.add(position)
 
-            // Har bir bekatga marker qo'shamiz
             val markerOptions = MarkerOptions()
                 .position(position)
                 .title(station.name)
@@ -280,10 +262,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             mMap.addMarker(markerOptions)
         }
 
-        // Chiziq rangini va kengligini belgilaymiz
+
         polylineOptions.color(Color.BLACK).width(20f)
 
-        // Xaritada polylineni chizamiz
+
         mMap.addPolyline(polylineOptions)
 
         // Kamerani birinchi bekatga yaqinlashtiramiz
@@ -292,12 +274,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
     private fun findLineByStation(station: Station): StationLine? {
-        // Stansiyaning qaysi liniyada joylashganligini aniqlash
         return LocalData.metro.find { line -> line.stations.contains(station) }
     }
 
     private fun findTransferStation(line1: StationLine, line2: StationLine): Station? {
-        // Liniyalar orasida umumiy bekat (transfer station) topamiz
         return line1.stations.find { station1 ->
             line2.stations.any { station2 ->
                 station1.transferable != null && station1.name == station2.name

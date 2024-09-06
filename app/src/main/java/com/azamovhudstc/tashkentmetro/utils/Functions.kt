@@ -7,6 +7,7 @@ import android.view.WindowManager
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import com.azamovhudstc.infinityinsurance.utils.snackString
 import com.azamovhudstc.tashkentmetro.app.App
 import java.io.*
 import kotlin.reflect.KFunction
@@ -19,27 +20,27 @@ fun initActivity(a: Activity) {
 //    WindowCompat.setDecorFitsSystemWindows(window, false)
 
 }
-//
-//
-//@Suppress("UNCHECKED_CAST")
-//fun <T> loadData(fileName: String, context: Context? = null, toast: Boolean = true): T? {
-//    val a = context ?: App.instance
-//    try {
-//        if (a?.fileList() != null)
-//            if (fileName in a.fileList()) {
-//                val fileIS: FileInputStream = a.openFileInput(fileName)
-//                val objIS = ObjectInputStream(fileIS)
-//                val data = objIS.readObject() as T
-//                objIS.close()
-//                fileIS.close()
-//                return data
-//            }
-//    } catch (e: Exception) {
-//        if (toast) snackString("Error loading data $fileName")
-//        e.printStackTrace()
-//    }
-//    return null
-//}
+
+
+@Suppress("UNCHECKED_CAST")
+fun <T> loadData(fileName: String, context: Context? = null, toast: Boolean = true): T? {
+    val a = context ?: App.instance
+    try {
+        if (a?.fileList() != null)
+            if (fileName in a.fileList()) {
+                val fileIS: FileInputStream = a.openFileInput(fileName)
+                val objIS = ObjectInputStream(fileIS)
+                val data = objIS.readObject() as T
+                objIS.close()
+                fileIS.close()
+                return data
+            }
+    } catch (e: Exception) {
+        if (toast) snackString("Error loading data $fileName")
+        e.printStackTrace()
+    }
+    return null
+}
 
 @Suppress("DEPRECATION")
 fun Activity.hideSystemBars() {
