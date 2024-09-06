@@ -184,7 +184,7 @@
         android:id="@+id/notNowTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_14sdp"
+        android:layout_marginBottom="@dimen/_18sdp"
         android:text="Not now"
         android:textColor="@color/colorGray"
         android:textSize="@dimen/_16sdp"
