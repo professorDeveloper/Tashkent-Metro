@@ -1,13 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/drawable-v24/round_corner.xml" value="0.255" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/drawable/arrow_forward_24px.xml" value="0.255" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/drawable/button_gradient_background.xml" value="0.255" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/drawable/gradient_background_disabled.xml" value="0.255" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/drawable/gradient_button_bg.xml" value="0.255" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/drawable/gradient_shadow.xml" value="0.255" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/drawable/icon_arrow_right.xml" value="0.255" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/drawable/rounded_background.xml" value="0.255" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/drawable/shimmer_background.xml" value="0.255" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/drawable/tab_background_selected.xml" value="0.255" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/drawable/tab_background_unselected.xml" value="0.255" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/layout/activity_intro.xml" value="0.321875" />
         <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/layout/activity_main.xml" value="0.321875" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/layout/first_page.xml" value="0.2988679352838745" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/layout/home_screen.xml" value="0.321875" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/layout/introduction_screen.xml" value="0.16302083333333334" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/layout/item_train_status.xml" value="0.321875" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/layout/second_page.xml" value="0.2988679352838745" />
+        <entry key="..\:/AndroidStudioProjects/TashkentMetro/app/src/main/res/layout/third_page.xml" value="0.321875" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

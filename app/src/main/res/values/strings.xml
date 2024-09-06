@@ -3,6 +3,11 @@
     <string name="home">Home</string>
     <string name="maps">Maps</string>
     <string name="settings">Settings</string>
+    <string name="colored_text">Check if <font color="#FF8C00">train</font> is coming or will come with up-to-date information.</string>
+    <string name="colored_text_intro">All <font color="#FF8C00">Contributions</font> are placed in:</string>
+    <string name="enable_desc">Let Tashkent Metro access your\n location to find nearby stations.</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="next">Next</string>
 </resources>

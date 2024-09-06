@@ -32,6 +32,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
+        //
         viewBinding true
     }
 }
@@ -77,9 +78,12 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.15.1'
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.15.1'
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'  // Add Shimmer
 
     implementation 'com.airbnb.android:lottie:5.2.0'
+
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'
+
 
 
     /**
@@ -98,5 +102,13 @@ dependencies {
      * */
     implementation 'com.intuit.sdp:sdp-android:1.1.1'
     implementation 'com.intuit.ssp:ssp-android:1.1.1'
+
+    /**//
+     * CircleImageView
+     */
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    implementation 'com.google.android.gms:play-services-maps:19.0.0'
+
 
 }

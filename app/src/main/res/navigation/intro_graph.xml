@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/intro_graph"
+    app:startDestination="@id/firstPage">
+
+    <fragment
+        android:id="@+id/firstPage"
+        android:name="com.azamovhudstc.tashkentmetro.ui.screens.intro.FirstPage"
+        android:label="first_page"
+        tools:layout="@layout/first_page" >
+        <action
+            android:id="@+id/action_firstPage_to_secondPage"
+            app:destination="@id/secondPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondPage"
+        android:name="com.azamovhudstc.tashkentmetro.ui.screens.intro.SecondPage"
+        android:label="second_page"
+        tools:layout="@layout/second_page" >
+        <action
+            android:id="@+id/action_secondPage_to_thirdPage"
+            app:destination="@id/thirdPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/thirdPage"
+        tools:layout="@layout/third_page"
+        android:name="com.azamovhudstc.tashkentmetro.ui.screens.intro.ThirdPage"
+        android:label="ThirdPage" />
+</navigation>

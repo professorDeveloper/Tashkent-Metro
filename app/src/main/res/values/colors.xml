@@ -11,8 +11,10 @@
     <color name="bronzeColor">#cd7f32</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    <color name="blue">#0000FF</color>
+    <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="white">#F2F2F7</color>
+    <color name="red">#FF0000</color>
     <color name="inactive_input">#949494</color>
     <color name="whiteGray">#9b9dab</color>
     <color name="place_holder">#C2C2C2</color>
@@ -20,6 +22,7 @@
     <color name="stroke_color">#EFEFEF</color>
     <color name="violet_400">#91A6FF</color>
     <color name="violet_700">#3358FF</color>
+    <color name="shadow">#3358FF</color>
     <color name="bg_black_50" alpha="128">#80000000</color>
     <color name="gradiant_bg_start">#ACACAC</color>
     <color name="gradiant_bg_end">#00BFAEAE</color>
