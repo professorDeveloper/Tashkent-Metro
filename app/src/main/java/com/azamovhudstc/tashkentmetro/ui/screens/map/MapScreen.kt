@@ -4,7 +4,11 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import com.azamovhudstc.tashkentmetro.R
@@ -19,6 +23,7 @@ import com.azamovhudstc.tashkentmetro.utils.select
 import com.azamovhudstc.tashkentmetro.utils.unSelect
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptor
@@ -34,13 +39,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private lateinit var tashkentBounds: LatLngBounds
 
+    private lateinit var mapView: MapView
     private lateinit var mMap: GoogleMap
     override fun onViewCreate() {
-
-        val mapFragment = childFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-
+        mapView = binding.map
+        mapView.onCreate(null)
+        mapView.getMapAsync(this)
         binding.mapStyle.setOnClickListener {
             showMapTypeBottomSheet()
         }
@@ -48,6 +52,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             setupCameraToCenter()
         }
     }
+
+
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
@@ -289,6 +295,31 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 station1.transferable != null && station1.name == station2.name
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
     }
 
 }
