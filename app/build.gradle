@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.azamovhudstc.tashkentmetro"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -109,7 +109,7 @@ dependencies {
      */
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    implementation 'com.google.android.gms:play-services-maps:10.0.0'
+    implementation 'com.google.android.gms:play-services-maps:19.0.0'
 
 
 }
