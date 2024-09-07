@@ -24,7 +24,7 @@
         android:layout_height="@dimen/_160sdp"
         android:layout_marginTop="30dp"
         android:padding="5dp"
-        android:src="@drawable/circle_intro"
+        android:src="@drawable/intro_3"
         app:civ_border_color="@color/black"
         app:civ_border_width="@dimen/_5sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,23 +57,23 @@
             app:cornerRadius="@dimen/_8sdp" />
 
         <com.google.android.material.button.MaterialButton
-            android:layout_width="@dimen/_80sdp"
+            android:layout_width="@dimen/_94sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:fontFamily="@font/nunito_bold"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Stations"
+            android:text="Leaderboard"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_10sdp"
-            app:backgroundTint="#b4d8ff"
-            app:cornerRadius="@dimen/_8sdp" />
+            android:textSize="@dimen/_9sdp"
+            app:backgroundTint="#C8A6C7EC"
+            app:cornerRadius="@dimen/_9sdp" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_marginStart="@dimen/_8sdp"
-            app:cardBackgroundColor="#DDDDE6"
+            app:cardBackgroundColor="#E6E6EA"
             app:cardCornerRadius="@dimen/_6sdp"
             app:cardElevation="0dp" />
 
@@ -95,7 +95,7 @@
             android:fontFamily="@font/nunito_bold"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            app:backgroundTint="#DDDDE6"
+            app:backgroundTint="#E6E6EA"
             app:cornerRadius="@dimen/_8sdp" />
 
         <com.google.android.material.button.MaterialButton
@@ -105,7 +105,7 @@
             android:fontFamily="@font/nunito_bold"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            app:backgroundTint="#DDDDE6"
+            app:backgroundTint="#E6E6EA"
             app:cornerRadius="@dimen/_8sdp" />
 
         <com.google.android.material.button.MaterialButton

@@ -16,7 +16,7 @@
     <color name="black">#000000</color>
     <color name="red">#FF0000</color>
     <color name="inactive_input">#949494</color>
-    <color name="whiteGray">#9b9dab</color>
+    <color name="whiteGray">#BFBFBF</color>
     <color name="place_holder">#C2C2C2</color>
     <color name="uncheckedColor">#757575</color>
     <color name="stroke_color">#EFEFEF</color>
