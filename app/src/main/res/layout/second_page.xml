@@ -11,13 +11,25 @@
         android:id="@+id/lottieAnimationView"
         android:layout_width="@dimen/_120sdp"
         android:layout_height="@dimen/_120sdp"
-        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_marginTop="@dimen/_34sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="false"
         app:lottie_rawRes="@raw/troophy" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/infoBtn"
+        android:layout_width="@dimen/_18sdp"
+        android:layout_height="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:background="?selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView5"
+        app:srcCompat="@drawable/ic_info_fill"
+        app:tint="@color/colorSecondary" />
 
     <!-- Contribute Title Text -->
     <TextView
@@ -40,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_2sdp"
         android:fontFamily="@font/nunito_semi_bold"
-        android:text="Win prizes from contributing+"
+        android:text="Win prizes from contributing"
         android:textColor="@color/black"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintEnd_toEndOf="@+id/textView5"
@@ -57,7 +69,7 @@
 
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_8sdp"
-        app:cardBackgroundColor="#CBD1D2DC"
+        app:cardBackgroundColor="#CBE6E6EA"
         app:cardCornerRadius="@dimen/_6sdp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -167,6 +179,8 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/gradientMaterialButton"
                 android:layout_width="match_parent"
+
+
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="8dp"
@@ -220,7 +234,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/nunito_semi_bold"
-            android:text="Settings "
+            android:text="Sozlamalar"
             android:textColor="@color/black"
             android:textSize="@dimen/_13sdp" />
 
@@ -272,7 +286,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_28sdp"
 
         android:fontFamily="@font/nunito_bold"
 

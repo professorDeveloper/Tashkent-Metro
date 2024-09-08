@@ -1,12 +1,10 @@
-package com.azamovhudstc.infinityinsurance.utils
+package com.azamovhudstc.tashkentmetro.utils
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RoundRectShape
 import android.os.SystemClock
@@ -14,7 +12,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -27,15 +24,11 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import com.azamovhudstc.tashkentmetro.R
 import com.azamovhudstc.tashkentmetro.app.App
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 lateinit var viewpagerChangeListener: ((Int) -> Unit)
 fun setPositionListener(listener: (Int) -> Unit) {
@@ -132,32 +125,26 @@ fun EditText.requestFocusOpeningScreen() {
 
 }
 
-//fun View.slideTop(animTime: Long, startOffset: Long) {
-//    val slideUp = AnimationUtils.loadAnimation(App.instance, R.anim.slide_top).apply {
-//        duration = animTime
-//        interpolator = FastOutSlowInInterpolator()
-//        this.startOffset = startOffset
-//    }
-//    startAnimation(slideUp)
-//}
-
-//fun View.slideStart(animTime: Long, startOffset: Long) {
-//    val slideUp = AnimationUtils.loadAnimation(App.instance, R.anim.slide_start).apply {
-//        duration = animTime
-//        interpolator = FastOutSlowInInterpolator()
-//        this.startOffset = startOffset
-//    }
-//    startAnimation(slideUp)
-//}
-
-
-fun View.visible() {
-    visibility = View.VISIBLE
+fun View.slideTop(animTime: Long, startOffset: Long) {
+    val slideUp = AnimationUtils.loadAnimation(App.instance, R.anim.slide_top).apply {
+        duration = animTime
+        interpolator = FastOutSlowInInterpolator()
+        this.startOffset = startOffset
+    }
+    startAnimation(slideUp)
 }
 
-fun View.gone() {
-    visibility = View.GONE
+fun View.slideStart(animTime: Long, startOffset: Long) {
+    val slideUp = AnimationUtils.loadAnimation(App.instance, R.anim.slide_start).apply {
+        duration = animTime
+        interpolator = FastOutSlowInInterpolator()
+        this.startOffset = startOffset
+    }
+    startAnimation(slideUp)
 }
+
+
+
 
 fun View.invisible() {
     visibility = View.INVISIBLE
@@ -168,14 +155,14 @@ fun View.onlyOneClick() {
     this.postDelayed({ this@onlyOneClick.isEnabled = true }, 400)
 }
 
-//fun View.slideUp(animTime: Long, startOffset: Long) {
-//    val slideUp = AnimationUtils.loadAnimation(App.instance, R.anim.slide_up).apply {
-//        duration = animTime
-//        interpolator = FastOutSlowInInterpolator()
-//        this.startOffset = startOffset
-//    }
-//    startAnimation(slideUp)
-//}
+fun View.slideUp(animTime: Long, startOffset: Long) {
+    val slideUp = AnimationUtils.loadAnimation(App.instance, R.anim.slide_up).apply {
+        duration = animTime
+        interpolator = FastOutSlowInInterpolator()
+        this.startOffset = startOffset
+    }
+    startAnimation(slideUp)
+}
 
 fun animationTransactionClearStack(clearFragmentID: Int): NavOptions.Builder {
     val navBuilder = NavOptions.Builder()
@@ -270,10 +257,10 @@ fun AppCompatEditText.clear() {
     setText("")
 }
 
-//
-//fun View.vibrationAnimation() {
-//    val vibrationAnim =
-//        AnimationUtils.loadAnimation(App.instance, R.anim.vibiration_anim)
-//    startAnimation(vibrationAnim)
-//
-//}
+
+fun View.vibrationAnimation() {
+    val vibrationAnim =
+        AnimationUtils.loadAnimation(App.instance, R.anim.vibiration_anim)
+    startAnimation(vibrationAnim)
+
+}
