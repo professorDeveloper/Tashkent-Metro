@@ -245,6 +245,7 @@
                         android:includeFontPadding="false"
                         android:text="Language"
                         android:textSize="@dimen/_12sdp" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -276,7 +277,7 @@
                         android:includeFontPadding="false"
                         android:text="English"
                         android:textColor="#888888"
-                        android:textSize="@dimen/_13sdp" /> <!-- Customize text color as needed -->
+                        android:textSize="@dimen/_13sdp" />
 
                     <!-- Dropdown Icon -->
                     <com.google.android.material.imageview.ShapeableImageView
