@@ -12,6 +12,8 @@ object LocalData {
     val trainsStatusList = arrayListOf(
         TrainStatusModel(from = "Mirzo Ulug'bek", to = "Chilonzor", status = "Keldi"),
         TrainStatusModel(from = "Chilonzor", to = "Mirzo Ulug'bek", status = "Ketdi"),
+        TrainStatusModel(from = "Olmazor", to = "Chilonzor", status = "Keldi"),
+        TrainStatusModel(from = "Olmazor", to = "Chilonzor", status = "Keldi"),
         TrainStatusModel(from = "Olmazor", to = "Chilonzor", status = "Keldi")
     )
 

@@ -1,6 +1,5 @@
 package com.azamovhudstc.tashkentmetro.ui.screens.profile
 
-import android.content.res.Configuration
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import com.azamovhudstc.tashkentmetro.R
@@ -8,10 +7,10 @@ import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
 import com.azamovhudstc.tashkentmetro.data.local.shp.Language
 import com.azamovhudstc.tashkentmetro.databinding.ProfilePageBinding
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
-import com.azamovhudstc.tashkentmetro.viewmodel.imp.IntroViewModelImpl
+import com.azamovhudstc.tashkentmetro.utils.slideStart
+import com.azamovhudstc.tashkentmetro.utils.slideUp
 import com.azamovhudstc.tashkentmetro.viewmodel.profile.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,7 +24,12 @@ class ProfilePage: BaseFragment<ProfilePageBinding> (ProfilePageBinding::inflate
         // Access views via binding
         val dropdownIcon = binding.dropdownIcon
 
-
+        binding.textView9.slideStart(800,0)
+        binding.textView10.slideStart(800,0)
+        binding.cardView2.slideUp(800,0)
+        binding.cardView3.slideUp(800,0)
+        binding.cardView4.slideUp(800,0)
+        binding.cardview5.slideUp(800,0)
         binding.languageText.text = getLanguageString(userPreferenceManager.language)
         binding.flagImage.setImageResource(getFlagDrawable(userPreferenceManager.language))
 

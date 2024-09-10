@@ -54,6 +54,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/registercontainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
@@ -491,6 +492,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/cardview5"
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_28sdp"
         app:cardBackgroundColor="@color/white"
