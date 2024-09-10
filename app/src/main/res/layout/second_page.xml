@@ -100,7 +100,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/view2"
                 app:layout_constraintStart_toEndOf="@+id/view"
                 app:layout_constraintTop_toTopOf="@+id/view2"
-                app:srcCompat="@drawable/ic_next"
+                app:srcCompat="@drawable/ic_nextd"
                 app:tint="@color/black" />
 
 
