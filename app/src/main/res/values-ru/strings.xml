@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="account">Аккаунт</string>
+    <string name="login_register">Войти / Зарегистрироваться</string>
+    <string name="contribute_join_leaderboard">Внести вклад, присоединиться к Таблице лидеров</string>
+    <string name="leaderboard">Таблица лидеров</string>
+    <string name="language">Язык</string>
+    <string name="english">Английский</string>
+    <string name="theme">Тема</string>
+    <string name="system">Система</string>
+    <string name="contact_us">Связаться с нами</string>
+    <string name="rate_us">Оцените нас</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="russian">Русский</string>
+    <string name="uzbek">Узбекский</string>
+
+</resources>

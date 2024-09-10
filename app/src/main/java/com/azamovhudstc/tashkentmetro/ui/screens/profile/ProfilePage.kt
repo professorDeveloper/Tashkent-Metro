@@ -1,16 +1,33 @@
 package com.azamovhudstc.tashkentmetro.ui.screens.profile
 
+import android.content.res.Configuration
 import android.widget.PopupMenu
+import androidx.fragment.app.viewModels
 import com.azamovhudstc.tashkentmetro.R
+import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
+import com.azamovhudstc.tashkentmetro.data.local.shp.Language
 import com.azamovhudstc.tashkentmetro.databinding.ProfilePageBinding
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
+import com.azamovhudstc.tashkentmetro.viewmodel.imp.IntroViewModelImpl
+import com.azamovhudstc.tashkentmetro.viewmodel.profile.ProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProfilePage: BaseFragment<ProfilePageBinding> (ProfilePageBinding::inflate){
+
+    private val viewModel by viewModels<ProfileViewModel>()
+    @Inject
+    lateinit var userPreferenceManager: AppReference
+
     override fun onViewCreate() {
         // Access views via binding
         val dropdownIcon = binding.dropdownIcon
-        val flagImage = binding.flagImage
-        val languageText = binding.languageText
+
+
+        binding.languageText.text = getLanguageString(userPreferenceManager.language)
+        binding.flagImage.setImageResource(getFlagDrawable(userPreferenceManager.language))
 
         // Set up a PopupMenu to show a dropdown-like language selector
         dropdownIcon.setOnClickListener {
@@ -21,16 +38,16 @@ class ProfilePage: BaseFragment<ProfilePageBinding> (ProfilePageBinding::inflate
             popupMenu.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.language_english -> {
-                        languageText.text = "English"
-                        flagImage.setImageResource(R.drawable.uk) // Update flag
+                        viewModel.setLanguage(Language.ENGLISH)
+                        setAppLocale()
                     }
-                    R.id.language_spanish -> {
-                        languageText.text = "Spanish"
-                        flagImage.setImageResource(R.drawable.uk) // Update flag
+                    R.id.language_russian -> {
+                        viewModel.setLanguage(Language.RUSSIAN)
+                        setAppLocale()
                     }
-                    R.id.language_french -> {
-                        languageText.text = "French"
-                        flagImage.setImageResource(R.drawable.uk) // Update flag
+                    R.id.language_uzbek -> {
+                        viewModel.setLanguage(Language.UZBEK)
+                        setAppLocale()
                     }
                 }
                 true
@@ -40,4 +57,30 @@ class ProfilePage: BaseFragment<ProfilePageBinding> (ProfilePageBinding::inflate
             popupMenu.show()
         }
     }
+
+
+    private fun setAppLocale() {
+        requireActivity().recreate()
+    }
+
+
+
+    private fun getLanguageString(language: Language): String {
+        return when (language) {
+            Language.ENGLISH -> getString(R.string.english)
+            Language.RUSSIAN -> getString(R.string.russian)
+            Language.UZBEK -> getString(R.string.uzbek)
+        }
+    }
+
+    private fun getFlagDrawable(language: Language): Int {
+        return when (language) {
+            Language.ENGLISH -> R.drawable.uk
+            Language.RUSSIAN -> R.drawable.flag_russian
+            Language.UZBEK -> R.drawable.flag_uzbekistan
+        }
+    }
+
+
+
 }

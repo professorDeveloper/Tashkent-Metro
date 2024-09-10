@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="account">Akkount</string>
+    <string name="login_register">Kirish / Ro\'yxatdan o\'tish</string>
+    <string name="contribute_join_leaderboard">Reytingga qo\'shilish</string>
+    <string name="leaderboard">Reyting</string>
+    <string name="language">Til</string>
+    <string name="english">Ingliz tili</string>
+    <string name="theme">Mavzu</string>
+    <string name="system">Tizim</string>
+    <string name="contact_us">Biz bilan bog\'laning</string>
+    <string name="rate_us">Bizni baholang</string>
+    <string name="privacy_policy">Maxfiylik siyosati</string>
+    <string name="russian">Rus tili</string>
+    <string name="uzbek">O\'zbek tili</string>
+
+</resources>

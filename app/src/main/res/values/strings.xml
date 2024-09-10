@@ -9,9 +9,9 @@
     <!-- Spinner options for language -->
         <string-array name="language_array">
             <item>English</item>
-            <item>Spanish</item>
-            <item>French</item>
-            <item>German</item>
+            <item>Russian</item>
+            <item>Uzbek</item>
+
             <!-- Add more languages as needed -->
         </string-array>
 
@@ -19,7 +19,23 @@
     <!-- Content descriptions for accessibility -->
     <string name="language_icon">Language Icon</string>
     <string name="theme_icon">Theme Icon</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next">Next</string>
+    <string name="live">Live</string>
+    <string name="location">Location</string>
+    <string name="time">Time</string>
+    <string name="account">Account</string>
+    <string name="login_register">Login / Register</string>
+    <string name="contribute_join_leaderboard">Contribute, join Leaderboard</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="theme">Theme</string>
+    <string name="system">System</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="russian">Russian</string>
+    <string name="uzbek">Uzbek</string>
 </resources>

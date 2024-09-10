@@ -164,10 +164,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private fun getLineColor(line: Line): Int {
         return when (line) {
-            Line.CHILANZAR -> Color.RED
-            Line.UZBEKISTAN -> Color.BLUE
-            Line.YUNUSOBOD -> Color.GREEN
-            Line.INDEPENDENCEDAY -> Color.YELLOW
+            Line.CHILANZAR -> requireContext().getColor(R.color.map_red)
+            Line.UZBEKISTAN -> requireContext().getColor(R.color.map_blue)
+            Line.YUNUSOBOD -> requireContext().getColor(R.color.map_green)
+            Line.INDEPENDENCEDAY -> requireContext().getColor(R.color.map_yellow)
         }
     }
 

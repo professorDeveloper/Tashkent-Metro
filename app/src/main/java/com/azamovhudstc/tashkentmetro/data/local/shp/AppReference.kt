@@ -35,5 +35,25 @@ class AppReference @Inject constructor(
         }
 
 
+    var language: Language
+        get() {
+            val code = sharedPref.getString("language", Language.ENGLISH.code)!!
+            return Language.values().find { it.code == code } ?: Language.ENGLISH
+        }
+        set(value) {
+            sharedPref.edit().putString("language", value.code).apply()
+        }
 
+
+}
+
+interface LanguageRepository {
+    fun setLanguage(language: Language)
+    fun getCurrentLanguage(): Language
+}
+
+enum class Language(val code: String) {
+    ENGLISH("en"),
+    RUSSIAN("ru"),
+    UZBEK("uz")
 }

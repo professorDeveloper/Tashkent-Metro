@@ -29,6 +29,9 @@
     <color name="fav">#ad5edd</color>
     <color name="incognito">#291B65</color>
     <color name="filler">#54FF8400</color>
-
+    <color name="map_yellow">#FED709</color>
+    <color name="map_red">#FF453A</color>
+    <color name="map_blue">#0B84FF</color>
+    <color name="map_green">#31D158</color>
 
 </resources>

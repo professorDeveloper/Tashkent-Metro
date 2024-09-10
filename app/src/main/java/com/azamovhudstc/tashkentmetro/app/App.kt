@@ -7,17 +7,23 @@ import android.content.Context
 import android.os.Bundle
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
+import com.azamovhudstc.tashkentmetro.utils.ViewUtils
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
 @HiltAndroidApp
 @SuppressLint("StaticFieldLeak")
 class App : MultiDexApplication() {
 
+    @Inject
+    lateinit var userPreferenceManager: AppReference
 
     override fun onCreate() {
         super.onCreate()
         registerActivityLifecycleCallbacks(mFTActivityLifecycleCallbacks)
 
+        ViewUtils.setLanguage(this, userPreferenceManager.language)
     }
 
 

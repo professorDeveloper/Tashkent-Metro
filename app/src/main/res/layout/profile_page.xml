@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/_22sdp"
         android:fontFamily="@font/nunito_bold"
         android:includeFontPadding="false"
-        android:text="Settings"
+        android:text="@string/settings"
         android:textColor="@color/black"
         android:textSize="@dimen/_28sdp"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
         android:layout_marginStart="@dimen/_6sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:fontFamily="@font/sfpro"
-        android:text="Account"
+        android:text="@string/account"
         android:textAllCaps="true"
         android:textColor="#8a8a8e"
         android:textSize="@dimen/_12sdp"
@@ -95,7 +95,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/sfpro"
                                 android:includeFontPadding="false"
-                                android:text="Login / Register"
+                                android:text="@string/login_register"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="@dimen/_14sdp"
                                 android:textStyle="bold" />
@@ -103,7 +103,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Contribute, join Leaderboard"
+                                android:text="@string/contribute_join_leaderboard"
                                 android:textColor="#888"
                                 android:textSize="14sp" />
 
@@ -165,7 +165,7 @@
                             android:layout_marginStart="@dimen/_9sdp"
                             android:fontFamily="@font/sfpro"
                             android:includeFontPadding="false"
-                            android:text="Leaderboard"
+                            android:text="@string/leaderboard"
                             android:textSize="@dimen/_14sdp" />
 
                         <!-- Arrow Icon -->
@@ -243,7 +243,7 @@
                         android:layout_marginStart="@dimen/_9sdp"
                         android:fontFamily="@font/sfpro"
                         android:includeFontPadding="false"
-                        android:text="Language"
+                        android:text="@string/language"
                         android:textSize="@dimen/_12sdp" />
 
                 </LinearLayout>
@@ -275,7 +275,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:includeFontPadding="false"
-                        android:text="English"
+                        android:text="@string/english"
                         android:textColor="#888888"
                         android:textSize="@dimen/_13sdp" />
 
@@ -332,7 +332,7 @@
                         android:layout_marginStart="@dimen/_9sdp"
                         android:fontFamily="@font/sfpro"
                         android:includeFontPadding="false"
-                        android:text="Theme"
+                        android:text="@string/theme"
                         android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
 
@@ -356,7 +356,7 @@
                         android:id="@+id/theme_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="System"
+                        android:text="@string/system"
                         android:textColor="#888888"
                         android:textSize="16sp" /> <!-- Customize text color as needed -->
 
@@ -430,7 +430,7 @@
                         android:layout_marginStart="@dimen/_9sdp"
                         android:fontFamily="@font/sfpro"
                         android:includeFontPadding="false"
-                        android:text="Contact Us"
+                        android:text="@string/contact_us"
                         android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
 
@@ -477,7 +477,7 @@
                         android:layout_marginStart="@dimen/_9sdp"
                         android:fontFamily="@font/sfpro"
                         android:includeFontPadding="false"
-                        android:text="Rate Us"
+                        android:text="@string/rate_us"
                         android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
 
@@ -541,7 +541,7 @@
                         android:layout_marginStart="@dimen/_9sdp"
                         android:fontFamily="@font/sfpro"
                         android:includeFontPadding="false"
-                        android:text="Privacy Policy"
+                        android:text="@string/privacy_policy"
                         android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
 
