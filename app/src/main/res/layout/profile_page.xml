@@ -210,6 +210,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
+                android:id="@+id/frame_language"
                 android:padding="4dp">
 
                 <LinearLayout
