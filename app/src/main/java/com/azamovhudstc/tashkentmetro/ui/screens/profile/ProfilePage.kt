@@ -33,32 +33,10 @@ class ProfilePage: BaseFragment<ProfilePageBinding> (ProfilePageBinding::inflate
         binding.languageText.text = getLanguageString(userPreferenceManager.language)
         binding.flagImage.setImageResource(getFlagDrawable(userPreferenceManager.language))
 
+        binding.frameLanguage.setOnClickListener { showPopupMenuLanguage() }
         // Set up a PopupMenu to show a dropdown-like language selector
         dropdownIcon.setOnClickListener {
-            val popupMenu = PopupMenu(requireActivity(), dropdownIcon)
-            popupMenu.menuInflater.inflate(R.menu.language_menu, popupMenu.menu)
-
-            // Handle language selection from the popup menu
-            popupMenu.setOnMenuItemClickListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.language_english -> {
-                        viewModel.setLanguage(Language.ENGLISH)
-                        setAppLocale()
-                    }
-                    R.id.language_russian -> {
-                        viewModel.setLanguage(Language.RUSSIAN)
-                        setAppLocale()
-                    }
-                    R.id.language_uzbek -> {
-                        viewModel.setLanguage(Language.UZBEK)
-                        setAppLocale()
-                    }
-                }
-                true
-            }
-
-            // Show the popup menu
-            popupMenu.show()
+            showPopupMenuLanguage()
         }
     }
 
@@ -67,6 +45,35 @@ class ProfilePage: BaseFragment<ProfilePageBinding> (ProfilePageBinding::inflate
         requireActivity().recreate()
     }
 
+    private fun showPopupMenuLanguage(){
+        val popupMenu = PopupMenu(requireActivity(), binding.dropdownIcon)
+        popupMenu.menuInflater.inflate(R.menu.language_menu, popupMenu.menu)
+
+
+
+
+        // Handle language selection from the popup menu
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.language_english -> {
+                    viewModel.setLanguage(Language.ENGLISH)
+                    setAppLocale()
+                }
+                R.id.language_russian -> {
+                    viewModel.setLanguage(Language.RUSSIAN)
+                    setAppLocale()
+                }
+                R.id.language_uzbek -> {
+                    viewModel.setLanguage(Language.UZBEK)
+                    setAppLocale()
+                }
+            }
+            true
+        }
+
+        // Show the popup menu
+        popupMenu.show()
+    }
 
 
     private fun getLanguageString(language: Language): String {
