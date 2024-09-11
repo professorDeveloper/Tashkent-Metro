@@ -11,6 +11,8 @@ import com.azamovhudstc.tashkentmetro.databinding.ThirdPageBinding
 import com.azamovhudstc.tashkentmetro.ui.activity.MainActivity
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
 import com.azamovhudstc.tashkentmetro.utils.setSafeOnClickListener
+import com.azamovhudstc.tashkentmetro.utils.slideStart
+import com.azamovhudstc.tashkentmetro.utils.slideUp
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,7 +29,12 @@ class ThirdPage : BaseFragment<ThirdPageBinding>(ThirdPageBinding::inflate) {
 
 
     override fun onViewCreate() {
-
+        binding.slides1.slideStart(800,0)
+        binding.linearLayout3.slideStart(800,0)
+        binding.textClock.slideUp(800,0)
+        binding.nextContract.slideUp(800,0)
+        binding.notNowTxt.slideUp(800,0)
+        binding.circleImageView.slideUp(800,0)
         binding.nextContract.setSafeOnClickListener {
             // Check if the location permission is already granted
             if (ContextCompat.checkSelfPermission(

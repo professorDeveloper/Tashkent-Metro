@@ -8,12 +8,18 @@ import com.azamovhudstc.tashkentmetro.utils.animationTransaction
 import com.azamovhudstc.tashkentmetro.utils.setSafeOnClickListener
 import com.azamovhudstc.tashkentmetro.utils.slideTop
 import com.azamovhudstc.tashkentmetro.utils.slideUp
-import com.azamovhudstc.tashkentmetro.utils.visible
 
 
 class SecondPage : BaseFragment<SecondPageBinding>(SecondPageBinding::inflate) {
 
     override fun onViewCreate() {
+
+        binding.textView5.slideUp(800,0)
+        binding.textView6.slideUp(800,0)
+        binding.cardView.slideUp(800,0)
+        binding.textView7.slideUp(800,0)
+        binding.textView9.slideUp(800,0)
+        binding.nextBtn.slideUp(800,0)
         binding.apply {
             nextBtn.slideUp(1000, 0)
             gradientMaterialButton.slideTop(1000, 0)

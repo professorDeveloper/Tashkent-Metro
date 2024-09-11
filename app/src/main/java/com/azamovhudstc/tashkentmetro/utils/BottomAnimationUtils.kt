@@ -4,15 +4,17 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.util.TypedValue
 import android.view.View
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.azamovhudstc.tashkentmetro.R
+import com.azamovhudstc.tashkentmetro.app.App
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.card.MaterialCardView
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 
 fun BottomNavigationView.showWithAnimation(fragmentContainerView: View) {
@@ -21,7 +23,35 @@ fun BottomNavigationView.showWithAnimation(fragmentContainerView: View) {
     this.animateTranslationY(0f, 66f, 700)
     fragmentContainerView.animateMarginBottom(66f, 700)
 }
+fun BottomNavigationView.hideWithoutAnimation(fragmentContainerView: View) {
+    if (this.visibility == View.GONE) return
+    this.gone()
 
+    val params =
+        fragmentContainerView.layoutParams as ConstraintLayout.LayoutParams
+    params.setMargins(
+        params.leftMargin,
+        params.topMargin,
+        params.rightMargin,
+        0
+    )
+    fragmentContainerView.layoutParams = params
+
+}
+
+fun BottomNavigationView.hideWithAnimation(fragmentContainerView: View) {
+    if (this.visibility == View.GONE) return
+    this.animateTranslationY(66f, 0f, 700)
+    fragmentContainerView.animateMarginBottom(0f, 700)
+}
+fun toast(string: String?) {
+    if (string != null) {
+        println(string)
+        MainScope().launch {
+            Toast.makeText(App.Companion.instance ?: return@launch, string, Toast.LENGTH_SHORT).show()
+        }
+    }
+}
 fun View.visible() {
     this.visibility = View.VISIBLE
 }
