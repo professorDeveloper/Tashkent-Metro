@@ -33,7 +33,5 @@ class MainActivity : AppCompatActivity() {
         viewBinding.homeNavigation.setupWithNavController(navController)
 
     }
-
-
-
+        
 }
