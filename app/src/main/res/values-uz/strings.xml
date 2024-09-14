@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="choose_map">Xaritani tanlang</string>
     <string name="account">Akkount</string>
+    <string name="contribution">Hisssa</string>
+    <string name="not_now">Hozir emas</string>
+    <string name="stations">Stansiyalar</string>
+    <string name="hybrid">Gibrid</string>
+    <string name="enable_location">Joylashuvni yoqish</string>
+    <string name="contribute">Hissa qo‘shish</string>
+    <string name = "win_prizes_from_contributing">Hissa qo‘shish orqali sovrinlarni yutib oling</string>
+    <string name="standart">Standart</string>
     <string name="login_register">Kirish / Ro\'yxatdan o\'tish</string>
     <string name="contribute_join_leaderboard">Reytingga qo\'shilish</string>
     <string name="leaderboard">Reyting</string>
+    <string name="colored_text"><font color="#FF8C00">poyezd</font> kelishini va eng so‘nggi ma’lumotlarni olishingizni tekshiring.</string>
+    <string name="home">Asosiy</string>
+    <string name="came">Kelib keldi</string>
+    <string name="cancel">Bekor qilish</string>
+    <string name="middle">O‘rta</string>
+    <string name="next">Keyingi</string>
+    <string name="old">Eski</string>
+    <string name="live">Jonli</string>
+    <string name="location">Joylashuv</string>
+    <string name="time">Vaqt</string>
+    <string name="newtype">Yangi</string>
+    <string name="theme_icon">Mavzu belgisi</string>
+    <string name="language_icon">Til belgisi</string>
+    <string name="colored_text_intro">Barcha <font color="#FF8C00">Hissalar</font> quyidagi manzilda joylashgan:</string>
+    <string name="enable_desc">Yaqin-atrofdagi bekatlarni topish uchun Toshkent metropoliteniga joylashuvingizdan foydalanishga ruxsat bering.</string>
     <string name="language">Til</string>
+    <string name="maps">Xarita</string>
+    <string name="settings">Sozlamalar</string>
     <string name="english">Ingliz tili</string>
     <string name="theme">Mavzu</string>
     <string name="system">Tizim</string>

@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="stations">Станции</string>
+    <string name="hybrid">Гибрид</string>
+    <string name="contribution">Вклад</string>
+    <string name="win_prizes_from_contributing">Выигрывайте призы за вклад</string>
+    <string name="contribute">Внести свой вклад</string>
+    <string name="choose_map">Выбрать карту</string>
     <string name="account">Аккаунт</string>
+    <string name="not_now">Не сейчас</string>
+    <string name="standart">По умолчанию</string>
+    <string name="newtype">Новый</string>
+    <string name="middle">Средний</string>
+    <string name="old">Старый</string>
+    <string name="cancel">Отмена</string>
+    <string name="came">Пришёл</string>
     <string name="login_register">Войти / Зарегистрироваться</string>
     <string name="contribute_join_leaderboard">Внести вклад, присоединиться к Таблице лидеров</string>
     <string name="leaderboard">Таблица лидеров</string>
     <string name="language">Язык</string>
+    <string name="live">В прямом эфире</string>
+    <string name="location">Местоположение</string>
+    <string name="time">Время</string>
+    <string name="enable_location">Включить местоположение</string>
+    <string name="next">Далее</string>
+    <string name="theme_icon">Значок темы</string>
+    <string name="home">Главная</string>
+    <string name="language_icon">Значок языка</string>
+    <string name="colored_text">Проверьте, прибудет ли <font color="#FF8C00">поезд</font> и будет ли приходить актуальная информация.</string>
+    <string name="colored_text_intro">Все <font color="#FF8C00">Вклады</font> размещаются в:</string>
+    <string name="settings">Настройки</string>
+    <string name="maps">Карты</string>
+    <string name="enable_desc">Разрешите ташкентскому метрополитену получить\n доступ к вашему местоположению, чтобы найти ближайшие станции.</string>
     <string name="english">Английский</string>
     <string name="theme">Тема</string>
     <string name="system">Система</string>

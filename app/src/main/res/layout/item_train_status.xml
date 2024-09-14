@@ -61,7 +61,7 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:text="New"
+                android:text="@string/newtype"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"/>
             <TextView
                 android:layout_width="0dp"
-                android:text="Middle"
+                android:text="@string/middle"
                 android:layout_weight="1"
                 android:id="@+id/type2"
 
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"/>
             <TextView
                 android:layout_width="0dp"
-                android:text="Old"
+                android:text="@string/old"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:id="@+id/type3"
@@ -100,7 +100,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_status_train"
             android:layout_width="match_parent"
-            android:text="Keldi"
+            android:text="@string/came"
             android:textSize="@dimen/_15ssp"
             app:cornerRadius="@dimen/_8sdp"
             android:layout_marginHorizontal="@dimen/_20sdp"
@@ -110,7 +110,7 @@
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_cancel"
             android:layout_width="match_parent"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:textSize="@dimen/_15ssp"
             style="@style/Widget.Material3.Button.TextButton"
             app:cornerRadius="@dimen/_8sdp"

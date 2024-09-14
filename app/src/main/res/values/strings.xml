@@ -20,7 +20,6 @@
     <string name="language_icon">Language Icon</string>
     <string name="theme_icon">Theme Icon</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next">Next</string>
     <string name="live">Live</string>
     <string name="location">Location</string>
@@ -38,4 +37,18 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="russian">Russian</string>
     <string name="uzbek">Uzbek</string>
+    <string name="newtype">New</string>
+    <string name="middle">Middle</string>
+    <string name="old">Old</string>
+    <string name="came">Came</string>
+    <string name="cancel">Cancel</string>
+    <string name="choose_map">Choose Map</string>
+    <string name="standart">Standart</string>
+    <string name="hybrid">Hybrid</string>
+    <string name="contribute">Contribute</string>
+    <string name="win_prizes_from_contributing">Win prizes from contributing</string>
+    <string name="enable_location">Enable Location</string>
+    <string name="stations">Stations</string>
+    <string name="contribution">Contribution</string>
+    <string name="not_now">Not now</string>
 </resources>
