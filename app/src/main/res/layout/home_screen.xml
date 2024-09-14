@@ -24,13 +24,14 @@
             app:contentInsetLeft="0dp"
             app:contentInsetRight="0dp"
             app:contentInsetStart="0dp"
-            app:contentScrim="@color/colorGray"
+            app:contentScrim="@color/white"
             app:layout_scrollEffect="compress"
             app:layout_scrollFlags="snap|scroll|exitUntilCollapsed">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/animecover"
                 app:layout_scrollFlags="scroll|enterAlways">
 
                 <TextView
@@ -133,15 +134,35 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/tabLayout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textAlignment="center"
-            app:title="Chilonzor"
-            android:visibility="gone"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
-            app:titleTextColor="@color/colorPrimary" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/mediaTitleContainer"
+            android:visibility="gone">
+
+
+
+
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chilonzor"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        </LinearLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.appcompat.widget.Toolbar

@@ -4,14 +4,13 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.util.TypedValue
+import android.view.View
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import androidx.core.math.MathUtils
 import com.azamovhudstc.tashkentmetro.R
 import com.azamovhudstc.tashkentmetro.databinding.HomeScreenBinding
-import com.azamovhudstc.tashkentmetro.utils.BaseFragment
-import com.azamovhudstc.tashkentmetro.utils.LocalData
-import com.azamovhudstc.tashkentmetro.utils.slideUp
+import com.azamovhudstc.tashkentmetro.utils.*
 import com.google.android.material.appbar.AppBarLayout
 
 class HomeScreen : BaseFragment<HomeScreenBinding>(HomeScreenBinding::inflate),
@@ -36,42 +35,39 @@ class HomeScreen : BaseFragment<HomeScreenBinding>(HomeScreenBinding::inflate),
         adapter.submitList(LocalData.trainsStatusList)
     }
 
-    @SuppressLint("ResourceAsColor")
-    override fun onOffsetChanged(appBar: AppBarLayout?, i: Int) {
-
-        if (mMaxScrollSize == 0) mMaxScrollSize = appBar!!.totalScrollRange
+    @SuppressLint("ResourceType")
+    override fun onOffsetChanged(appBar: AppBarLayout, i: Int) {
+        if (mMaxScrollSize == 0) mMaxScrollSize = appBar.totalScrollRange
         val percentage = Math.abs(i) * 100 / mMaxScrollSize
-        val cap = MathUtils.clamp((percent - percentage) / percent.toFloat(), 0f, 1f)
-        val duration: Long = 900
 
 
+
+        binding.animecover.visibility =
+            if (binding.animecover.scaleX == 0f) View.GONE else View.VISIBLE
+        binding.animecover.visibility =
+            if (binding.animecover.scaleX == 0f) View.GONE else View.VISIBLE
 
 
         if (percentage >= percent && !isCollapsed) {
             isCollapsed = true
-            val typedValue = TypedValue()
-            val theme: Resources.Theme = requireContext().theme
-            theme.resolveAttribute(
-                R.color.white,
-                typedValue,
-                true
-            )
-            @ColorInt val selectedcolor: Int = R.color.white
-            requireActivity().window.statusBarColor = selectedcolor
-            ObjectAnimator.ofFloat(binding.appBarLayout, "translationX", 0f)
-                .setDuration(duration).start()
+            requireActivity().window.statusBarColor = ContextCompat.getColor(requireActivity(), R.color.white)
 
+            binding.mediaTitleContainer.slideStart(600,0)
+            binding.mediaTitleContainer.visible()
         }
         if (percentage <= percent && isCollapsed) {
             isCollapsed = false
-            requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireActivity(), R.color.white)
-            binding.textView.slideUp(900, 0)
-            binding.relativeLayout.slideUp(900, 0)
-            binding.relativeLayout2.slideUp(1000, 0)
+            requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
+            binding.mediaTitleContainer.alphaAnim()
+            binding.mediaTitleContainer.gone()
+
 
         }
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.mediaTitleContainer.gone()
+    }
 }
