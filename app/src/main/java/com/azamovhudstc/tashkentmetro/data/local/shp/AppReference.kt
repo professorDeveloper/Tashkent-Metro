@@ -3,6 +3,7 @@ package com.azamovhudstc.tashkentmetro.data.local.shp
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatDelegate
 import com.azamovhudstc.infinityinsurance.utils.enums.CurrentScreenEnum
 import com.azamovhudstc.tashkentmetro.utils.screenCurrentEnum
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -17,8 +18,6 @@ class AppReference @Inject constructor(
     private var sharedPref: SharedPreferences =
         context.getSharedPreferences("metr_shp", MODE_PRIVATE)
     private var editor: SharedPreferences.Editor = sharedPref.edit()
-
-
 
 
     var currentScreenEnum: CurrentScreenEnum
@@ -44,7 +43,33 @@ class AppReference @Inject constructor(
             sharedPref.edit().putString("language", value.code).apply()
         }
 
+    var theme: ThemeStyle
+        get() {
+            val themeValue = sharedPref.getString("theme", ThemeStyle.AUTO.name)
+            return ThemeStyle.valueOf(themeValue ?: ThemeStyle.AUTO.name)
+        }
+        set(value) {
+            sharedPref.edit().putString("theme", value.name).apply()
+        }
 
+    fun applyTheme(themeStyle: ThemeStyle) {
+        when (themeStyle) {
+            ThemeStyle.AUTO -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            )
+            ThemeStyle.LIGHT -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO
+            )
+            ThemeStyle.DARK -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_YES
+            )
+        }
+    }
+
+}
+
+enum class ThemeStyle {
+    AUTO, LIGHT, DARK
 }
 
 interface LanguageRepository {

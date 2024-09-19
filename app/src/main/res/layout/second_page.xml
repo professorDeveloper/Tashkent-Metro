@@ -39,7 +39,7 @@
         android:layout_marginTop="@dimen/_14sdp"
         android:fontFamily="@font/nunito_bold"
         android:text="@string/contribute"
-        android:textColor="@color/black"
+        android:textColor="@color/white_and_black"
         android:textSize="@dimen/_18ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,7 @@
         android:layout_marginTop="@dimen/_2sdp"
         android:fontFamily="@font/nunito_semi_bold"
         android:text="@string/win_prizes_from_contributing"
-        android:textColor="@color/black"
+        android:textColor="@color/white_and_black"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintEnd_toEndOf="@+id/textView5"
         app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -69,7 +69,7 @@
 
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_8sdp"
-        app:cardBackgroundColor="#CBE6E6EA"
+        app:cardBackgroundColor="@color/card_background"
         app:cardCornerRadius="@dimen/_6sdp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,7 +85,7 @@
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_12sdp"
                 android:layout_marginStart="@dimen/_18sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 app:cardBackgroundColor="@color/whiteGray"
                 app:cardCornerRadius="@dimen/_4sdp"
                 app:cardElevation="0dp"
@@ -94,14 +94,14 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/shapeableImageView"
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_13sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/view"
                 app:layout_constraintEnd_toStartOf="@+id/view2"
                 app:layout_constraintStart_toEndOf="@+id/view"
                 app:layout_constraintTop_toTopOf="@+id/view2"
-                app:srcCompat="@drawable/ic_nextd"
-                app:tint="@color/black" />
+                app:srcCompat="@drawable/icon_arrow_right"
+                app:tint="@color/white_and_black" />
 
 
             <androidx.cardview.widget.CardView
@@ -110,7 +110,7 @@
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_12sdp"
 
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_18sdp"
                 app:cardBackgroundColor="@color/whiteGray"
                 app:cardCornerRadius="@dimen/_4sdp"
@@ -123,7 +123,7 @@
                 android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_13sdp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/_4sdp"
@@ -209,7 +209,7 @@
         android:layout_marginTop="@dimen/_8sdp"
         android:fontFamily="@font/nunito_semi_bold"
         android:text="@string/colored_text_intro"
-        android:textColor="@color/black"
+        android:textColor="@color/white_and_black"
         android:textSize="@dimen/_14sdp"
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
@@ -236,7 +236,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/nunito_semi_bold"
             android:text="@string/settings"
-            android:textColor="@color/black"
+            android:textColor="@color/white_and_black"
             android:textSize="@dimen/_13sdp" />
 
         <ImageView
@@ -246,7 +246,7 @@
 
             android:layout_gravity="center"
             android:src="@drawable/arrow_forward_24px"
-            app:tint="@color/black" />
+            app:tint="@color/white_and_black" />
         <!-- Leaderboard Icon -->
         <!-- Leaderboard Icon with Red Background -->
         <FrameLayout
@@ -276,7 +276,7 @@
             android:fontFamily="@font/nunito_semi_bold"
             android:paddingStart="8dp"
             android:text="@string/leaderboard"
-            android:textColor="@color/black"
+            android:textColor="@color/white_and_black"
             android:textSize="@dimen/_13sdp" />
 
     </LinearLayout>
@@ -288,9 +288,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginBottom="@dimen/_28sdp"
-
+        android:textColor="@color/white"
         android:fontFamily="@font/nunito_bold"
-
+        app:backgroundTint="@color/colorPrimary"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="@string/next"

@@ -2,5 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.TashkentMetro" parent="Theme.Material3.DayNight.NoActionBar">
          <!-- Customize your theme here. -->
+        <item name="colorSecondaryContainer">@color/colorPrimary</item>
+
     </style>
 </resources>

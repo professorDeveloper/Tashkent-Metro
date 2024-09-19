@@ -45,14 +45,14 @@ class HomeScreen : BaseFragment<HomeScreenBinding>(HomeScreenBinding::inflate),
 
         if (percentage >= percent && !isCollapsed) {
             isCollapsed = true
-            requireActivity().window.statusBarColor = ContextCompat.getColor(requireActivity(), R.color.white)
+            requireActivity().window.statusBarColor = ContextCompat.getColor(requireActivity(), R.color.main_background)
 
             binding.mediaTitleContainer.slideStart(600,0)
             binding.mediaTitleContainer.visible()
         }
         if (percentage <= percent && isCollapsed) {
             isCollapsed = false
-            requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
+            requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.main_background)
             binding.mediaTitleContainer.alphaAnim()
             binding.mediaTitleContainer.gone()
 

@@ -5,6 +5,8 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
 import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
@@ -24,6 +26,10 @@ class App : MultiDexApplication() {
         registerActivityLifecycleCallbacks(mFTActivityLifecycleCallbacks)
 
         ViewUtils.setLanguage(this, userPreferenceManager.language)
+        ViewUtils.applyTheme(userPreferenceManager.theme)
+
+
+
     }
 
 

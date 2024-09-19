@@ -2,8 +2,16 @@ package com.azamovhudstc.tashkentmetro.utils
 
 import android.content.Context
 import android.content.res.Configuration
+import android.content.res.Resources
+import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
+import com.azamovhudstc.tashkentmetro.R
+import com.azamovhudstc.tashkentmetro.app.App.Companion.instance
 import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
 import com.azamovhudstc.tashkentmetro.data.local.shp.Language
+import com.azamovhudstc.tashkentmetro.data.local.shp.ThemeStyle
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.MapStyleOptions
 import java.util.Locale
 
 object ViewUtils {
@@ -14,6 +22,21 @@ object ViewUtils {
         config.setLocale(locale)
         return context.createConfigurationContext(config)
     }
+
+    fun applyTheme(themeStyle: ThemeStyle) {
+        when (themeStyle) {
+            ThemeStyle.AUTO -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            )
+            ThemeStyle.LIGHT -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO
+            )
+            ThemeStyle.DARK -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_YES
+            )
+        }
+    }
+
 
     fun setLanguageForService(baseContext: Context, userPreferenceManager: AppReference) {
         val language = userPreferenceManager.language

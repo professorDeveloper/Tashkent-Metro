@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import com.azamovhudstc.tashkentmetro.R
 import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
 import com.azamovhudstc.tashkentmetro.data.local.shp.Language
+import com.azamovhudstc.tashkentmetro.data.local.shp.ThemeStyle
 import com.azamovhudstc.tashkentmetro.databinding.ProfilePageBinding
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
 import com.azamovhudstc.tashkentmetro.utils.slideStart
@@ -23,6 +24,7 @@ class ProfilePage: BaseFragment<ProfilePageBinding> (ProfilePageBinding::inflate
     override fun onViewCreate() {
         // Access views via binding
         val dropdownIcon = binding.dropdownIcon
+        val dropdownIconTheme = binding.dropdownIconTheme
 
         binding.textView9.slideStart(800,0)
         binding.textView10.slideStart(800,0)
@@ -31,12 +33,17 @@ class ProfilePage: BaseFragment<ProfilePageBinding> (ProfilePageBinding::inflate
         binding.cardView4.slideUp(800,0)
         binding.cardview5.slideUp(800,0)
         binding.languageText.text = getLanguageString(userPreferenceManager.language)
+        binding.themeTxt.text = getThemeText()
         binding.flagImage.setImageResource(getFlagDrawable(userPreferenceManager.language))
 
         binding.frameLanguage.setOnClickListener { showPopupMenuLanguage() }
         // Set up a PopupMenu to show a dropdown-like language selector
         dropdownIcon.setOnClickListener {
             showPopupMenuLanguage()
+        }
+
+        dropdownIconTheme.setOnClickListener {
+            showPopupMenuTheme()
         }
     }
 
@@ -75,6 +82,35 @@ class ProfilePage: BaseFragment<ProfilePageBinding> (ProfilePageBinding::inflate
         popupMenu.show()
     }
 
+    private fun showPopupMenuTheme(){
+        val popupMenu = PopupMenu(requireActivity(), binding.dropdownIconTheme)
+        popupMenu.menuInflater.inflate(R.menu.theme_menu, popupMenu.menu)
+
+
+
+
+        // Handle language selection from the popup menu
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.theme_auto -> {
+                    viewModel.setTheme(ThemeStyle.AUTO)
+                }
+                R.id.theme_day -> {
+                    viewModel.setTheme(ThemeStyle.LIGHT)
+
+                }
+                R.id.theme_night -> {
+                    viewModel.setTheme(ThemeStyle.DARK)
+
+                }
+            }
+            true
+        }
+
+        // Show the popup menu
+        popupMenu.show()
+    }
+
 
     private fun getLanguageString(language: Language): String {
         return when (language) {
@@ -92,6 +128,13 @@ class ProfilePage: BaseFragment<ProfilePageBinding> (ProfilePageBinding::inflate
         }
     }
 
+    private fun getThemeText(): String {
+        return when(userPreferenceManager.theme){
+            ThemeStyle.AUTO -> getString(R.string.auto)
+            ThemeStyle.DARK -> getString(R.string.night)
+            ThemeStyle.LIGHT -> getString(R.string.day)
+        }
+    }
 
 
 }

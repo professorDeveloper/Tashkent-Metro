@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
 import com.azamovhudstc.tashkentmetro.data.local.shp.Language
+import com.azamovhudstc.tashkentmetro.data.local.shp.ThemeStyle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -19,6 +20,10 @@ class ProfileViewModel @Inject constructor(
     fun setLanguage(language: Language) {
         appReference.language = language
         _language.value = language
+    }
+    fun setTheme(style: ThemeStyle){
+        appReference.theme = style
+        appReference.applyTheme(style)
     }
 
     fun loadCurrentLanguage() {

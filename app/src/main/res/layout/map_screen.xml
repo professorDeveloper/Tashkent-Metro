@@ -19,6 +19,7 @@
         app:cardCornerRadius="@dimen/_16sdp"
         android:clickable="true"
         android:focusable="true"
+        app:cardBackgroundColor="@color/card_background"
         android:background="?selectableItemBackgroundBorderless"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_6sdp"
@@ -30,7 +31,8 @@
             android:src="@drawable/icon_map"
             android:padding="@dimen/_6sdp"
             android:alpha=".8"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            app:tint="@color/white_and_black" />
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
@@ -43,6 +45,8 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:focusable="true"
         app:cardCornerRadius="@dimen/_16sdp"
+        app:cardBackgroundColor="@color/card_background"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map_style">
 
@@ -52,6 +56,6 @@
             android:alpha=".8"
             android:padding="@dimen/_8sdp"
             android:src="@drawable/icon_paperplane"
-            app:tint="@color/colorPrimary" />
+            app:tint="@color/airplane_color" />
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

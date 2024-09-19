@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/theme_auto"
+        android:title="@string/auto" />
+    <item
+        android:id="@+id/theme_day"
+        android:title="@string/day" />
+    <item
+        android:id="@+id/theme_night"
+        android:title="@string/night" />
+</menu>

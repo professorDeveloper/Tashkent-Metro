@@ -26,9 +26,7 @@ import kotlin.reflect.KFunction
 
 fun initActivity(a: Activity) {
     val window = a.window
-    AppCompatDelegate.setDefaultNightMode(
-        AppCompatDelegate.MODE_NIGHT_NO
-    )
+
     WindowCompat.setDecorFitsSystemWindows(window, false)
 
 }

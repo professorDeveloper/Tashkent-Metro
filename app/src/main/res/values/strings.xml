@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TashkentMetro</string>
+    <string name="app_name" translatable="false">TashkentMetro</string>
     <string name="home">Home</string>
     <string name="maps">Maps</string>
     <string name="settings">Settings</string>
@@ -51,4 +51,7 @@
     <string name="stations">Stations</string>
     <string name="contribution">Contribution</string>
     <string name="not_now">Not now</string>
+    <string name="auto">Tizim</string>
+    <string name="night">Tungi</string>
+    <string name="day">Kunduzgi</string>
 </resources>

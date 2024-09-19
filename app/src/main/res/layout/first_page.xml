@@ -178,6 +178,8 @@
         android:insetRight="0dp"
         android:insetBottom="0dp"
         android:text="@string/next"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/colorPrimary"
         android:textSize="@dimen/_14ssp"
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"

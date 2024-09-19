@@ -12,7 +12,7 @@
         android:fontFamily="@font/nunito_bold"
         android:gravity="center"
         android:text="@string/enable_desc"
-        android:textColor="@color/black"
+        android:textColor="@color/white_and_black"
         android:textSize="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:layout_marginTop="30dp"
         android:padding="5dp"
         android:src="@drawable/intro_3"
-        app:civ_border_color="@color/black"
+        app:civ_border_color="@color/white_and_black"
         app:civ_border_width="@dimen/_5sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,10 +50,11 @@
             android:fontFamily="@font/nunito_bold"
             android:insetTop="0dp"
             android:insetBottom="0dp"
+
             android:text="@string/stations"
             android:textColor="@color/colorSecondary"
             android:textSize="@dimen/_10sdp"
-            app:backgroundTint="#ffe9cc"
+            app:backgroundTint="@color/button_stations"
             app:cornerRadius="@dimen/_8sdp" />
 
         <com.google.android.material.button.MaterialButton
@@ -66,14 +67,14 @@
             android:text="@string/leaderboard"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_9sdp"
-            app:backgroundTint="#C8A6C7EC"
+            app:backgroundTint="@color/button_leaderboard"
             app:cornerRadius="@dimen/_9sdp" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_marginStart="@dimen/_8sdp"
-            app:cardBackgroundColor="#E6E6EA"
+            app:cardBackgroundColor="@color/card_background"
             app:cardCornerRadius="@dimen/_6sdp"
             app:cardElevation="0dp" />
 
@@ -96,7 +97,7 @@
             android:fontFamily="@font/nunito_bold"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            app:backgroundTint="#E6E6EA"
+            app:backgroundTint="@color/card_background"
             app:cornerRadius="@dimen/_8sdp" />
 
         <com.google.android.material.button.MaterialButton
@@ -106,7 +107,7 @@
             android:fontFamily="@font/nunito_bold"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            app:backgroundTint="#E6E6EA"
+            app:backgroundTint="@color/card_background"
             app:cornerRadius="@dimen/_8sdp" />
 
         <com.google.android.material.button.MaterialButton
@@ -118,8 +119,9 @@
             android:insetBottom="0dp"
             android:text="@string/contribution"
             android:textColor="#be73e4"
+
             android:textSize="@dimen/_10sdp"
-            app:backgroundTint="#efdcf8"
+            app:backgroundTint="@color/button_contribute"
             app:cornerRadius="@dimen/_8sdp" />
 
 

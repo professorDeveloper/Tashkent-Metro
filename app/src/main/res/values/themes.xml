@@ -3,7 +3,7 @@
     <style name="Theme.TashkentMetro" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-
+        <item name="colorSecondaryContainer">@color/colorPrimary</item>
     </style>
 
     <style name="Theme.Intro" parent="Theme.TashkentMetro">
@@ -20,7 +20,7 @@
     <style name="Theme.Main" parent="Theme.Material3.DayNight.NoActionBar">
     <!-- Primary brand color. -->
     <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:statusBarColor">?attr/colorSurfaceContainer</item>
+        <item name="android:statusBarColor">@color/main_background</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">?attr/colorSurfaceContainer</item>
     </style>

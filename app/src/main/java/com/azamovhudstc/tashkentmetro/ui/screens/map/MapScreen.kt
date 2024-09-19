@@ -1,17 +1,18 @@
 package com.azamovhudstc.tashkentmetro.ui.screens.map
 
+import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import com.azamovhudstc.tashkentmetro.R
+import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
 import com.azamovhudstc.tashkentmetro.data.model.station.Line
 import com.azamovhudstc.tashkentmetro.data.model.station.Station
 import com.azamovhudstc.tashkentmetro.data.model.station.StationLine
@@ -19,26 +20,29 @@ import com.azamovhudstc.tashkentmetro.data.model.station.StationState
 import com.azamovhudstc.tashkentmetro.databinding.MapScreenBinding
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
 import com.azamovhudstc.tashkentmetro.utils.LocalData
+import com.azamovhudstc.tashkentmetro.utils.ViewUtils
 import com.azamovhudstc.tashkentmetro.utils.select
 import com.azamovhudstc.tashkentmetro.utils.unSelect
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.card.MaterialCardView
+import javax.inject.Inject
 
 class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnMapReadyCallback {
 
     private lateinit var tashkentBounds: LatLngBounds
-
+    @Inject
+    lateinit var userPreferenceManager: AppReference
     private lateinit var mapView: MapView
     private lateinit var mMap: GoogleMap
     override fun onViewCreate() {
@@ -57,7 +61,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
-
+        applyMapStyleBasedOnTheme(requireContext(),mMap)
 
         setupMetroLines()
 
@@ -321,5 +325,31 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         super.onSaveInstanceState(outState)
         mapView.onSaveInstanceState(outState)
     }
+
+
+    fun applyMapStyleBasedOnTheme(context: Context, googleMap: GoogleMap) {
+        try {
+            // Tizim mavzusini aniqlash (kunduzgi yoki tungi rejim)
+            val nightModeFlags = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
+            // Tizimning mavzusiga qarab tegishli xarita uslubini o'rnatish
+            val styleRes = when (nightModeFlags) {
+                Configuration.UI_MODE_NIGHT_YES -> R.raw.map_style_dark  // Tungi mavzu uchun uslub
+                Configuration.UI_MODE_NIGHT_NO -> R.raw.map_style_light      // Kunduzgi mavzu uchun uslub
+                else -> R.raw.map_style_light                               // Belgilanmagan bo'lsa, kunduzgi uslub
+            }
+
+            // Xarita uslubini qo'llash
+            val success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, styleRes))
+            if (!success) {
+                Log.e("MapStyle", "Xarita uslubi muvaffaqiyatsiz o'rnatildi.")
+            }
+        } catch (e: Resources.NotFoundException) {
+            Log.e("MapStyle", "Xarita uslubini yuklashda xatolik yuz berdi: ", e)
+        } catch (e: Exception) {
+            Log.e("MapStyle", "Xarita uslubini o'rnatishda umumiy xatolik: ", e)
+        }
+    }
+
 
 }
