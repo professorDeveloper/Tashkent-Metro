@@ -7,6 +7,7 @@
     <color name="whiteMain">#FFFFFF</color>
     <color name="colorGray">#8E8E93</color>
     <color name="goldColor">#ffd700</color>
+    <color name= "toolbarBg">@color/white</color>
     <color name="silverColor">#c0c0c0</color>
     <color name="bronzeColor">#cd7f32</color>
     <color name="teal_200">#FF03DAC5</color>

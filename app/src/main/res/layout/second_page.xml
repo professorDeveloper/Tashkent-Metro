@@ -210,7 +210,7 @@
         android:fontFamily="@font/nunito_semi_bold"
         android:text="@string/colored_text_intro"
         android:textColor="@color/white_and_black"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_12sdp"
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/main_background"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     tools:context=".ui.screens.home.HomeScreen">
 
 
@@ -12,27 +12,30 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="vertical"
+        android:background="@color/toolbarBg"
         app:elevation="0dp"
         app:layout_scrollFlags="scroll|enterAlways">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/mediaCollapsing"
             android:layout_width="match_parent"
+            android:background="@color/toolbarBg"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="false"
             app:contentInsetEnd="0dp"
             app:contentInsetLeft="0dp"
             app:contentInsetRight="0dp"
             app:contentInsetStart="0dp"
-            app:contentScrim="@color/white"
+            app:contentScrim="@color/toolbarBg"
             app:layout_scrollEffect="compress"
             app:layout_scrollFlags="snap|scroll|exitUntilCollapsed">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/animecover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/animecover"
                 app:layout_scrollFlags="scroll|enterAlways">
 
                 <TextView
@@ -136,30 +139,29 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <LinearLayout
+            android:id="@+id/mediaTitleContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
             android:orientation="vertical"
-            android:id="@+id/mediaTitleContainer"
-            android:visibility="gone">
-
-
-
+            android:visibility="gone"
+            app:contentScrim="@color/toolbarBg">
 
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/toolbarBg"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:text="Chilonzor"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:gravity="center"
-                android:layout_gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
 
         </LinearLayout>
@@ -169,6 +171,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/locToolbar"
         android:layout_width="match_parent"
+        android:background="@color/toolbarBg"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:visibility="gone"

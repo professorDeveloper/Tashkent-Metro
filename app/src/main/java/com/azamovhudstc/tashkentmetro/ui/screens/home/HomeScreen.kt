@@ -13,7 +13,6 @@ class HomeScreen : BaseFragment<HomeScreenBinding>(HomeScreenBinding::inflate),
 
     private val adapter by lazy { HomeAdapter() }
     private var isCollapsed = false
-    private var isSelected = false
     private val percent = 70
     private var screenWidth = 0f
     private var mMaxScrollSize = 0
