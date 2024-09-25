@@ -5,7 +5,10 @@ import android.text.InputFilter
 import android.text.TextWatcher
 import android.widget.EditText
 
-fun EditText.setupPhoneNumberEditText(onChanged: () -> Unit) {
+fun EditText.setupPhoneNumberEditText(
+    onChangedToEnable: () -> Unit,
+    onChangedToDisable: () -> Unit
+) {
     val prefix = "+998 "
     var isDeleting = false
 
@@ -59,8 +62,10 @@ fun EditText.setupPhoneNumberEditText(onChanged: () -> Unit) {
             this@setupPhoneNumberEditText.setSelection(formattedText.length)
             isUpdating = false
 
-            if (formattedText.length == totalMaxLength) {
-                onChanged() // onChanged lambda chaqiriladi
+            if (formattedText.length == 17) {
+                onChangedToEnable() // onChanged lambda chaqiriladi
+            }else{
+                onChangedToDisable()
             }
         }
 
