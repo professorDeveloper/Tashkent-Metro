@@ -74,15 +74,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11">
 
-        <com.vicmikhailau.maskededittext.MaskedEditText
+        <EditText
             android:id="@+id/maskPhone"
             android:layout_width="match_parent"
+            android:paddingHorizontal="@dimen/_8sdp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_4sdp"
             android:background="@android:color/transparent"
             android:hint="+998 XX-XXX-XX-XX"
-            android:textSize="@dimen/_12sdp"
-            app:mask="+998 ##-###-##-##" />
+            android:textSize="@dimen/_12sdp"/>
     </androidx.cardview.widget.CardView>
 
 

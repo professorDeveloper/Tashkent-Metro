@@ -10,18 +10,23 @@ import androidx.core.widget.addTextChangedListener
 import com.azamovhudstc.tashkentmetro.R
 import com.azamovhudstc.tashkentmetro.databinding.RegisterScreenBinding
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
+import com.azamovhudstc.tashkentmetro.utils.setupPhoneNumberEditText
 import com.google.android.material.button.MaterialButton
 
 class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding::inflate) {
     override fun onViewCreate() {
-        binding.apply {
-            maskPhone.addTextChangedListener {
-                Log.d("GGG", "onViewCreate:${it.toString()} ")
-                if (it.toString().length == 17) {
-                    enableButtonWithAnimation(binding.nextBtn)
-                }
-            }
+//        binding.apply {
+//            maskPhone.addTextChangedListener {
+//                Log.d("GGG", "onViewCreate:${it.toString()} ")
+//                if (it.toString().length == 17) {
+//                    enableButtonWithAnimation(binding.nextBtn)
+//                }
+//            }
+//
+//        }
 
+        binding.maskPhone.setupPhoneNumberEditText{
+            enableButtonWithAnimation(binding.nextBtn)
         }
 
     }
