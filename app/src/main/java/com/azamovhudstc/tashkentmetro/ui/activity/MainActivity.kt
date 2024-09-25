@@ -1,6 +1,7 @@
 package com.azamovhudstc.tashkentmetro.ui.activity
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -32,6 +33,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
         viewBinding.homeNavigation.setupWithNavController(navController)
 
+    }
+
+
+    fun hideBottomNavigation() {
+        viewBinding.homeNavigation.visibility = View.GONE
+    }
+
+    fun showBottomNavigation() {
+        viewBinding.homeNavigation.visibility = View.VISIBLE
     }
         
 }

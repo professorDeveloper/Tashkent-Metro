@@ -2,30 +2,42 @@ package com.azamovhudstc.tashkentmetro.ui.screens.auth
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
-import android.util.Log
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import com.azamovhudstc.tashkentmetro.R
 import com.azamovhudstc.tashkentmetro.databinding.RegisterScreenBinding
+import com.azamovhudstc.tashkentmetro.ui.activity.MainActivity
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
+import com.azamovhudstc.tashkentmetro.utils.setupPhoneNumberEditText
 import com.google.android.material.button.MaterialButton
 
 class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding::inflate) {
     override fun onViewCreate() {
-        binding.apply {
-            maskPhone.addTextChangedListener {
-                Log.d("GGG", "onViewCreate:${it.toString()} ")
-                if (it.toString().length == 17) {
-                    enableButtonWithAnimation(binding.nextBtn)
-                }
-            }
 
-        }
-
+        binding.maskPhone.setupPhoneNumberEditText(
+            onChangedToEnable = {enableButton(binding.nextBtn)},
+            onChangedToDisable = {disableButton(binding.nextBtn)})
     }
 
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        (activity as? MainActivity)?.hideBottomNavigation()
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as? MainActivity)?.showBottomNavigation()
+    }
 
     override fun onResume() {
         super.onResume()
@@ -37,7 +49,8 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
     }
 
-    fun enableButtonWithAnimation(button: MaterialButton) {
+
+    private fun enableButtonWithAnimation(button: MaterialButton) {
         button.isEnabled = true
 
         changeButtonColorWithAnimation(
@@ -52,6 +65,13 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
             .scaleY(1f)
             .setDuration(300)
             .start()
+    }
+
+    private fun disableButton(button: MaterialButton){
+        button.isEnabled = false
+    }
+    private fun enableButton(button: MaterialButton){
+        button.isEnabled = true
     }
 
     fun disableButtonWithAnimation(button: MaterialButton) {
@@ -71,7 +91,7 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
             .start()
     }
 
-    fun changeButtonColorWithAnimation(button: Button, colorFrom: Int, colorTo: Int) {
+    private fun changeButtonColorWithAnimation(button: Button, colorFrom: Int, colorTo: Int) {
         val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
         colorAnimation.duration = 300 // 300 ms davomiylik
         colorAnimation.addUpdateListener { animator ->
