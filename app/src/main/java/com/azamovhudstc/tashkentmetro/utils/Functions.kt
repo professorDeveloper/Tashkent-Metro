@@ -11,7 +11,6 @@ import android.view.animation.AnimationSet
 import android.view.animation.OvershootInterpolator
 import android.view.animation.ScaleAnimation
 import android.view.animation.TranslateAnimation
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import com.azamovhudstc.infinityinsurance.utils.enums.CurrentScreenEnum
@@ -30,6 +29,7 @@ fun initActivity(a: Activity) {
     WindowCompat.setDecorFitsSystemWindows(window, false)
 
 }
+
 
 
 @Suppress("UNCHECKED_CAST")

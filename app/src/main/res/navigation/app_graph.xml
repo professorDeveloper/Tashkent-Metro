@@ -6,6 +6,12 @@
     app:startDestination="@id/button_home">
 
     <fragment
+        android:id="@+id/registerPage"
+        android:name="com.azamovhudstc.tashkentmetro.ui.screens.auth.RegisterScreen"
+        android:label="register_screen"
+        tools:layout="@layout/register_screen" />
+
+    <fragment
         android:id="@+id/button_home"
         android:name="com.azamovhudstc.tashkentmetro.ui.screens.home.HomeScreen"
         android:label="home_screen"

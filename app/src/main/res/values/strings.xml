@@ -7,13 +7,13 @@
     <string name="colored_text_intro">All <font color="#FF8C00">Contributions</font> are placed in:</string>
     <string name="enable_desc">Let Tashkent Metro access your\n location to find nearby stations.</string>
     <!-- Spinner options for language -->
-        <string-array name="language_array">
-            <item>English</item>
-            <item>Russian</item>
-            <item>Uzbek</item>
+    <string-array name="language_array">
+        <item>English</item>
+        <item>Russian</item>
+        <item>Uzbek</item>
 
-            <!-- Add more languages as needed -->
-        </string-array>
+        <!-- Add more languages as needed -->
+    </string-array>
 
 
     <!-- Content descriptions for accessibility -->
@@ -54,4 +54,6 @@
     <string name="auto">Tizim</string>
     <string name="night">Tungi</string>
     <string name="day">Kunduzgi</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
