@@ -17,8 +17,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/button_back_to_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="horizontal">
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -53,7 +55,7 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginStart="@dimen/_7sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:text="PHONE NUMBER"
         android:textColor="@color/bg_black_50"
@@ -65,7 +67,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView5"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_35sdp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_3sdp"
         app:cardCornerRadius="@dimen/_6sdp"
@@ -73,21 +75,51 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+
 
         <EditText
             android:id="@+id/maskPhone"
             android:layout_width="match_parent"
             android:paddingHorizontal="@dimen/_8sdp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginStart="@dimen/_4sdp"
             android:imeOptions="actionDone"
             android:background="@android:color/transparent"
             android:hint="+998 XX-XXX-XX-XX"
             android:textSize="@dimen/_12sdp"/>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:alpha=".5"
+                android:visibility="gone"
+                android:id="@+id/divider_edit"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/button_edit_phone_number"
+                android:layout_width="match_parent"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:gravity="center_vertical"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                android:text="Edit phone number"
+                android:fontFamily="@font/nunito_bold"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_12sdp"/>
+        </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
 
     <TextView
+        android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_4sdp"
@@ -99,6 +131,111 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView5" />
 
 
+    <TextView
+
+        android:id="@+id/textView14"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_7sdp"
+        android:text="Verification Code"
+        android:textAllCaps="true"
+        android:textColor="@color/bg_black_50"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="@+id/cardView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+
+    <androidx.cardview.widget.CardView
+
+        android:id="@+id/cardView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        app:cardCornerRadius="@dimen/_6sdp"
+        app:cardElevation="0dp"
+        android:layout_marginTop="@dimen/_3sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <com.vicmikhailau.maskededittext.MaskedEditText
+                android:id="@+id/input_code"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:background="@android:color/transparent"
+                android:hint="XXX-XXX"
+                app:mask="###-###"
+                android:maxLength="7"
+                android:inputType="number"
+                android:imeOptions="actionDone"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:textSize="@dimen/_12sdp" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_13sdp"
+                android:alpha=".5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/button_resend_code"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/_35sdp"
+                    android:enabled="false"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:fontFamily="@font/nunito_regular"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:text="Resend code"
+
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:id="@+id/resend_timer_tv"
+                    android:layout_width="wrap_content"
+                    android:text="1:00"
+                    android:fontFamily="@font/nunito_bold"
+                    android:layout_marginEnd="@dimen/_7sdp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/received_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="Enter received code from"
+        android:textColor="@color/bg_black_50"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/cardView6" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_enter_code"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="received_txt,cardView6,textView14"
+        android:layout_height="wrap_content"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/nextBtn"
         android:layout_width="match_parent"
@@ -109,8 +246,9 @@
         android:fontFamily="@font/nunito_bold"
         android:insetTop="0dp"
         android:insetBottom="0dp"
+        android:fitsSystemWindows="true"
         android:text="Next"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="@dimen/_12ssp"
         app:cornerRadius="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -11,7 +11,7 @@ fun EditText.setupPhoneNumberEditText(
 ) {
     val prefix = "+998 "
     var isDeleting = false
-
+    var focusListenerEnabled = true
 
     val phoneMaskLength = 13
     val totalMaxLength = prefix.length + phoneMaskLength
@@ -62,10 +62,13 @@ fun EditText.setupPhoneNumberEditText(
             this@setupPhoneNumberEditText.setSelection(formattedText.length)
             isUpdating = false
 
-            if (formattedText.length == 17) {
-                onChangedToEnable() // onChanged lambda chaqiriladi
+            focusListenerEnabled = if (formattedText.length == 17) {
+                onChangedToEnable()
+                false
             }else{
                 onChangedToDisable()
+                true
+
             }
         }
 
@@ -73,8 +76,10 @@ fun EditText.setupPhoneNumberEditText(
     })
 
     this.setOnFocusChangeListener { _, hasFocus ->
-        this.setText(prefix)
-        this.setSelection(this.text.length)
+        if (focusListenerEnabled && hasFocus) {
+            this.setText(prefix)
+            this.setSelection(this.text.length)
+        }
 
     }
 }

@@ -29,6 +29,10 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
         val dropdownIcon = binding.dropdownIcon
         val dropdownIconTheme = binding.dropdownIconTheme
 
+        binding.loginTv.text = if (userPreferenceManager.userName == "null") getString(R.string.login_register) else userPreferenceManager.userName
+        binding.phoneNumberTv.text = if (userPreferenceManager.userName == "null") getString(R.string.contribute_join_leaderboard) else userPreferenceManager.userPhone
+
+
         binding.textView9.slideStart(800, 0)
         binding.textView10.slideStart(800, 0)
         binding.cardView2.slideUp(800, 0)

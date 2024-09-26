@@ -34,6 +34,18 @@ class AppReference @Inject constructor(
         }
 
 
+    var userName: String
+        get() = sharedPref.getString("user_name", "null")!!
+        set(value) {
+            sharedPref.edit().putString("user_name", value.toString()).apply()
+        }
+
+    var userPhone: String
+        get() = sharedPref.getString("user_phone", "null")!!
+        set(value) {
+            sharedPref.edit().putString("user_phone", value.toString()).apply()
+        }
+
     var language: Language
         get() {
             val code = sharedPref.getString("language", Language.ENGLISH.code)!!
