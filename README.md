@@ -7,7 +7,7 @@
 ## 🔧 Getting Started
 
 Steps to run the project:
-1. **Clone this repository**: `git clone https://github.com/username/repo.git`
+1. **Clone this repository**: `git clone https://github.com/professorDeveloper/Tashkent-Metro.git`
 2. **Install dependencies**: `build gradle` or `google map setup`
 3. **Run the app**: `idea start` or `adb run app`
 
