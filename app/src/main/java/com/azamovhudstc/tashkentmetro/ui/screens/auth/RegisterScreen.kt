@@ -2,6 +2,7 @@ package com.azamovhudstc.tashkentmetro.ui.screens.auth
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +15,7 @@ import com.azamovhudstc.tashkentmetro.R
 import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
 import com.azamovhudstc.tashkentmetro.databinding.RegisterScreenBinding
 import com.azamovhudstc.tashkentmetro.ui.activity.MainActivity
-import com.azamovhudstc.tashkentmetro.utils.BaseFragment
-import com.azamovhudstc.tashkentmetro.utils.ResendTimerUtil
-import com.azamovhudstc.tashkentmetro.utils.setupPhoneNumberEditText
-import com.azamovhudstc.tashkentmetro.utils.visible
+import com.azamovhudstc.tashkentmetro.utils.*
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -31,7 +29,7 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
     lateinit var userPreferenceManager: AppReference
 
     override fun onViewCreate() {
-
+        requireActivity().window.statusBarColor= Color.parseColor("#F2F2F7")
         binding.maskPhone.setupPhoneNumberEditText(
             onChangedToEnable = { enableButton(binding.nextBtn) },
             onChangedToDisable = { disableButton(binding.nextBtn) })
@@ -46,7 +44,7 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
             }
         }
 
-
+        initAnimation()
         binding.nextBtn.setOnClickListener {
             val text = binding.nextBtn.text
             if (text == "Next"){
@@ -77,6 +75,9 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
         phone = binding.maskPhone.text.toString()
         disableButton(binding.nextBtn)
         binding.inputCode.requestFocus()
+        binding.cardView6.slideUp(800,0)
+        binding.textView13.slideUp(800,0)
+        binding.textView14.slideUp(800,0)
         binding.maskPhone.isEnabled = false
         timer.start()
     }
@@ -84,8 +85,11 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
     private fun visibleAllItems() {
         with(binding){
             dividerEdit.visible()
+            dividerEdit.slideUp(800,0)
             buttonEditPhoneNumber.visible()
+            buttonEditPhoneNumber.slideUp(800,0)
             groupEnterCode.visible()
+            groupEnterCode.slideUp(800,0)
         }
     }
 
@@ -99,6 +103,12 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
         }
     }
 
+    private  fun initAnimation(){
+        binding.cardView5.slideUp(800,0)
+        binding.textView11.slideUp(800,0)
+        binding.textView13.slideUp(800,0)
+        binding.nextBtn.slideUp(800,0)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
