@@ -44,7 +44,6 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
             }
         }
 
-        initAnimation()
         binding.nextBtn.setOnClickListener {
             val text = binding.nextBtn.text
             if (text == "Next"){
@@ -75,9 +74,6 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
         phone = binding.maskPhone.text.toString()
         disableButton(binding.nextBtn)
         binding.inputCode.requestFocus()
-        binding.cardView6.slideUp(800,0)
-        binding.textView13.slideUp(800,0)
-        binding.textView14.slideUp(800,0)
         binding.maskPhone.isEnabled = false
         timer.start()
     }
@@ -85,11 +81,9 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
     private fun visibleAllItems() {
         with(binding){
             dividerEdit.visible()
-            dividerEdit.slideUp(800,0)
             buttonEditPhoneNumber.visible()
-            buttonEditPhoneNumber.slideUp(800,0)
             groupEnterCode.visible()
-            groupEnterCode.slideUp(800,0)
+            receivedTxt.text="Enter received code from ${maskPhone.text}"
         }
     }
 
@@ -103,12 +97,6 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
         }
     }
 
-    private  fun initAnimation(){
-        binding.cardView5.slideUp(800,0)
-        binding.textView11.slideUp(800,0)
-        binding.textView13.slideUp(800,0)
-        binding.nextBtn.slideUp(800,0)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

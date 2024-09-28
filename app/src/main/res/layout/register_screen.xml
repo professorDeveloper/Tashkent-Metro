@@ -89,6 +89,7 @@
             android:layout_height="@dimen/_35sdp"
             android:layout_marginStart="@dimen/_4sdp"
             android:imeOptions="actionDone"
+            android:inputType="phone"
             android:background="@android:color/transparent"
             android:hint="+998 XX-XXX-XX-XX"
             android:textSize="@dimen/_12sdp"/>

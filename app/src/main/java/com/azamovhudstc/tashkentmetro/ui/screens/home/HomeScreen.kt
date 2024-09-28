@@ -15,11 +15,6 @@ class HomeScreen : BaseFragment<HomeScreenBinding>(HomeScreenBinding::inflate)
     override fun onViewCreate() {
         screenWidth = resources.displayMetrics.widthPixels.toFloat()
 
-        binding.textView.slideUp(900, 0)
-        binding.relativeLayout.slideUp(900, 0)
-        binding.relativeLayout2.slideUp(1000, 0)
-        binding.train1.slideStart(900,0)
-        binding.train2.slideStart(900,0)
         binding.trainsStatusRv.adapter = adapter
         adapter.submitList(LocalData.trainsStatusList)
     }
