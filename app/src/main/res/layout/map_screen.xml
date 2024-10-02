@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.screens.map.MapScreen">
 
 
@@ -12,26 +12,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/map_style"
         android:layout_width="@dimen/_32sdp"
         android:layout_height="@dimen/_32sdp"
-        app:cardCornerRadius="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        android:background="?selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true"
         app:cardBackgroundColor="@color/card_background"
-        android:background="?selectableItemBackgroundBorderless"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_6sdp"
+        app:cardCornerRadius="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:layout_width="match_parent"
-            android:src="@drawable/icon_map"
-            android:padding="@dimen/_6sdp"
-            android:alpha=".8"
             android:layout_height="match_parent"
+            android:alpha=".8"
+            android:padding="@dimen/_6sdp"
+            android:src="@drawable/icon_map"
             app:tint="@color/white_and_black" />
     </com.google.android.material.card.MaterialCardView>
 
@@ -39,13 +40,13 @@
         android:id="@+id/button_center_camera"
         android:layout_width="@dimen/_32sdp"
         android:layout_height="@dimen/_32sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_6sdp"
         android:background="?selectableItemBackgroundBorderless"
         android:clickable="true"
-        android:layout_marginTop="@dimen/_10sdp"
         android:focusable="true"
-        app:cardCornerRadius="@dimen/_16sdp"
         app:cardBackgroundColor="@color/card_background"
+        app:cardCornerRadius="@dimen/_16sdp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map_style">
@@ -58,4 +59,93 @@
             android:src="@drawable/icon_paperplane"
             app:tint="@color/airplane_color" />
     </com.google.android.material.card.MaterialCardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_7sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:cardBackgroundColor="@color/whiteGray"
+        app:cardCornerRadius="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+
+                    android:id="@+id/button_from"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:background="@drawable/shame_frame"
+                    android:gravity="center_vertical"
+                    android:hint="From"
+                    android:paddingHorizontal="@dimen/_6sdp" />
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/button_remove_from"
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
+                    android:layout_gravity="end"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:src="@drawable/ic_remove" />
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/button_to"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/shame_frame"
+                    android:gravity="center_vertical"
+                    android:hint="To"
+                    android:paddingHorizontal="@dimen/_6sdp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/button_remove_to"
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
+                    android:layout_gravity="end"
+                    android:visibility="gone"
+                    android:layout_marginEnd="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:src="@drawable/ic_remove" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/shame_frame"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="@dimen/_26sdp"
+                    android:src="@drawable/ic_list_dash"
+                    android:padding="@dimen/_6sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    app:tint="@color/black" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
 import com.azamovhudstc.tashkentmetro.data.model.station.Line
 import com.azamovhudstc.tashkentmetro.data.model.station.Station
 import com.azamovhudstc.tashkentmetro.data.model.station.StationLine
+import com.azamovhudstc.tashkentmetro.data.model.station.StationLocation
 import com.azamovhudstc.tashkentmetro.data.model.station.StationState
 import com.azamovhudstc.tashkentmetro.databinding.MapScreenBinding
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
@@ -55,6 +56,14 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         binding.buttonCenterCamera.setOnClickListener{
             setupCameraToCenter()
         }
+
+        val stations = listOf("Chinor", "Yangihayot", "Sergeli", "Uzgarish", "Choshtepa")
+
+        binding.buttonFrom.setOnClickListener {
+            showInputSearchBottomSheet()
+        }
+        // Bekatlar ro'yxatini o'zlashtirish
+//        binding.metro.metroStations = stations
     }
 
 
@@ -66,6 +75,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         setupMetroLines()
 
 
+        val a = Station(id = 20, line = Line.UZBEKISTAN, location = StationLocation(41.325867, 69.236824), name = "chorsu", state = StationState.UNDERGROUND)
+        val b = Station(id = 16, line = Line.CHILANZAR, location = StationLocation(41.321932, 69.311080), name = "pushkin", state = StationState.UNDERGROUND)
+
+        getDirections(a,b)
 //        drawRouteFromUserInput("beruniy", "mashinasozlar")
 
 
@@ -181,6 +194,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         return status ?: "Ma'lumot yo'q"
     }
 
+    private fun showInputSearchBottomSheet(){
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.search_bottom_dialog, null)
+        bottomSheetDialog.setContentView(view)
+        bottomSheetDialog.show()
+    }
 
     private fun showMapTypeBottomSheet() {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
@@ -329,17 +348,14 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     fun applyMapStyleBasedOnTheme(context: Context, googleMap: GoogleMap) {
         try {
-            // Tizim mavzusini aniqlash (kunduzgi yoki tungi rejim)
             val nightModeFlags = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
-            // Tizimning mavzusiga qarab tegishli xarita uslubini o'rnatish
             val styleRes = when (nightModeFlags) {
-                Configuration.UI_MODE_NIGHT_YES -> R.raw.map_style_dark  // Tungi mavzu uchun uslub
-                Configuration.UI_MODE_NIGHT_NO -> R.raw.map_style_light      // Kunduzgi mavzu uchun uslub
-                else -> R.raw.map_style_light                               // Belgilanmagan bo'lsa, kunduzgi uslub
+                Configuration.UI_MODE_NIGHT_YES -> R.raw.map_style_dark
+                Configuration.UI_MODE_NIGHT_NO -> R.raw.map_style_light
+                else -> R.raw.map_style_light
             }
 
-            // Xarita uslubini qo'llash
             val success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, styleRes))
             if (!success) {
                 Log.e("MapStyle", "Xarita uslubi muvaffaqiyatsiz o'rnatildi.")
@@ -348,6 +364,88 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             Log.e("MapStyle", "Xarita uslubini yuklashda xatolik yuz berdi: ", e)
         } catch (e: Exception) {
             Log.e("MapStyle", "Xarita uslubini o'rnatishda umumiy xatolik: ", e)
+        }
+    }
+
+
+
+    private fun getStationById(id: Int): Station? {
+        for (line in LocalData.metro) {
+            val station = line.stations.firstOrNull { it.id == id }
+            if (station != null) {
+                return station
+            }
+        }
+        return null
+    }
+
+    private fun getNeighbors(station: Station): List<Station> {
+        val neighbors = mutableListOf<Station>()
+
+        val line = LocalData.metro.firstOrNull { it.line == station.line }
+        line?.let {
+            val index = it.stations.indexOfFirst { s -> s.id == station.id }
+            if (index != -1) {
+                if (index > 0) {
+                    neighbors.add(it.stations[index - 1])
+                }
+                if (index < it.stations.size - 1) {
+                    neighbors.add(it.stations[index + 1])
+                }
+            }
+        }
+
+        station.transferable?.let { transferableId ->
+            getStationById(transferableId)?.let { transferableStation ->
+                neighbors.add(transferableStation)
+            }
+        }
+
+        return neighbors
+    }
+
+    private fun getDirections(start: Station, end: Station) {
+        val queue = mutableListOf<Pair<Station, List<Station>>>()
+        val visited = mutableSetOf<Int>()
+
+        queue.add(Pair(start, listOf(start)))
+        visited.add(start.id)
+
+        while (queue.isNotEmpty()) {
+            val (current, path) = queue.removeAt(0)
+
+            if (current.id == end.id) {
+                val result = mutableListOf<StationLine>()
+                var currentLine: StationLine? = null
+
+                for (station in path) {
+                    val line = LocalData.metro.firstOrNull { it.line == station.line }
+                    line?.let {
+                        if (currentLine == null || currentLine!!.line != it.line) {
+                            currentLine?.let { cl ->
+                                result.add(cl)
+                            }
+                            currentLine = StationLine(it.id, it.line, mutableListOf())
+                        }
+                        currentLine?.stations?.add(station)
+                    }
+                }
+
+                currentLine?.let { cl ->
+                    result.add(cl)
+                }
+
+                Log.d("tekshirish", "getDirections: $result")
+//                route = result
+//                showRouteDetailsView()
+                return
+            }
+
+            for (neighbor in getNeighbors(current)) {
+                if (visited.add(neighbor.id)) {
+                    queue.add(Pair(neighbor, path + neighbor))
+                }
+            }
         }
     }
 

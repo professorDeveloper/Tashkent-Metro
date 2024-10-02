@@ -47,4 +47,6 @@
 
     <color name="airplane_color">#007AFF</color>
 
+    <color name="search_top_toolbar">#FAFAF8</color>
+    <color name="search_edittext">#F3F3F8</color>
 </resources>

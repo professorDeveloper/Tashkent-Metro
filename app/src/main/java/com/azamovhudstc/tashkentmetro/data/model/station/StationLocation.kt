@@ -25,5 +25,5 @@ data class Station(
 data class StationLine(
     val id: Int,
     val line: Line,
-    val stations: List<Station>
+    val stations: MutableList<Station>
 )

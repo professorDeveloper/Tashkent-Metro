@@ -120,7 +120,8 @@ fun EditText.requestFocus(length: Int, requestFocus: View) =
 fun EditText.requestFocusOpeningScreen() {
     requestFocus()
     val imm: InputMethodManager? =
-        App.currentActivity()!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        App.currentActivity()!!
+            .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 
 }
@@ -142,8 +143,6 @@ fun View.slideStart(animTime: Long, startOffset: Long) {
     }
     startAnimation(slideUp)
 }
-
-
 
 
 fun View.invisible() {

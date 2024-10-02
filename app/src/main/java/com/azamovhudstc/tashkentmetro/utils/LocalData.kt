@@ -22,7 +22,7 @@ object LocalData {
         StationLine(
             id = 1,
             line = Line.CHILANZAR,
-            stations = listOf(
+            stations = mutableListOf(
                 Station(id = 1, line = Line.CHILANZAR, location = StationLocation(41.206413, 69.219119), name = "chinor", state = StationState.ABOVEGROUND, transferable = 50),
                 Station(id = 2, line = Line.CHILANZAR, location = StationLocation(41.213493, 69.214002), name = "yangihayot", state = StationState.ABOVEGROUND),
                 Station(id = 3, line = Line.CHILANZAR, location = StationLocation(41.221021, 69.208473), name = "sergeli", state = StationState.ABOVEGROUND),
@@ -45,7 +45,7 @@ object LocalData {
         StationLine(
             id = 2,
             line = Line.UZBEKISTAN,
-            stations = listOf(
+            stations = mutableListOf(
                 Station(id = 18, line = Line.UZBEKISTAN, location = StationLocation(41.345171, 69.206928), name = "beruniy", state = StationState.UNDERGROUND),
                 Station(id = 19, line = Line.UZBEKISTAN, location = StationLocation(41.332341, 69.219028), name = "tinchlik", state = StationState.UNDERGROUND),
                 Station(id = 20, line = Line.UZBEKISTAN, location = StationLocation(41.325867, 69.236824), name = "chorsu", state = StationState.UNDERGROUND),
@@ -62,7 +62,7 @@ object LocalData {
         StationLine(
             id = 3,
             line = Line.YUNUSOBOD,
-            stations = listOf(
+            stations = mutableListOf(
                 Station(id = 29, line = Line.YUNUSOBOD, location = StationLocation(41.377288, 69.295934), name = "turkistan", state = StationState.UNDERGROUND),
                 Station(id = 30, line = Line.YUNUSOBOD, location = StationLocation(41.366611, 69.292198), name = "yunusabad", state = StationState.UNDERGROUND),
                 Station(id = 31, line = Line.YUNUSOBOD, location = StationLocation(41.353020, 69.288083), name = "shakhriston", state = StationState.UNDERGROUND),
@@ -76,7 +76,7 @@ object LocalData {
         StationLine(
             id = 4,
             line = Line.INDEPENDENCEDAY,
-            stations = listOf(
+            stations = mutableListOf(
                 Station(id = 37, line = Line.INDEPENDENCEDAY, location = StationLocation(41.294528, 69.322889), name = "technopark", state = StationState.ABOVEGROUND, transferable = 28),
                 Station(id = 38, line = Line.INDEPENDENCEDAY, location = StationLocation(41.297583, 69.349917), name = "yashnabad", state = StationState.ABOVEGROUND),
                 Station(id = 39, line = Line.INDEPENDENCEDAY, location = StationLocation(41.292056, 69.356167), name = "tuzel", state = StationState.ABOVEGROUND),

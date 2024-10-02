@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@drawable/shape_map_type"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:elevation="@dimen/_2sdp"
+             android:background="@drawable/bg_bottom_layout"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="@dimen/_40sdp"
+                android:background="@drawable/shape_view"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="@dimen/_4sdp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/_8sdp"
+                android:layout_height="match_parent">
+
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:hint="Search"
+                    android:drawablePadding="@dimen/_7sdp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/ic_search"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:background="@drawable/bg_edit"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:text="Cancel"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_height="wrap_content"/>
+
+
+</LinearLayout>
