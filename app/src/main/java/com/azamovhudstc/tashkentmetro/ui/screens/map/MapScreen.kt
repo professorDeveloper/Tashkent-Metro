@@ -9,8 +9,14 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.azamovhudstc.tashkentmetro.R
 import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
 import com.azamovhudstc.tashkentmetro.data.model.station.Line
@@ -19,9 +25,11 @@ import com.azamovhudstc.tashkentmetro.data.model.station.StationLine
 import com.azamovhudstc.tashkentmetro.data.model.station.StationLocation
 import com.azamovhudstc.tashkentmetro.data.model.station.StationState
 import com.azamovhudstc.tashkentmetro.databinding.MapScreenBinding
+import com.azamovhudstc.tashkentmetro.ui.screens.home.HomeAdapter
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
 import com.azamovhudstc.tashkentmetro.utils.LocalData
-import com.azamovhudstc.tashkentmetro.utils.ViewUtils
+import com.azamovhudstc.tashkentmetro.utils.LocalData.metro
+import com.azamovhudstc.tashkentmetro.utils.custom.StationFilter
 import com.azamovhudstc.tashkentmetro.utils.select
 import com.azamovhudstc.tashkentmetro.utils.unSelect
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -35,17 +43,22 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import javax.inject.Inject
 
 class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnMapReadyCallback {
 
     private lateinit var tashkentBounds: LatLngBounds
+    private val adapter by lazy { PopularStationAdapter() }
+
     @Inject
     lateinit var userPreferenceManager: AppReference
     private lateinit var mapView: MapView
     private lateinit var mMap: GoogleMap
+
     override fun onViewCreate() {
         mapView = binding.map
         mapView.onCreate(null)
@@ -53,7 +66,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         binding.mapStyle.setOnClickListener {
             showMapTypeBottomSheet()
         }
-        binding.buttonCenterCamera.setOnClickListener{
+        binding.buttonCenterCamera.setOnClickListener {
             setupCameraToCenter()
         }
 
@@ -62,23 +75,40 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         binding.buttonFrom.setOnClickListener {
             showInputSearchBottomSheet()
         }
+
+        binding.buttonTo.setOnClickListener {
+            showInputSearchBottomSheet()
+        }
+
+
         // Bekatlar ro'yxatini o'zlashtirish
 //        binding.metro.metroStations = stations
     }
 
 
-
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
-        applyMapStyleBasedOnTheme(requireContext(),mMap)
+        applyMapStyleBasedOnTheme(requireContext(), mMap)
 
         setupMetroLines()
 
 
-        val a = Station(id = 20, line = Line.UZBEKISTAN, location = StationLocation(41.325867, 69.236824), name = "chorsu", state = StationState.UNDERGROUND)
-        val b = Station(id = 16, line = Line.CHILANZAR, location = StationLocation(41.321932, 69.311080), name = "pushkin", state = StationState.UNDERGROUND)
+        val a = Station(
+            id = 20,
+            line = Line.UZBEKISTAN,
+            location = StationLocation(41.325867, 69.236824),
+            name = "chorsu",
+            state = StationState.UNDERGROUND
+        )
+        val b = Station(
+            id = 16,
+            line = Line.CHILANZAR,
+            location = StationLocation(41.321932, 69.311080),
+            name = "pushkin",
+            state = StationState.UNDERGROUND
+        )
 
-        getDirections(a,b)
+        getDirections(a, b)
 //        drawRouteFromUserInput("beruniy", "mashinasozlar")
 
 
@@ -110,7 +140,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
 
-    private fun setupCameraToCenter(){
+    private fun setupCameraToCenter() {
         val centralStation = LatLng(41.29374972350616, 69.2807024717331)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centralStation, 11.5f))
     }
@@ -147,7 +177,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             vectorDrawable.intrinsicHeight
         )
 
-        if (status == StationState.UNDERGROUND) vectorDrawable?.setTint(Color.RED) else vectorDrawable?.setTint(Color.BLUE)
+        if (status == StationState.UNDERGROUND) vectorDrawable?.setTint(Color.RED) else vectorDrawable?.setTint(
+            Color.BLUE
+        )
 
 
         val bitmap = vectorDrawable?.let {
@@ -178,7 +210,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
 
-
     private fun getLineColor(line: Line): Int {
         return when (line) {
             Line.CHILANZAR -> requireContext().getColor(R.color.map_red)
@@ -194,10 +225,62 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         return status ?: "Ma'lumot yo'q"
     }
 
-    private fun showInputSearchBottomSheet(){
+    private fun showInputSearchBottomSheet() {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.search_bottom_dialog, null)
         bottomSheetDialog.setContentView(view)
+
+        bottomSheetDialog.setOnShowListener {
+            val bottomSheet = bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            bottomSheet?.let {
+                val behavior = BottomSheetBehavior.from(it)
+                // Ekran balandligini olish
+                val displayMetrics = resources.displayMetrics
+                val screenHeight = displayMetrics.heightPixels
+                val bottomSheetHeight = (screenHeight * 0.9).toInt()
+                behavior.peekHeight = bottomSheetHeight
+            }
+        }
+
+
+        val popularStationRv = view.findViewById<RecyclerView>(R.id.popular_station_rv)
+
+        val stationLineTv = view.findViewById<TextView>(R.id.station_line)
+        val layoutManager = LinearLayoutManager(context)
+        popularStationRv.layoutManager = layoutManager
+        popularStationRv.adapter = adapter
+        bottomSheetDialog.setOnDismissListener {
+            adapter.submitList(LocalData.popularStations)
+        }
+
+        popularStationRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+
+                    val lm = recyclerView.layoutManager as LinearLayoutManager
+                    val firstVisiblePosition = lm.findFirstVisibleItemPosition()
+
+                    if (firstVisiblePosition != RecyclerView.NO_POSITION) {
+                        val station = adapter.getStationAt(firstVisiblePosition)
+                        stationLineTv.text = station.line.name
+                    }
+                }
+            }
+        })
+
+
+        val searchEt = view.findViewById<EditText>(R.id.search_et)
+        searchEt.addTextChangedListener {
+            if (!it.isNullOrEmpty()) {
+                val filteredStations = StationFilter.filterStations(it.toString(), metro)
+                adapter.submitList(filteredStations)
+            }
+        }
+        view.findViewById<MaterialButton>(R.id.button_cancel)
+            .setOnClickListener { bottomSheetDialog.dismiss() }
         bottomSheetDialog.show()
     }
 
@@ -283,7 +366,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val startIndex = line.stations.indexOf(station1)
         val endIndex = line.stations.indexOf(station2)
 
-         val range = if (startIndex < endIndex) startIndex..endIndex else startIndex downTo endIndex
+        val range = if (startIndex < endIndex) startIndex..endIndex else startIndex downTo endIndex
 
         range.forEach { index ->
             val station = line.stations[index]
@@ -348,7 +431,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     fun applyMapStyleBasedOnTheme(context: Context, googleMap: GoogleMap) {
         try {
-            val nightModeFlags = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+            val nightModeFlags =
+                context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
             val styleRes = when (nightModeFlags) {
                 Configuration.UI_MODE_NIGHT_YES -> R.raw.map_style_dark
@@ -356,7 +440,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 else -> R.raw.map_style_light
             }
 
-            val success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, styleRes))
+            val success =
+                googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, styleRes))
             if (!success) {
                 Log.e("MapStyle", "Xarita uslubi muvaffaqiyatsiz o'rnatildi.")
             }
@@ -366,7 +451,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             Log.e("MapStyle", "Xarita uslubini o'rnatishda umumiy xatolik: ", e)
         }
     }
-
 
 
     private fun getStationById(id: Int): Station? {

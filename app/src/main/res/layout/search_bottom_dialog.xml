@@ -1,61 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/shape_map_type"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="@drawable/shape_map_type"
+    android:paddingBottom="@dimen/_30sdp">
 
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bottom_layout"
+        android:elevation="@dimen/_2sdp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
+        <View
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:background="@drawable/shape_view" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:elevation="@dimen/_2sdp"
-             android:background="@drawable/bg_bottom_layout"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
-            <View
-                android:layout_width="@dimen/_40sdp"
-                android:background="@drawable/shape_view"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_gravity="center_horizontal"
-                android:layout_height="@dimen/_4sdp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:paddingVertical="@dimen/_8sdp"
-                android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingVertical="@dimen/_8sdp">
 
 
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:hint="Search"
-                    android:drawablePadding="@dimen/_7sdp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"
-                    android:drawableStart="@drawable/ic_search"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:paddingVertical="@dimen/_5sdp"
-                    android:background="@drawable/bg_edit"
-                    android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/search_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="@dimen/_7sdp"
+                android:gravity="center_vertical"
+                android:hint="Search"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_5sdp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
-                    android:text="Cancel"
-                    style="@style/Widget.Material3.Button.TextButton"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_cancel"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel" />
         </LinearLayout>
+    </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/station_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
+
+        android:text="Popular stations"
+        android:textColor="@color/uncheckedColor"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_7sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:alpha=".5" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/popular_station_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
 </LinearLayout>

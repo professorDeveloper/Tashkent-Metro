@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/station_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingHorizontal="@dimen/_10sdp"
+
+            android:text="Popular stations"
+            android:textColor="@color/uncheckedColor"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:alpha=".5" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:src="@drawable/icon_metro"
+        android:layout_marginStart="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/station_position"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/popular_station" />
+
+    <TextView
+        android:id="@+id/popular_station"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text="Chilanzar"
+        android:textSize="@dimen/_13ssp"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
+    <TextView
+        android:id="@+id/station_position"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text="Underground"
+        android:textSize="@dimen/_10ssp"
+        android:alpha=".8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/popular_station" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:alpha=".7"
+        app:layout_constraintStart_toStartOf="@+id/station_position"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/station_position" />
+</androidx.constraintlayout.widget.ConstraintLayout>
