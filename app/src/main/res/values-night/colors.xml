@@ -15,6 +15,7 @@
 
     <color name="main_background">#000000</color>
     <color name="airplane_color">#fff</color>
+    <color name="bottomBg">#232527</color>
 
 
 </resources>

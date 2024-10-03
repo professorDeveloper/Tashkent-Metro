@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
 
         android:orientation="vertical"
-        android:background="@color/toolbarBg"
+        android:background="@color/main_background"
         app:elevation="0dp"
         app:layout_scrollFlags="scroll|enterAlways">
 
@@ -141,7 +141,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/locToolbar"
         android:layout_width="match_parent"
-        android:background="@color/toolbarBg"
+        android:background="@color/main_background"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:visibility="gone"

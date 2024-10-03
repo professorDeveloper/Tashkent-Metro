@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.azamovhudstc.tashkentmetro"
-        minSdk 24
+        minSdk 26
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -25,12 +25,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
     buildFeatures {
         //
@@ -112,6 +112,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation 'com.google.android.gms:play-services-maps:19.0.0'
-
-
+    implementation "com.github.naz013:gradient-view-kit:1.0.1"
+    implementation 'com.github.Dimezis:BlurView:version-2.0.5'
 }

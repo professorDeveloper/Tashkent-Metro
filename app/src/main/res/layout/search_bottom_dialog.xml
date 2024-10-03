@@ -54,17 +54,37 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/station_line"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
-        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingHorizontal="@dimen/_10sdp">
 
-        android:text="Popular stations"
-        android:textColor="@color/uncheckedColor"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/station_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Popular stations"
+            android:textColor="@color/uncheckedColor"
+
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+
+        <com.github.naz013.gradientkit.viewgroup.UiGradientLinearLayout
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_5sdp"
+            android:layout_gravity="center|end"
+            android:layout_marginEnd="@dimen/_8sdp"
+            app:gradientLinearLayout_animate="false"
+            app:gradientLinearLayout_centerColor="@color/colorPrimary"
+            app:gradientLinearLayout_cornerRadius="10dp"
+            app:gradientLinearLayout_endColor="#E6F1FF"
+            app:gradientLinearLayout_orientation="TL_BR"
+            app:gradientLinearLayout_startColor="#E6F1FF" />
+
+
+    </FrameLayout>
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"

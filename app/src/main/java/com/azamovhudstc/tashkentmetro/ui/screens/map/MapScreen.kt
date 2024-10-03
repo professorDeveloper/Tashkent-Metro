@@ -25,7 +25,6 @@ import com.azamovhudstc.tashkentmetro.data.model.station.StationLine
 import com.azamovhudstc.tashkentmetro.data.model.station.StationLocation
 import com.azamovhudstc.tashkentmetro.data.model.station.StationState
 import com.azamovhudstc.tashkentmetro.databinding.MapScreenBinding
-import com.azamovhudstc.tashkentmetro.ui.screens.home.HomeAdapter
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
 import com.azamovhudstc.tashkentmetro.utils.LocalData
 import com.azamovhudstc.tashkentmetro.utils.LocalData.metro
@@ -262,7 +261,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
                     val lm = recyclerView.layoutManager as LinearLayoutManager
                     val firstVisiblePosition = lm.findFirstVisibleItemPosition()
-
                     if (firstVisiblePosition != RecyclerView.NO_POSITION) {
                         val station = adapter.getStationAt(firstVisiblePosition)
                         stationLineTv.text = station.line.name
