@@ -12,17 +12,32 @@
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/station_line"
+        <FrameLayout
+            android:id="@+id/popular_station_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingHorizontal="@dimen/_10sdp">
 
-            android:text="Popular stations"
-            android:textColor="@color/uncheckedColor"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/station_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Popular stations"
+                android:textColor="@color/uncheckedColor"
+
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/gradient_view"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_5sdp"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="@dimen/_8sdp" />
+
+        </FrameLayout>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"

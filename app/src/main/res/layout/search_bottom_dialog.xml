@@ -55,6 +55,7 @@
     </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/popular_station_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
@@ -71,23 +72,18 @@
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold" />
 
-        <com.github.naz013.gradientkit.viewgroup.UiGradientLinearLayout
+        <View
+            android:id="@+id/gradient_view"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_5sdp"
             android:layout_gravity="center|end"
-            android:layout_marginEnd="@dimen/_8sdp"
-            app:gradientLinearLayout_animate="false"
-            app:gradientLinearLayout_centerColor="@color/colorPrimary"
-            app:gradientLinearLayout_cornerRadius="10dp"
-            app:gradientLinearLayout_endColor="#E6F1FF"
-            app:gradientLinearLayout_orientation="TL_BR"
-            app:gradientLinearLayout_startColor="#E6F1FF" />
-
+            android:layout_marginEnd="@dimen/_8sdp" />
 
     </FrameLayout>
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
+        android:id="@+id/popular_divider"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_7sdp"
         android:layout_marginTop="@dimen/_2sdp"

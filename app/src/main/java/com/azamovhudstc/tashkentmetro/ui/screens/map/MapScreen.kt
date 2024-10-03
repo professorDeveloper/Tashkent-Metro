@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -15,6 +16,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.azamovhudstc.tashkentmetro.R
@@ -28,9 +30,12 @@ import com.azamovhudstc.tashkentmetro.databinding.MapScreenBinding
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
 import com.azamovhudstc.tashkentmetro.utils.LocalData
 import com.azamovhudstc.tashkentmetro.utils.LocalData.metro
+import com.azamovhudstc.tashkentmetro.utils.LocalData.popularStations
 import com.azamovhudstc.tashkentmetro.utils.custom.StationFilter
 import com.azamovhudstc.tashkentmetro.utils.select
 import com.azamovhudstc.tashkentmetro.utils.unSelect
+import com.azamovhudstc.tashkentmetro.utils.visible
+import com.azamovhudstc.tashkentmetro.viewmodel.search.SearchViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -40,18 +45,27 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.divider.MaterialDivider
 import javax.inject.Inject
 
-class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnMapReadyCallback {
+class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnMapReadyCallback,
+    PopularStationAdapter.OnItemClickListener {
 
     private lateinit var tashkentBounds: LatLngBounds
-    private val adapter by lazy { PopularStationAdapter() }
+    private val adapter by lazy { PopularStationAdapter(this) }
+    private val viewModel by viewModels<SearchViewModel>()
+    private var isFrom = true
+    private val polylines = mutableListOf<Polyline>()
+    private val markers = mutableListOf<Marker>()
+    lateinit var bottomSheetDialog: BottomSheetDialog
 
     @Inject
     lateinit var userPreferenceManager: AppReference
@@ -60,6 +74,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     override fun onViewCreate() {
         mapView = binding.map
+        bottomSheetDialog = BottomSheetDialog(requireContext())
         mapView.onCreate(null)
         mapView.getMapAsync(this)
         binding.mapStyle.setOnClickListener {
@@ -69,19 +84,44 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             setupCameraToCenter()
         }
 
-        val stations = listOf("Chinor", "Yangihayot", "Sergeli", "Uzgarish", "Choshtepa")
+        viewModel.fromTv.observe(viewLifecycleOwner){
+            updateUiFromStation(it)
+        }
+        viewModel.toTv.observe(viewLifecycleOwner){
+            updateUiToStation(it)
+        }
+        viewModel.bothValues.observe(viewLifecycleOwner) { pair ->
+            drawMapWithDirection(pair)
+        }
 
         binding.buttonFrom.setOnClickListener {
             showInputSearchBottomSheet()
+            isFrom = true
         }
 
         binding.buttonTo.setOnClickListener {
             showInputSearchBottomSheet()
+            isFrom = false
         }
 
+    }
 
-        // Bekatlar ro'yxatini o'zlashtirish
-//        binding.metro.metroStations = stations
+    private fun drawMapWithDirection(pair: Pair<Station, Station>) {
+        val fromStation = pair.first
+        val toStation = pair.second
+        getDirections(fromStation, toStation)
+    }
+
+    private fun updateUiToStation(station: Station?) {
+        binding.buttonTo.text = station?.name
+        binding.buttonRemoveTo.visible()
+        bottomSheetDialog.dismiss()
+    }
+
+    private fun updateUiFromStation(station: Station?) {
+        binding.buttonFrom.text = station?.name
+        binding.buttonRemoveFrom.visible()
+        bottomSheetDialog.dismiss()
     }
 
 
@@ -91,26 +131,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
         setupMetroLines()
 
-
-        val a = Station(
-            id = 20,
-            line = Line.UZBEKISTAN,
-            location = StationLocation(41.325867, 69.236824),
-            name = "chorsu",
-            state = StationState.UNDERGROUND
-        )
-        val b = Station(
-            id = 16,
-            line = Line.CHILANZAR,
-            location = StationLocation(41.321932, 69.311080),
-            name = "pushkin",
-            state = StationState.UNDERGROUND
-        )
-
-        getDirections(a, b)
-//        drawRouteFromUserInput("beruniy", "mashinasozlar")
-
-
         val southWest = LatLng(41.2000, 69.1200)  // Janubi-g'arbiy nuqta
         val northEast = LatLng(41.3800, 69.3700)  // Shimoli-sharqiy nuqta
 
@@ -118,7 +138,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
 
         mMap.setLatLngBoundsForCameraTarget(tashkentBounds)
-
 
 
         mMap.setOnCameraMoveListener {
@@ -131,7 +150,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
     private fun setupMetroLines() {
-        LocalData.metro.forEach { line ->
+        metro.forEach { line ->
             setupMetroLine(line)
         }
 
@@ -144,13 +163,23 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centralStation, 11.5f))
     }
 
-    private fun setupMetroLine(line: StationLine) {
+    private fun updateOpacity(isReducedOpacity: Boolean, result: List<StationLine>) {
+        polylines.forEach { polyline ->
+            val opacityValue = 120
+            val updatedColor = getLineColorWithOpacity(polyline.color, opacityValue)
+            polyline.color = updatedColor
+        }
+
+        markers.forEach { marker ->
+            marker.alpha = 0.4f
+        }
+    }
+    private fun setupMetroLine(line: StationLine, isReducedOpacity: Boolean = false) {
         val polylineOptions = PolylineOptions()
 
         line.stations.forEach { station ->
             val position = LatLng(station.location.latitude, station.location.longitude)
             polylineOptions.add(position)
-
 
             val icon = createStationIcon(station.state)
 
@@ -160,11 +189,20 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 .snippet(getTrainStatus(station.name))
                 .icon(icon)
 
-            mMap.addMarker(markerOptions)
+
+            val marker = mMap.addMarker(markerOptions)
+            marker?.tag = line
+            marker?.let { markers.add(it) }
         }
 
-        polylineOptions.color(getLineColor(line.line)).width(14f)
-        mMap.addPolyline(polylineOptions)
+        val polylineColor = getLineColor(line.line)  // Normal rang
+
+
+        val polyline = mMap.addPolyline(polylineOptions.color(polylineColor).width(14f))
+        line.stations.forEach { station ->
+            polyline.tag = station
+        }
+        polylines.add(polyline)
     }
 
     private fun createStationIcon(status: StationState): BitmapDescriptor? {
@@ -208,6 +246,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         return bitmap?.let { BitmapDescriptorFactory.fromBitmap(it) }
     }
 
+    private fun getLineColorWithOpacity(color: Int, opacityPercent: Int): Int {
+        val alpha = (opacityPercent * 255) / 100
+        return Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color))
+    }
 
     private fun getLineColor(line: Line): Int {
         return when (line) {
@@ -225,12 +267,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
     private fun showInputSearchBottomSheet() {
-        val bottomSheetDialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.search_bottom_dialog, null)
         bottomSheetDialog.setContentView(view)
 
         bottomSheetDialog.setOnShowListener {
-            val bottomSheet = bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            val bottomSheet =
+                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             bottomSheet?.let {
                 val behavior = BottomSheetBehavior.from(it)
                 val displayMetrics = resources.displayMetrics
@@ -244,11 +286,17 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val popularStationRv = view.findViewById<RecyclerView>(R.id.popular_station_rv)
 
         val stationLineTv = view.findViewById<TextView>(R.id.station_line)
+        val popularTextFrame = view.findViewById<FrameLayout>(R.id.popular_station_frame)
+        val popularDivider = view.findViewById<MaterialDivider>(R.id.popular_divider)
+        val viewGradient = view.findViewById<View>(R.id.gradient_view)
         val layoutManager = LinearLayoutManager(context)
+        viewGradient.background =
+            drawGradient(ContextCompat.getColor(requireContext(), R.color.map_red))
         popularStationRv.layoutManager = layoutManager
         popularStationRv.adapter = adapter
+
         bottomSheetDialog.setOnDismissListener {
-            adapter.submitList(LocalData.popularStations)
+            adapter.submitList(popularStations, true)
         }
 
         popularStationRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -261,8 +309,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                     val lm = recyclerView.layoutManager as LinearLayoutManager
                     val firstVisiblePosition = lm.findFirstVisibleItemPosition()
                     if (firstVisiblePosition != RecyclerView.NO_POSITION) {
-                        val station = adapter.getStationAt(firstVisiblePosition)
+                        val (station, gradient) = adapter.getStationAt(firstVisiblePosition)
                         stationLineTv.text = station.line.name
+                        viewGradient.background = gradient
                     }
                 }
             }
@@ -272,8 +321,16 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val searchEt = view.findViewById<EditText>(R.id.search_et)
         searchEt.addTextChangedListener {
             if (!it.isNullOrEmpty()) {
+//                popularTextFrame.gone()
+//                popularDivider.gone()
                 val filteredStations = StationFilter.filterStations(it.toString(), metro)
-                adapter.submitList(filteredStations)
+                stationLineTv.text = filteredStations[0].line.name
+                adapter.submitList(filteredStations, false)
+            } else {
+                popularTextFrame.visible()
+                popularDivider.visible()
+                adapter.submitList(popularStations, true)
+
             }
         }
         view.findViewById<MaterialButton>(R.id.button_cancel)
@@ -326,7 +383,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
     private fun findStationByName(stationName: String): Station? {
-        return LocalData.metro.flatMap { line -> line.stations }.find {
+        return metro.flatMap { line -> line.stations }.find {
             it.name == stationName.toLowerCase()
         }
     }
@@ -389,7 +446,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
     private fun findLineByStation(station: Station): StationLine? {
-        return LocalData.metro.find { line -> line.stations.contains(station) }
+        return metro.find { line -> line.stations.contains(station) }
     }
 
     private fun findTransferStation(line1: StationLine, line2: StationLine): Station? {
@@ -451,7 +508,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
 
     private fun getStationById(id: Int): Station? {
-        for (line in LocalData.metro) {
+        for (line in metro) {
             val station = line.stations.firstOrNull { it.id == id }
             if (station != null) {
                 return station
@@ -463,7 +520,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private fun getNeighbors(station: Station): List<Station> {
         val neighbors = mutableListOf<Station>()
 
-        val line = LocalData.metro.firstOrNull { it.line == station.line }
+        val line = metro.firstOrNull { it.line == station.line }
         line?.let {
             val index = it.stations.indexOfFirst { s -> s.id == station.id }
             if (index != -1) {
@@ -500,7 +557,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 var currentLine: StationLine? = null
 
                 for (station in path) {
-                    val line = LocalData.metro.firstOrNull { it.line == station.line }
+                    val line = metro.firstOrNull { it.line == station.line }
                     line?.let {
                         if (currentLine == null || currentLine!!.line != it.line) {
                             currentLine?.let { cl ->
@@ -516,7 +573,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                     result.add(cl)
                 }
 
-                Log.d("tekshirish", "getDirections: $result")
+                updateOpacity(true,result)
+                result.forEach { line ->
+                    setupMetroLine(line)
+                }
 //                route = result
 //                showRouteDetailsView()
                 return
@@ -531,4 +591,21 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
 
+    private fun drawGradient(centerColor: Int): GradientDrawable {
+        val gradientDrawable = GradientDrawable(
+            GradientDrawable.Orientation.TL_BR,
+            intArrayOf(
+                Color.parseColor("#E6F1FF"),
+                centerColor,
+                Color.parseColor("#E6F1FF")
+            )
+        )
+        gradientDrawable.cornerRadius = 5f
+        return gradientDrawable
+
+    }
+
+    override fun onItemClick(station: Station) {
+        if (isFrom) viewModel.setFromValue(station) else viewModel.setToValue(station)
+    }
 }
