@@ -12,10 +12,10 @@ class MetroLineView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    // Paint obyekti chiziq va aylanalarni chizish uchun
+
     private val linePaint = Paint().apply {
         color = Color.BLACK
-        strokeWidth = 4f.dpToPx(context) // 4 dp ni px ga aylantirish
+        strokeWidth = 4f.dpToPx(context)
         style = Paint.Style.STROKE
         isAntiAlias = true
     }
@@ -28,11 +28,11 @@ class MetroLineView @JvmOverloads constructor(
 
     private val textPaint = Paint().apply {
         color = Color.BLACK
-        textSize = 16f.dpToPx(context) // Matn o'lchamini dp da belgilash
+        textSize = 16f.dpToPx(context)
         isAntiAlias = true
     }
 
-    // Metro bekatlar ro'yxati
+
     var metroStations: List<String> = listOf()
 
     override fun onDraw(canvas: Canvas) {
@@ -42,27 +42,27 @@ class MetroLineView @JvmOverloads constructor(
         val endY = height - 50f
         val centerX = width / 2f
 
-        // Vertikal chiziq chizish
+
         canvas.drawLine(centerX, startY, centerX, endY, linePaint)
 
-        // Ikkala boshida aylanalar chizish
+
         val circleRadius = 10f.dpToPx(context)
         canvas.drawCircle(centerX, startY, circleRadius, circlePaint)
         canvas.drawCircle(centerX, endY, circleRadius, circlePaint)
 
-        // Bekatlar soniga mos holda aylana va bekat nomlarini chizish
-        val step = (endY - startY) / (metroStations.size - 1) // Har bir bekat o'rtasidagi masofa
+
+        val step = (endY - startY) / (metroStations.size - 1)
 
         metroStations.forEachIndexed { index, station ->
             val y = startY + index * step
-            canvas.drawCircle(centerX, y, circleRadius, circlePaint) // Aylana chizish
+            canvas.drawCircle(centerX, y, circleRadius, circlePaint)
 
-            // Bekat nomini nuqtalardan 30 dp o'ng tomonga joylashtirish
+
             canvas.drawText(station, centerX + 30f.dpToPx(context), y + 5f.dpToPx(context), textPaint)
         }
     }
 
-    // dp ni px ga aylantirish
+
     private fun Float.dpToPx(context: Context): Float {
         return this * context.resources.displayMetrics.density
     }

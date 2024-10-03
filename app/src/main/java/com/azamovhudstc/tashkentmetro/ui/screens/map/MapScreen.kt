@@ -233,7 +233,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             val bottomSheet = bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             bottomSheet?.let {
                 val behavior = BottomSheetBehavior.from(it)
-                // Ekran balandligini olish
                 val displayMetrics = resources.displayMetrics
                 val screenHeight = displayMetrics.heightPixels
                 val bottomSheetHeight = (screenHeight * 0.9).toInt()
