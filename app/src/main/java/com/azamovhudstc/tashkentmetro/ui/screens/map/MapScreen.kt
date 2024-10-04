@@ -24,7 +24,6 @@ import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
 import com.azamovhudstc.tashkentmetro.data.model.station.Line
 import com.azamovhudstc.tashkentmetro.data.model.station.Station
 import com.azamovhudstc.tashkentmetro.data.model.station.StationLine
-import com.azamovhudstc.tashkentmetro.data.model.station.StationLocation
 import com.azamovhudstc.tashkentmetro.data.model.station.StationState
 import com.azamovhudstc.tashkentmetro.databinding.MapScreenBinding
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
@@ -89,10 +88,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             setupCameraToCenter()
         }
 
-        viewModel.fromTv.observe(viewLifecycleOwner){
+        viewModel.fromTv.observe(viewLifecycleOwner) {
             updateUiFromStation(it)
         }
-        viewModel.toTv.observe(viewLifecycleOwner){
+        viewModel.toTv.observe(viewLifecycleOwner) {
             updateUiToStation(it)
         }
         viewModel.bothValues.observe(viewLifecycleOwner) { pair ->
@@ -104,6 +103,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             isFrom = true
         }
 
+        binding.myLocation.setOnClickListener {
+            showLineBottomSheet()
+        }
         binding.buttonTo.setOnClickListener {
             showInputSearchBottomSheet()
             isFrom = false
@@ -131,6 +133,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         })
     }
 
+
+    private fun showLineBottomSheet() {
+        val bottomSheetFragment = StationTimelineBottomSheet()
+        bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+
+    }
 
     private fun drawMapWithDirection(pair: Pair<Station, Station>) {
         val fromStation = pair.first
@@ -200,6 +208,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             marker.alpha = 0.4f
         }
     }
+
     private fun setupMetroLine(line: StationLine, isReducedOpacity: Boolean = false) {
         val polylineOptions = PolylineOptions()
 
@@ -599,7 +608,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                     result.add(cl)
                 }
 
-                updateOpacity(true,result)
+                updateOpacity(true, result)
                 result.forEach { line ->
                     setupMetroLine(line)
                 }
