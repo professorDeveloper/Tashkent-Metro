@@ -120,7 +120,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             .tilt(45f)
             .build()
 
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000, object : GoogleMap.CancelableCallback {
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 1500, object : GoogleMap.CancelableCallback {
             override fun onFinish() {
 
             }

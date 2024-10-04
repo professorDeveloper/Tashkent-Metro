@@ -23,7 +23,7 @@
         android:text="Chilanzar"
         android:textSize="@dimen/_13ssp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/gradient_view"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout4"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,26 +35,46 @@
         android:paddingHorizontal="@dimen/_10sdp"
         android:text="Underground"
         android:textSize="@dimen/_10ssp"
-        app:layout_constraintEnd_toStartOf="@+id/gradient_view"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout4"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/popular_station" />
 
-    <View
-        android:id="@+id/gradient_view"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_5sdp"
-        android:layout_gravity="center|end"
-        android:layout_marginEnd="@dimen/_8sdp"
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginEnd="@dimen/_7sdp"
         app:layout_constraintBottom_toBottomOf="@+id/station_position"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/popular_station" />
+        app:layout_constraintTop_toTopOf="@+id/popular_station">
+
+        <TextView
+            android:id="@+id/lineName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chilanzar"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/white_and_black" />
+
+        <View
+            android:id="@+id/gradient_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_5sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_3sdp" />
+    </LinearLayout>
+
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/materialDivider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:alpha=".7"
+        android:layout_marginStart="@dimen/_30sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/station_position" />

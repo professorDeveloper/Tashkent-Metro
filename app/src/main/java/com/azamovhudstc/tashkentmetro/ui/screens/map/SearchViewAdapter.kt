@@ -22,6 +22,7 @@ class SearchViewAdapter(private val onItemClickListener: (Station) -> Unit) : Re
             binding.apply {
                 popularStation.text = station.name
                 stationPosition.text = station.state.name
+                lineName.text = station.line.name
                 gradientView.background = drawGradient(getLineColor(station.line))
                 imageView2.imageTintList = if (station.state == StationState.UNDERGROUND) ColorStateList.valueOf(Color.RED) else ColorStateList.valueOf(Color.BLUE)
             }
