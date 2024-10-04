@@ -33,6 +33,11 @@ class StationTimelineBottomSheet : BottomSheetDialogFragment() {
         val stations: List<StationItem> = listOf(
             StartStation("Chilanzar", "Chilanzar Line", "13:49"),
             MiddleStation("Mirzo Ulugbek"),
+            MiddleStation("Mirzo Ulugbek"),
+            MiddleStation("Novza"),
+            MiddleStation("Pakhtakor"),
+            MiddleStation("National Park"),
+            MiddleStation("PDP University"),
             MiddleStation("Amir Temur"),
             EndStation("Tashkent", "Tashkent Line", "14:10")
         )
