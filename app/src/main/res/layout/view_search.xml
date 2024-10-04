@@ -99,7 +99,6 @@
         android:visibility="invisible"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_10sdp"
-
         android:background="@drawable/blur_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,6 +108,7 @@
             android:id="@+id/searchViewRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:maxHeight="@dimen/_200sdp"
             android:layout_marginTop="@dimen/_2sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="4"

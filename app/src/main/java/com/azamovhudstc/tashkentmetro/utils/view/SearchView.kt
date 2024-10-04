@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewAnimationUtils
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.core.widget.addTextChangedListener
@@ -14,18 +15,27 @@ import com.azamovhudstc.tashkentmetro.data.model.station.Station
 import com.azamovhudstc.tashkentmetro.databinding.ViewSearchBinding
 import com.azamovhudstc.tashkentmetro.ui.screens.map.SearchViewAdapter
 import com.azamovhudstc.tashkentmetro.utils.LocalData
+import com.azamovhudstc.tashkentmetro.utils.custom.StationFilter
 import com.azamovhudstc.tashkentmetro.utils.invisible
 import com.azamovhudstc.tashkentmetro.utils.visible
 
+@SuppressLint("NotifyDataSetChanged")
 class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
 
-    private val adapter by lazy { SearchViewAdapter() }
+    private val adapter by lazy {
+        SearchViewAdapter { station ->
+            onStationSelected?.invoke(station)
+            closeSearch()
+        }
+    }
     private var itemList: ArrayList<Station> =
-        LocalData.popularStations.toMutableList() as ArrayList<Station>// Asl ro'yxat
+        LocalData.metro.toMutableList() as ArrayList<Station>
     private var filteredList: ArrayList<Station> = ArrayList()
 
     private val binding: ViewSearchBinding =
         ViewSearchBinding.inflate(LayoutInflater.from(context), this, true)
+
+        var onStationSelected: ((Station) -> Unit)? = null
 
     init {
         listenKeyboardEvents(binding.searchInputText)
@@ -36,10 +46,41 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
                 binding.rvFrame.invisible()
             } else {
                 binding.rvFrame.visible()
-                filterList(it.toString())
+                setRvFrameMaxHeight()
+                val filteredStations = StationFilter.filterStations(it.toString(), LocalData.metro)
+                binding.searchViewRv.adapter = adapter
+                adapter.submitList(filteredStations)
             }
         }
     }
+
+    private fun setRvFrameMaxHeight() {
+        val displayMetrics = context.resources.displayMetrics
+        val screenHeight = displayMetrics.heightPixels
+        val maxHeight = (screenHeight * 0.6).toInt()
+
+        binding.rvFrame.post {
+            val currentHeight = binding.rvFrame.height
+            if (currentHeight > maxHeight) {
+                binding.rvFrame.layoutParams.height = maxHeight
+                binding.rvFrame.requestLayout()
+            } else {
+                binding.rvFrame.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                binding.rvFrame.requestLayout()
+            }
+
+            if (binding.searchViewRv.height > maxHeight) {
+                binding.searchViewRv.layoutParams.height = maxHeight
+                binding.searchViewRv.requestLayout()
+            } else {
+                binding.searchViewRv.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                binding.searchViewRv.requestLayout()
+            }
+        }
+    }
+
+
+
 
     private fun listenKeyboardEvents(editText: EditText) {
         editText.setOnFocusChangeListener { _, hasFocus ->

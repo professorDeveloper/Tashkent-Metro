@@ -42,6 +42,7 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -80,6 +81,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         binding.mapStyle.setOnClickListener {
             showMapTypeBottomSheet()
         }
+
+        binding.searchView.onStationSelected = { station ->
+            moveCameraToStation(station)
+        }
         binding.buttonCenterCamera.setOnClickListener {
             setupCameraToCenter()
         }
@@ -105,6 +110,27 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
     }
+
+    private fun moveCameraToStation(station: Station) {
+        val stationLatLng = LatLng(station.location.latitude, station.location.longitude)
+        val cameraPosition = CameraPosition.Builder()
+            .target(stationLatLng)
+            .zoom(15f)
+            .bearing(90f)
+            .tilt(45f)
+            .build()
+
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000, object : GoogleMap.CancelableCallback {
+            override fun onFinish() {
+
+            }
+
+            override fun onCancel() {
+
+            }
+        })
+    }
+
 
     private fun drawMapWithDirection(pair: Pair<Station, Station>) {
         val fromStation = pair.first
