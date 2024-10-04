@@ -16,6 +16,32 @@ import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
+fun fadeInView(rvFrame: View) {
+    rvFrame.apply {
+        alpha = 0f // Boshlanishda ko'rinmas qilish
+        visibility = View.VISIBLE // Ko'rinadigan qilish
+
+        // Animatsiyani boshlash
+        animate()
+            .alpha(1f) // Shaffoflikni 1 ga oshirish
+            .setDuration(500) // Animatsiya davomiyligi 500 ms
+            .setListener(null) // Listener qo'shmaslik
+    }
+}
+
+fun fadeOutView(rvFrame: View) {
+    rvFrame.apply {
+        animate()
+            .alpha(0f) // Shaffoflikni 0 ga kamaytirish
+            .setDuration(500) // Animatsiya davomiyligi 500 ms
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    visibility = View.INVISIBLE // Animatsiyadan keyin ko'rinmas qilish
+                }
+            })
+    }
+}
+
 
 fun BottomNavigationView.showWithAnimation(fragmentContainerView: View) {
     if (this.visibility == View.VISIBLE) return
