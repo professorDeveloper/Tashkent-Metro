@@ -45,7 +45,7 @@ class TimelineAdapter(private val items: List<StationItem>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(station: MiddleStation) {
             binding.stationName.text = station.name
-            // Optionally bind line name if needed
+
         }
     }
 
@@ -86,7 +86,6 @@ class TimelineAdapter(private val items: List<StationItem>) :
         }
     }
 
-    // Implementing methods from TimelineAdapter interface
     override fun getTimelineViewType(position: Int): TimelineView.ViewType? {
         return when (position) {
             0 -> TimelineView.ViewType.FIRST
@@ -105,26 +104,26 @@ class TimelineAdapter(private val items: List<StationItem>) :
     }
 
     override fun getIndicatorStyle(position: Int): TimelineView.IndicatorStyle? {
-        return TimelineView.IndicatorStyle.Filled // or your desired style
+        return TimelineView.IndicatorStyle.Filled
     }
 
     override fun getIndicatorColor(position: Int): Int? {
-        return Color.parseColor("#EC5656") // Replace with your desired color or from resources
+        return Color.parseColor("#EC5656")
     }
 
     override fun getLineColor(position: Int): Int? {
-        return Color.parseColor("#EC5656") // Replace with your desired color or from resources
+        return Color.parseColor("#EC5656")
     }
 
     override fun getLineStyle(position: Int): TimelineView.LineStyle? {
         return when (position) {
-            0 -> TimelineView.LineStyle.Normal // First item line style
-            items.size - 1 -> TimelineView.LineStyle.Dashed // Last item line style
-            else -> TimelineView.LineStyle.Normal // Middle items line style
+            0 -> TimelineView.LineStyle.Normal
+            items.size - 1 -> TimelineView.LineStyle.Dashed
+            else -> TimelineView.LineStyle.Normal
         }
     }
 
     override fun getLinePadding(position: Int): Float? {
-        return 10f // Example padding, adjust as needed
+        return 10f
     }
 }
