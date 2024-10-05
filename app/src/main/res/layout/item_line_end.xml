@@ -2,9 +2,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="@dimen/_1sdp">
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:layout_height="wrap_content">
+
 
     <com.lriccardo.timelineview.TimelineView
         android:id="@+id/timeline_view"
@@ -22,6 +27,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_marginTop="@dimen/_1sdp"
         android:orientation="vertical"
         android:paddingStart="16dp">
 
@@ -49,7 +55,34 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="13:49"
+        android:layout_marginTop="@dimen/_1sdp"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/transferTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginVertical="@dimen/_8sdp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textColor="@color/white_and_black"
+            android:text="Transfer to the other line."
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="2 minutes"
+            android:textStyle="bold"
+            android:textColor="@color/white_and_black"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 </LinearLayout>

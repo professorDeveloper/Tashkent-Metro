@@ -3,9 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="@dimen/_1sdp"
-    >
+    android:paddingHorizontal="16dp">
+
 
     <com.lriccardo.timelineview.TimelineView
         android:id="@+id/timeline_view"
@@ -41,11 +40,13 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardCircle"
                 android:layout_width="@dimen/_10sdp"
                 android:layout_height="@dimen/_10sdp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="1dp"
                 android:layout_marginEnd="4dp"
+                app:cardElevation="0dp"
                 android:layout_marginBottom="1dp"
                 app:cardBackgroundColor="#D84E4E"
                 app:cardCornerRadius="@dimen/_4sdp" />

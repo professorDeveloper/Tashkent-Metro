@@ -15,9 +15,10 @@ data class EndStation(
 
 // Data class for the middle station
 data class MiddleStation(
-    override    val name: String
-) : StationItem {
-    override val line: String
-        get() = ""
+    override val name: String, override val line: String
+) : StationItem
 
-}
+data class RouteStation(
+    val line: Line,
+    val list:  MutableList<Station>
+)

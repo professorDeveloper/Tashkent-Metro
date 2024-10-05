@@ -10,11 +10,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(): ViewModel() {
-    private val _from = MutableLiveData<Station>()
-    private val _to = MutableLiveData<Station>()
+    private val _from = MutableLiveData<Station?>()
+    private val _to = MutableLiveData<Station?>()
 
-    val fromTv: LiveData<Station> get() =  _from
-    val toTv: LiveData<Station> get() =  _to
+    val fromTv: LiveData<Station?> get() =  _from
+    val toTv: LiveData<Station?> get() =  _to
 
     private val _bothValues = MediatorLiveData<Pair<Station, Station>>().apply {
         addSource(_from) { checkBothValues() }
@@ -37,7 +37,20 @@ class SearchViewModel @Inject constructor(): ViewModel() {
         val toValue = _to.value
         if (fromValue != null && toValue != null) {
             _bothValues.value = Pair(fromValue, toValue)
+        }else{
+            _bothValues.postValue(null)
         }
+    }
+    fun clearFromValue(){
+        _from.postValue(null)
+    }
+    fun clearToValue(){
+        _to.postValue(null)
+    }
+    fun clearAllValue(){
+        _from.postValue(null)
+        _to.postValue(null)
+        _bothValues.postValue(null)
     }
 
 }

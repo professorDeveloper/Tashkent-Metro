@@ -1,17 +1,21 @@
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
 import com.azamovhudstc.tashkentmetro.data.model.station.EndStation
+import com.azamovhudstc.tashkentmetro.data.model.station.Line
 import com.azamovhudstc.tashkentmetro.data.model.station.MiddleStation
 import com.azamovhudstc.tashkentmetro.data.model.station.StartStation
 import com.azamovhudstc.tashkentmetro.data.model.station.StationItem
 import com.azamovhudstc.tashkentmetro.databinding.ItemLineEndBinding
 import com.azamovhudstc.tashkentmetro.databinding.ItemLineMiddleBinding
 import com.azamovhudstc.tashkentmetro.databinding.ItemTimelineStationBinding
+import com.azamovhudstc.tashkentmetro.utils.gone
+import com.azamovhudstc.tashkentmetro.utils.visible
 import com.lriccardo.timelineview.TimelineAdapter
 import com.lriccardo.timelineview.TimelineView
 
@@ -30,6 +34,9 @@ class TimelineAdapter(private val items: List<StationItem>) :
             binding.stationName.text = station.name
             binding.lineName.text = station.line
             binding.stationTime.text = station.time
+            binding.cardCircle.setCardBackgroundColor( Color.parseColor(getLineColor(station.line)))
+            setLineColor(station.line,binding.timelineView)
+
         }
     }
 
@@ -38,6 +45,12 @@ class TimelineAdapter(private val items: List<StationItem>) :
         fun bind(station: EndStation) {
             binding.stationName.text = station.name
             binding.stationTime.text = station.time
+            if (items[items.size - 1] == station){
+                binding.transferTv.gone()
+            }else{
+                binding.transferTv.visible()
+            }
+            setLineColor(station.line,binding.timelineView)
         }
     }
 
@@ -45,7 +58,7 @@ class TimelineAdapter(private val items: List<StationItem>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(station: MiddleStation) {
             binding.stationName.text = station.name
-
+            setLineColor(station.line,binding.timelineView)
         }
     }
 
@@ -125,5 +138,20 @@ class TimelineAdapter(private val items: List<StationItem>) :
 
     override fun getLinePadding(position: Int): Float? {
         return 10f
+    }
+
+    private fun setLineColor(station: String, timelineView: TimelineView){
+        val color = getLineColor(station)
+        timelineView.indicatorColor = Color.parseColor(color)
+        timelineView.lineColor = Color.parseColor(color)
+    }
+    private fun getLineColor(line: String): String {
+        return when (line) {
+            Line.CHILANZAR.name -> "#FF453A"
+            Line.UZBEKISTAN.name -> "#0B84FF"
+            Line.YUNUSOBOD.name -> "#31D158"
+            Line.INDEPENDENCEDAY.name -> "#FED709"
+            else -> {"#FF453A"}
+        }
     }
 }

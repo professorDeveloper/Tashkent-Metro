@@ -31,6 +31,7 @@ import com.azamovhudstc.tashkentmetro.utils.LocalData
 import com.azamovhudstc.tashkentmetro.utils.LocalData.metro
 import com.azamovhudstc.tashkentmetro.utils.LocalData.popularStations
 import com.azamovhudstc.tashkentmetro.utils.custom.StationFilter
+import com.azamovhudstc.tashkentmetro.utils.gone
 import com.azamovhudstc.tashkentmetro.utils.select
 import com.azamovhudstc.tashkentmetro.utils.unSelect
 import com.azamovhudstc.tashkentmetro.utils.visible
@@ -66,6 +67,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private val polylines = mutableListOf<Polyline>()
     private val markers = mutableListOf<Marker>()
     lateinit var bottomSheetDialog: BottomSheetDialog
+    private val originalPolylineColors = mutableMapOf<Polyline, Int>()
+    private var lastSelectedMarker: Marker? = null
 
     @Inject
     lateinit var userPreferenceManager: AppReference
@@ -94,8 +97,13 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         viewModel.toTv.observe(viewLifecycleOwner) {
             updateUiToStation(it)
         }
+
         viewModel.bothValues.observe(viewLifecycleOwner) { pair ->
-            drawMapWithDirection(pair)
+            if (pair != null) {
+                drawMapWithDirection(pair)
+            } else {
+                clearMap()
+            }
         }
 
         binding.buttonFrom.setOnClickListener {
@@ -103,14 +111,26 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             isFrom = true
         }
 
-        binding.myLocation.setOnClickListener {
-            showLineBottomSheet()
+        binding.showDetailRouteButton.setOnClickListener {
+            viewModel.bothValues.value?.let { it1 -> drawMapWithDirection(it1) }
         }
+
         binding.buttonTo.setOnClickListener {
             showInputSearchBottomSheet()
             isFrom = false
         }
 
+        binding.buttonRemoveFrom.setOnClickListener {
+            viewModel.clearFromValue()
+        }
+        binding.buttonRemoveTo.setOnClickListener {
+            viewModel.clearToValue()
+        }
+
+    }
+
+    private fun clearMap() {
+        updateOpacity(false)
     }
 
     private fun moveCameraToStation(station: Station) {
@@ -122,20 +142,23 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             .tilt(45f)
             .build()
 
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 1500, object : GoogleMap.CancelableCallback {
-            override fun onFinish() {
+        mMap.animateCamera(
+            CameraUpdateFactory.newCameraPosition(cameraPosition),
+            1500,
+            object : GoogleMap.CancelableCallback {
+                override fun onFinish() {
 
-            }
+                }
 
-            override fun onCancel() {
+                override fun onCancel() {
 
-            }
-        })
+                }
+            })
     }
 
 
-    private fun showLineBottomSheet() {
-        val bottomSheetFragment = StationTimelineBottomSheet()
+    private fun showLineBottomSheet(result: MutableList<StationLine>) {
+        val bottomSheetFragment = StationTimelineBottomSheet(result)
         bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
 
     }
@@ -144,18 +167,32 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val fromStation = pair.first
         val toStation = pair.second
         getDirections(fromStation, toStation)
+
     }
 
     private fun updateUiToStation(station: Station?) {
-        binding.buttonTo.text = station?.name
-        binding.buttonRemoveTo.visible()
-        bottomSheetDialog.dismiss()
+        if (station != null) {
+            binding.buttonTo.text = station.name
+            binding.buttonRemoveTo.visible()
+            bottomSheetDialog.dismiss()
+        } else {
+            binding.buttonTo.text = ""
+            binding.buttonRemoveTo.gone()
+            bottomSheetDialog.dismiss()
+        }
     }
 
     private fun updateUiFromStation(station: Station?) {
-        binding.buttonFrom.text = station?.name
-        binding.buttonRemoveFrom.visible()
-        bottomSheetDialog.dismiss()
+        if (station != null) {
+            binding.buttonFrom.text = station.name
+            binding.buttonRemoveFrom.visible()
+            bottomSheetDialog.dismiss()
+        } else {
+            binding.buttonFrom.text = ""
+            binding.buttonRemoveFrom.gone()
+            bottomSheetDialog.dismiss()
+        }
+
     }
 
 
@@ -173,6 +210,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
         mMap.setLatLngBoundsForCameraTarget(tashkentBounds)
 
+        mMap.setOnMarkerClickListener { marker ->
+            handleMarkerClick(marker)
+            true // Return true to indicate that the click was handled
+        }
 
         mMap.setOnCameraMoveListener {
             val currentPosition = mMap.cameraPosition.target
@@ -181,6 +222,70 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 mMap.animateCamera(moveBack)
             }
         }
+    }
+
+
+    private fun handleMarkerClick(marker: Marker) {
+
+        val station = marker.tag as? Station
+
+        station?.let {
+            // Use the station information as needed
+            Log.d("MarkerClick", "Clicked station: ${it.name}")
+
+        }
+
+        lastSelectedMarker?.let { resetMarkerColor(it,station) }
+
+        // Change the clicked marker's icon color to orange
+        changeMarkerIconColorToOrange(marker,station)
+
+        // Move the camera to center the clicked marker
+        moveCameraToMarker(marker)
+
+        // Store the clicked marker as the last selected one
+        lastSelectedMarker = marker
+    }
+
+    private fun resetMarkerColor(marker: Marker, station: Station?) {
+        val icon =
+            station?.state?.let { createStationIcon(it) } // Using OVERGROUND state just as an example
+
+        marker.setIcon(icon)
+    }
+
+    private fun moveCameraToMarker(marker: Marker) {
+        val cameraPosition = CameraPosition.Builder()
+            .target(marker.position)
+            .zoom(15f) // Zoom level
+            .bearing(90f) // Rotation angle
+            .tilt(45f) // Tilt angle
+            .build()
+
+        mMap.animateCamera(
+            CameraUpdateFactory.newCameraPosition(cameraPosition),
+            1500,
+            object : GoogleMap.CancelableCallback {
+                override fun onFinish() {
+                    // You can add custom behavior when the animation finishes
+                }
+
+                override fun onCancel() {
+                    // Handle if the animation is cancelled
+                }
+            }
+        )
+    }
+
+    private fun changeMarkerIconColorToOrange(marker: Marker, station: Station?) {
+
+        val orangeColor = Color.rgb(255, 165, 0) // Orange color
+        val icon =
+            station?.state?.let { createStationIcon(it, orangeColor) } // Using OVERGROUND state just as an example
+
+        // Set the new icon to the marker
+        marker.setIcon(icon)
+
     }
 
     private fun setupMetroLines() {
@@ -197,15 +302,26 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centralStation, 11.5f))
     }
 
-    private fun updateOpacity(isReducedOpacity: Boolean, result: List<StationLine>) {
+    private fun updateOpacity(isReducedOpacity: Boolean) {
+        val opacityValue = if (isReducedOpacity) 120 else 255
+        val markerAlpha = if (isReducedOpacity) 0.4f else 1.0f
+
         polylines.forEach { polyline ->
-            val opacityValue = 120
-            val updatedColor = getLineColorWithOpacity(polyline.color, opacityValue)
+            if (!originalPolylineColors.containsKey(polyline)) {
+                originalPolylineColors[polyline] = polyline.color
+            }
+
+            val originalColor = originalPolylineColors[polyline] ?: polyline.color
+            val updatedColor = if (isReducedOpacity) {
+                getLineColorWithOpacity(originalColor, opacityValue)
+            } else {
+                originalColor
+            }
             polyline.color = updatedColor
         }
 
         markers.forEach { marker ->
-            marker.alpha = 0.4f
+            marker.alpha = markerAlpha
         }
     }
 
@@ -225,8 +341,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 .icon(icon)
 
 
+
             val marker = mMap.addMarker(markerOptions)
-            marker?.tag = line
+            marker?.tag = station
+
             marker?.let { markers.add(it) }
         }
 
@@ -240,7 +358,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         polylines.add(polyline)
     }
 
-    private fun createStationIcon(status: StationState): BitmapDescriptor? {
+    private fun createStationIcon(status: StationState, customTintColor: Int? = null): BitmapDescriptor? {
         val vectorDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.icon_metro)
         vectorDrawable?.setBounds(
             0,
@@ -249,10 +367,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             vectorDrawable.intrinsicHeight
         )
 
-        if (status == StationState.UNDERGROUND) vectorDrawable?.setTint(Color.RED) else vectorDrawable?.setTint(
-            Color.BLUE
-        )
-
+        // Use the custom tint color if provided, otherwise use status-based color
+        val tintColor = customTintColor ?: if (status == StationState.UNDERGROUND) Color.RED else Color.BLUE
+        vectorDrawable?.setTint(tintColor)
 
         val bitmap = vectorDrawable?.let {
             Bitmap.createBitmap(
@@ -263,12 +380,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
         val canvas = bitmap?.let { Canvas(it) }
 
-
         val paint = Paint().apply {
             color = Color.WHITE
             style = Paint.Style.FILL
         }
-
 
         val radius = vectorDrawable?.intrinsicWidth?.div(2)?.toFloat() ?: 0f
         val centerX = vectorDrawable?.intrinsicWidth?.div(2)?.toFloat() ?: 0f
@@ -281,8 +396,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         return bitmap?.let { BitmapDescriptorFactory.fromBitmap(it) }
     }
 
-    private fun getLineColorWithOpacity(color: Int, opacityPercent: Int): Int {
-        val alpha = (opacityPercent * 255) / 100
+    private fun getLineColorWithOpacity(color: Int, opacity: Int): Int {
+        val alpha = (opacity * 255) / 255
         return Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color))
     }
 
@@ -608,12 +723,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                     result.add(cl)
                 }
 
-                updateOpacity(true, result)
+                updateOpacity(true)
                 result.forEach { line ->
                     setupMetroLine(line)
                 }
-//                route = result
-//                showRouteDetailsView()
+                showLineBottomSheet(result)
+
                 return
             }
 
@@ -625,6 +740,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.clearAllValue()
+    }
 
     private fun drawGradient(centerColor: Int): GradientDrawable {
         val gradientDrawable = GradientDrawable(
