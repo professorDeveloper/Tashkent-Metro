@@ -99,6 +99,7 @@
         android:visibility="invisible"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_10sdp"
+        android:fitsSystemWindows="true"
         android:background="@drawable/blur_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -3,6 +3,7 @@ package com.azamovhudstc.tashkentmetro.utils.view
 import android.animation.Animator
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -52,30 +53,33 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
                 adapter.submitList(filteredStations)
             }
         }
+        binding.root.viewTreeObserver.addOnGlobalLayoutListener {
+            setRvFrameMaxHeight()
+        }
     }
 
     private fun setRvFrameMaxHeight() {
         val displayMetrics = context.resources.displayMetrics
         val screenHeight = displayMetrics.heightPixels
-        val maxHeight = (screenHeight * 0.6).toInt()
 
-        binding.rvFrame.post {
-            val currentHeight = binding.rvFrame.height
-            if (currentHeight > maxHeight) {
-                binding.rvFrame.layoutParams.height = maxHeight
-                binding.rvFrame.requestLayout()
-            } else {
-                binding.rvFrame.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                binding.rvFrame.requestLayout()
-            }
+        val r = Rect()
+        binding.root.getWindowVisibleDisplayFrame(r)
 
-            if (binding.searchViewRv.height > maxHeight) {
-                binding.searchViewRv.layoutParams.height = maxHeight
-                binding.searchViewRv.requestLayout()
-            } else {
-                binding.searchViewRv.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                binding.searchViewRv.requestLayout()
-            }
+
+
+        val visibleScreenHeight = r.bottom - r.top
+        val keypadHeight = screenHeight - visibleScreenHeight
+
+        if (keypadHeight > screenHeight * 0.15) {
+
+            val maxHeight = visibleScreenHeight * 0.83
+            binding.rvFrame.layoutParams.height = maxHeight.toInt()
+            binding.rvFrame.requestLayout()
+        } else {
+//
+            val maxHeight = (screenHeight * 0.8).toInt()
+            binding.rvFrame.layoutParams.height = maxHeight
+            binding.rvFrame.requestLayout()
         }
     }
 

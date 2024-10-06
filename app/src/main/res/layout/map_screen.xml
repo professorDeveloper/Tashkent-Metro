@@ -12,18 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.azamovhudstc.tashkentmetro.utils.view.SearchView
-        android:layout_width="0dp"
-        android:id="@+id/searchView"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:background="?selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintEnd_toStartOf="@+id/map_style"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/map_style" />
-
 
 
     <com.google.android.material.card.MaterialCardView
@@ -162,4 +150,19 @@
             </FrameLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <com.azamovhudstc.tashkentmetro.utils.view.SearchView
+        android:layout_width="0dp"
+        android:id="@+id/searchView"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:fitsSystemWindows="true"
+        app:layout_constraintEnd_toStartOf="@+id/map_style"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/map_style" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
