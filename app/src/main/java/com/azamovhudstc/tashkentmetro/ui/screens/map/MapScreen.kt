@@ -69,7 +69,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     lateinit var bottomSheetDialog: BottomSheetDialog
     private val originalPolylineColors = mutableMapOf<Polyline, Int>()
     private var lastSelectedMarker: Marker? = null
-
+    private var isPopular = true
     @Inject
     lateinit var userPreferenceManager: AppReference
     private lateinit var mapView: MapView
@@ -107,7 +107,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
         binding.buttonFrom.setOnClickListener {
-            showInputSearchBottomSheet()
+            showInputSearchBottomSheet(viewModel.toTv.value)
             isFrom = true
         }
 
@@ -116,7 +116,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
         binding.buttonTo.setOnClickListener {
-            showInputSearchBottomSheet()
+            showInputSearchBottomSheet(viewModel.fromTv.value)
             isFrom = false
         }
 
@@ -230,20 +230,19 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val station = marker.tag as? Station
 
         station?.let {
-            // Use the station information as needed
             Log.d("MarkerClick", "Clicked station: ${it.name}")
 
         }
 
         lastSelectedMarker?.let { resetMarkerColor(it,station) }
 
-        // Change the clicked marker's icon color to orange
+
         changeMarkerIconColorToOrange(marker,station)
 
-        // Move the camera to center the clicked marker
+
         moveCameraToMarker(marker)
 
-        // Store the clicked marker as the last selected one
+
         lastSelectedMarker = marker
     }
 
@@ -281,9 +280,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
         val orangeColor = Color.rgb(255, 165, 0) // Orange color
         val icon =
-            station?.state?.let { createStationIcon(it, orangeColor) } // Using OVERGROUND state just as an example
+            station?.state?.let { createStationIcon(it, orangeColor) }
 
-        // Set the new icon to the marker
+
         marker.setIcon(icon)
 
     }
@@ -416,7 +415,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         return status ?: "Ma'lumot yo'q"
     }
 
-    private fun showInputSearchBottomSheet() {
+    private fun showInputSearchBottomSheet(value: Station?) {
         val view = layoutInflater.inflate(R.layout.search_bottom_dialog, null)
         bottomSheetDialog.setContentView(view)
 
@@ -442,11 +441,14 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val layoutManager = LinearLayoutManager(context)
         viewGradient.background =
             drawGradient(ContextCompat.getColor(requireContext(), R.color.map_red))
+        viewGradient.gone()
         popularStationRv.layoutManager = layoutManager
+        adapter.submitList(popularStations, true,value)
         popularStationRv.adapter = adapter
 
+
         bottomSheetDialog.setOnDismissListener {
-            adapter.submitList(popularStations, true)
+            adapter.submitList(popularStations, true,null)
         }
 
         popularStationRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -454,15 +456,17 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && !isPopular) {
                     val lm = recyclerView.layoutManager as LinearLayoutManager
                     val firstVisiblePosition = lm.findFirstVisibleItemPosition()
                     if (firstVisiblePosition != RecyclerView.NO_POSITION) {
                         val (station, gradient) = adapter.getStationAt(firstVisiblePosition)
                         stationLineTv.text = station.line.name
+                        viewGradient.visible()
                         viewGradient.background = gradient
                     }
+                }else{
+                    viewGradient.gone()
                 }
             }
         })
@@ -471,15 +475,17 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val searchEt = view.findViewById<EditText>(R.id.search_et)
         searchEt.addTextChangedListener {
             if (!it.isNullOrEmpty()) {
-//                popularTextFrame.gone()
-//                popularDivider.gone()
+                isPopular = false
+                viewGradient.visible()
                 val filteredStations = StationFilter.filterStations(it.toString(), metro)
                 stationLineTv.text = filteredStations[0].line.name
-                adapter.submitList(filteredStations, false)
+                adapter.submitList(filteredStations, false,value)
             } else {
+                isPopular = true
                 popularTextFrame.visible()
                 popularDivider.visible()
-                adapter.submitList(popularStations, true)
+                viewGradient.gone()
+                adapter.submitList(popularStations, true,null)
 
             }
         }
@@ -520,92 +526,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         bottomSheetDialog.show()
     }
 
-    fun drawRouteFromUserInput(startStationName: String, endStationName: String) {
-        val startStation = findStationByName(startStationName)
-        val endStation = findStationByName(endStationName)
-
-        if (startStation == null || endStation == null) {
-            Log.e("Metro", "Bekatlar topilmadi")
-            return
-        }
-
-        drawRouteAcrossLines(startStation, endStation)
-    }
-
-    private fun findStationByName(stationName: String): Station? {
-        return metro.flatMap { line -> line.stations }.find {
-            it.name == stationName.toLowerCase()
-        }
-    }
-
-    private fun drawRouteAcrossLines(startStation: Station, endStation: Station) {
-        val startLine = findLineByStation(startStation)
-        val endLine = findLineByStation(endStation)
-
-        if (startLine == null || endLine == null) {
-            Log.e("Metro", "Bekatlar liniyalarini topishning iloji bo'lmadi")
-            return
-        }
-
-        if (startLine == endLine) {
-            // Agar ikkala bekat bir xil liniyada bo'lsa, oddiy marshrut chizamiz
-            drawRouteBetweenStations(startLine, startStation, endStation)
-        } else {
-            // Transfer bekatni topamiz
-            val transferStation = findTransferStation(startLine, endLine)
-
-            if (transferStation != null) {
-                drawRouteBetweenStations(startLine, startStation, transferStation)
-
-                drawRouteBetweenStations(endLine, transferStation, endStation)
-            } else {
-                Log.e("Metro", "O'tish bekati topilmadi, liniyalar o'rtasida o'tish mavjud emas")
-            }
-        }
-    }
-
-    private fun drawRouteBetweenStations(line: StationLine, station1: Station, station2: Station) {
-        val polylineOptions = PolylineOptions()
-
-        val startIndex = line.stations.indexOf(station1)
-        val endIndex = line.stations.indexOf(station2)
-
-        val range = if (startIndex < endIndex) startIndex..endIndex else startIndex downTo endIndex
-
-        range.forEach { index ->
-            val station = line.stations[index]
-            val position = LatLng(station.location.latitude, station.location.longitude)
-            polylineOptions.add(position)
-
-            val markerOptions = MarkerOptions()
-                .position(position)
-                .title(station.name)
-
-            mMap.addMarker(markerOptions)
-        }
-
-
-        polylineOptions.color(Color.BLACK).width(20f)
-
-
-        mMap.addPolyline(polylineOptions)
-
-        // Kamerani birinchi bekatga yaqinlashtiramiz
-        val startPosition = LatLng(station1.location.latitude, station1.location.longitude)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPosition, 12f))
-    }
-
-    private fun findLineByStation(station: Station): StationLine? {
-        return metro.find { line -> line.stations.contains(station) }
-    }
-
-    private fun findTransferStation(line1: StationLine, line2: StationLine): Station? {
-        return line1.stations.find { station1 ->
-            line2.stations.any { station2 ->
-                station1.transferable != null && station1.name == station2.name
-            }
-        }
-    }
 
     override fun onResume() {
         super.onResume()
@@ -633,12 +553,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
 
-    fun applyMapStyleBasedOnTheme(context: Context, googleMap: GoogleMap) {
+    private fun applyMapStyleBasedOnTheme(context: Context, googleMap: GoogleMap) {
         try {
-            val nightModeFlags =
-                context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
-            val styleRes = when (nightModeFlags) {
+            val styleRes = when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 Configuration.UI_MODE_NIGHT_YES -> R.raw.map_style_dark
                 Configuration.UI_MODE_NIGHT_NO -> R.raw.map_style_light
                 else -> R.raw.map_style_light

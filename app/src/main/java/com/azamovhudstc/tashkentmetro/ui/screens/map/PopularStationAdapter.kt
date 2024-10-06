@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +19,7 @@ import com.azamovhudstc.tashkentmetro.utils.LocalData
 class PopularStationAdapter(private val listener: OnItemClickListener) : RecyclerView.Adapter<PopularStationAdapter.SVHolder>() {
     private var list: MutableList<Station> = LocalData.popularStations.toMutableList()
     var isPopular = true
-
+    var searchStation: Station? = null
     interface OnItemClickListener {
         fun onItemClick(station: Station)
     }
@@ -32,6 +33,14 @@ class PopularStationAdapter(private val listener: OnItemClickListener) : Recycle
             }
         }
         fun onBind(model: Station, previousLineName: String?, position: Int) {
+            if (model == searchStation){
+                itemView.isEnabled = false
+                itemView.alpha = 0.3f
+            }else{
+                itemView.isEnabled = true
+                itemView.alpha = 1f
+
+            }
             itemBinding.popularStation.text = model.name
             itemBinding.stationPosition.text = model.state.name
 
@@ -69,9 +78,10 @@ class PopularStationAdapter(private val listener: OnItemClickListener) : Recycle
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(newList: List<Station>, i: Boolean) {
+    fun submitList(newList: List<Station>, i: Boolean, station: Station? = null) {
         isPopular = i
         list.clear()
+        searchStation = station
         list.addAll(newList)
         notifyDataSetChanged()
     }
