@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewAnimationUtils
@@ -16,6 +17,7 @@ import com.azamovhudstc.tashkentmetro.databinding.ViewSearchBinding
 import com.azamovhudstc.tashkentmetro.ui.screens.map.SearchViewAdapter
 import com.azamovhudstc.tashkentmetro.utils.LocalData
 import com.azamovhudstc.tashkentmetro.utils.custom.StationFilter
+import com.azamovhudstc.tashkentmetro.utils.gone
 import com.azamovhudstc.tashkentmetro.utils.hideKeyboard
 import com.azamovhudstc.tashkentmetro.utils.invisible
 import com.azamovhudstc.tashkentmetro.utils.visible
@@ -26,7 +28,6 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
     private val adapter by lazy {
         SearchViewAdapter { station ->
             onStationSelected?.invoke(station)
-            isItemClicked
             binding.rvFrame.invisible()
             hideKeyboard(binding.searchInputText)
         }
@@ -34,7 +35,6 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
 
     private val binding: ViewSearchBinding =
         ViewSearchBinding.inflate(LayoutInflater.from(context), this, true)
-    var isItemClicked =false
     var onStationSelected: ((Station) -> Unit)? = null
 
     init {
@@ -44,15 +44,24 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
         setRvFrameMaxHeight()
 
         binding.searchInputText.setOnClickListener {
-            binding.rvFrame.visibility = View.VISIBLE
+            if (binding.searchInputText.text.isNotEmpty()) binding.rvFrame.visibility = View.VISIBLE
         }
+        binding.root.viewTreeObserver.addOnGlobalLayoutListener {
+            setRvFrameMaxHeight()
+        }
+        initTextChanged()
+    }
+
+    private fun initTextChanged(){
         binding.searchInputText.addTextChangedListener {
             if (it.toString().isEmpty()) {
                 binding.rvFrame.invisible()
             } else {
+                Log.d("TMET", ":${it.toString()} ")
                 binding.rvFrame.visible()
                 val filteredStations = StationFilter.filterStations(it.toString(), LocalData.metro)
                 if (filteredStations.isNotEmpty()) {
+                    binding.rvFrame.visible()
                     binding.searchViewRv.visible()
                     binding.placeHolderFrame.invisible()
                     setRvFrameMaxHeight()
@@ -60,15 +69,15 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
                     adapter.submitList(filteredStations)
 
                 } else {
+                    binding.rvFrame.visible()
                     binding.placeHolderFrame.visible()
                     binding.searchViewRv.invisible()
                     binding.noResult.text = "No Result For ${it.toString()}"
                 }
+
             }
         }
-        binding.root.viewTreeObserver.addOnGlobalLayoutListener {
-            setRvFrameMaxHeight()
-        }
+
     }
 
     private fun setRvFrameMaxHeight() {
@@ -97,10 +106,8 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
     private fun listenKeyboardEvents(editText: EditText) {
         editText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && editText.text.toString().isNotEmpty()) {
-                // Keyboard is open (or will open), make the target view visible
                 binding.rvFrame.visibility = View.VISIBLE
             } else {
-                // Keyboard is dismissed (or will be dismissed), make the target view invisible
                 binding.rvFrame.visibility = View.INVISIBLE
             }
         }
@@ -108,6 +115,7 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
 
 
     private fun openSearch() {
+        binding.searchInputText.setText("")
         binding.searchOpenView.visibility = View.VISIBLE
         val circularReveal = ViewAnimationUtils.createCircularReveal(
             binding.searchOpenView,
@@ -137,7 +145,9 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             override fun onAnimationCancel(animation: Animator) = Unit
             override fun onAnimationStart(animation: Animator) = Unit
             override fun onAnimationEnd(animation: Animator) {
+                binding.searchInputText.setText("")
                 binding.searchOpenView.visibility = View.INVISIBLE
+                binding.rvFrame.gone()
                 circularConceal.removeAllListeners()
             }
         })

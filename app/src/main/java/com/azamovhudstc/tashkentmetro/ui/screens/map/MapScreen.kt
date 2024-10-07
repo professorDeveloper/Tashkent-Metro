@@ -26,6 +26,7 @@ import com.azamovhudstc.tashkentmetro.data.model.station.Station
 import com.azamovhudstc.tashkentmetro.data.model.station.StationLine
 import com.azamovhudstc.tashkentmetro.data.model.station.StationState
 import com.azamovhudstc.tashkentmetro.databinding.MapScreenBinding
+import com.azamovhudstc.tashkentmetro.ui.screens.map.sheet.StationTimelineBottomSheet
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
 import com.azamovhudstc.tashkentmetro.utils.LocalData
 import com.azamovhudstc.tashkentmetro.utils.LocalData.metro
@@ -70,6 +71,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private val originalPolylineColors = mutableMapOf<Polyline, Int>()
     private var lastSelectedMarker: Marker? = null
     private var isPopular = true
+
     @Inject
     lateinit var userPreferenceManager: AppReference
     private lateinit var mapView: MapView
@@ -82,6 +84,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         mapView.getMapAsync(this)
         binding.mapStyle.setOnClickListener {
             showMapTypeBottomSheet()
+        }
+        binding.myLocation.setOnClickListener {
+            showMapStationBottomSheet()
         }
 
         binding.searchView.onStationSelected = { station ->
@@ -234,10 +239,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
         }
 
-        lastSelectedMarker?.let { resetMarkerColor(it,station) }
+        lastSelectedMarker?.let { resetMarkerColor(it, station) }
 
 
-        changeMarkerIconColorToOrange(marker,station)
+        changeMarkerIconColorToOrange(marker, station)
 
 
         moveCameraToMarker(marker)
@@ -340,7 +345,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 .icon(icon)
 
 
-
             val marker = mMap.addMarker(markerOptions)
             marker?.tag = station
 
@@ -357,7 +361,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         polylines.add(polyline)
     }
 
-    private fun createStationIcon(status: StationState, customTintColor: Int? = null): BitmapDescriptor? {
+    private fun createStationIcon(
+        status: StationState,
+        customTintColor: Int? = null
+    ): BitmapDescriptor? {
         val vectorDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.icon_metro)
         vectorDrawable?.setBounds(
             0,
@@ -367,7 +374,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         )
 
         // Use the custom tint color if provided, otherwise use status-based color
-        val tintColor = customTintColor ?: if (status == StationState.UNDERGROUND) Color.RED else Color.BLUE
+        val tintColor =
+            customTintColor ?: if (status == StationState.UNDERGROUND) Color.RED else Color.BLUE
         vectorDrawable?.setTint(tintColor)
 
         val bitmap = vectorDrawable?.let {
@@ -415,6 +423,26 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         return status ?: "Ma'lumot yo'q"
     }
 
+
+    private fun showMapStationBottomSheet() {
+        val view = layoutInflater.inflate(R.layout.map_station_bottom_sheet, null)
+        bottomSheetDialog.setContentView(view)
+        bottomSheetDialog.show()
+        bottomSheetDialog.setOnShowListener {
+            val bottomSheet =
+                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            bottomSheet?.let {
+                val behavior = BottomSheetBehavior.from(it)
+                val displayMetrics = resources.displayMetrics
+                val screenHeight = displayMetrics.heightPixels
+                val bottomSheetHeight = (screenHeight * 0.9).toInt()
+                behavior.peekHeight = bottomSheetHeight
+            }
+        }
+        bottomSheetDialog.show()
+
+    }
+
     private fun showInputSearchBottomSheet(value: Station?) {
         val view = layoutInflater.inflate(R.layout.search_bottom_dialog, null)
         bottomSheetDialog.setContentView(view)
@@ -443,12 +471,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             drawGradient(ContextCompat.getColor(requireContext(), R.color.map_red))
         viewGradient.gone()
         popularStationRv.layoutManager = layoutManager
-        adapter.submitList(popularStations, true,value)
+        adapter.submitList(popularStations, true, value)
         popularStationRv.adapter = adapter
 
 
         bottomSheetDialog.setOnDismissListener {
-            adapter.submitList(popularStations, true,null)
+            adapter.submitList(popularStations, true, null)
         }
 
         popularStationRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -465,7 +493,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                         viewGradient.visible()
                         viewGradient.background = gradient
                     }
-                }else{
+                } else {
                     viewGradient.gone()
                 }
             }
@@ -479,13 +507,13 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 viewGradient.visible()
                 val filteredStations = StationFilter.filterStations(it.toString(), metro)
                 stationLineTv.text = filteredStations[0].line.name
-                adapter.submitList(filteredStations, false,value)
+                adapter.submitList(filteredStations, false, value)
             } else {
                 isPopular = true
                 popularTextFrame.visible()
                 popularDivider.visible()
                 viewGradient.gone()
-                adapter.submitList(popularStations, true,null)
+                adapter.submitList(popularStations, true, null)
 
             }
         }
@@ -556,11 +584,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private fun applyMapStyleBasedOnTheme(context: Context, googleMap: GoogleMap) {
         try {
 
-            val styleRes = when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                Configuration.UI_MODE_NIGHT_YES -> R.raw.map_style_dark
-                Configuration.UI_MODE_NIGHT_NO -> R.raw.map_style_light
-                else -> R.raw.map_style_light
-            }
+            val styleRes =
+                when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                    Configuration.UI_MODE_NIGHT_YES -> R.raw.map_style_dark
+                    Configuration.UI_MODE_NIGHT_NO -> R.raw.map_style_light
+                    else -> R.raw.map_style_light
+                }
 
             val success =
                 googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, styleRes))
