@@ -28,6 +28,7 @@ class SplashPage : BaseFragment<SplashPageBinding>(SplashPageBinding::inflate) {
             delay(1000)
             model.loginScreenLiveData.observe(viewLifecycleOwner, getStartedScreenObserver)
             model.homeScreenLiveData.observe(viewLifecycleOwner, openHomeScreenObserver)
+            model.checkPage()
 
         }
 
@@ -39,6 +40,7 @@ class SplashPage : BaseFragment<SplashPageBinding>(SplashPageBinding::inflate) {
         requireActivity().finish()
     }
     private val getStartedScreenObserver = Observer<Unit> {
+
         findNavController().navigate(
             R.id.firstPage,
             null,
