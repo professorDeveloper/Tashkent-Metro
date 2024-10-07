@@ -11,6 +11,7 @@ import android.view.animation.AnimationSet
 import android.view.animation.OvershootInterpolator
 import android.view.animation.ScaleAnimation
 import android.view.animation.TranslateAnimation
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import com.azamovhudstc.infinityinsurance.utils.enums.CurrentScreenEnum
@@ -30,27 +31,12 @@ fun initActivity(a: Activity) {
 
 }
 
-
-
-@Suppress("UNCHECKED_CAST")
-fun <T> loadData(fileName: String, context: Context? = null, toast: Boolean = true): T? {
-    val a = context ?: App.instance
-    try {
-        if (a?.fileList() != null)
-            if (fileName in a.fileList()) {
-                val fileIS: FileInputStream = a.openFileInput(fileName)
-                val objIS = ObjectInputStream(fileIS)
-                val data = objIS.readObject() as T
-                objIS.close()
-                fileIS.close()
-                return data
-            }
-    } catch (e: Exception) {
-        if (toast) snackString("Error loading data $fileName")
-        e.printStackTrace()
-    }
-    return null
+fun hideKeyboard(view: View) {
+    val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
+
+
 fun String.screenCurrentEnum(): CurrentScreenEnum {
     return when (this) {
         "HOME" -> CurrentScreenEnum.HOME
