@@ -46,6 +46,7 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             if (it.toString().isEmpty()) {
                 binding.rvFrame.invisible()
             } else {
+                binding.rvFrame.visible()
                 val filteredStations = StationFilter.filterStations(it.toString(), LocalData.metro)
                 if (filteredStations.isNotEmpty()) {
                     binding.searchViewRv.visible()
