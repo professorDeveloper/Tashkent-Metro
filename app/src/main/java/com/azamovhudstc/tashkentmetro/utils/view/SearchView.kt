@@ -19,7 +19,7 @@ import com.azamovhudstc.tashkentmetro.utils.custom.StationFilter
 import com.azamovhudstc.tashkentmetro.utils.invisible
 import com.azamovhudstc.tashkentmetro.utils.visible
 
-@SuppressLint("NotifyDataSetChanged")
+@SuppressLint("NotifyDataSetChanged", "SetTextI18n")
 class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
 
     private val adapter by lazy {
@@ -40,6 +40,8 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
         listenKeyboardEvents(binding.searchInputText)
         binding.openSearchButton.setOnClickListener { openSearch() }
         binding.closeSearchButton.setOnClickListener { closeSearch() }
+        setRvFrameMaxHeight()
+
         binding.searchInputText.addTextChangedListener {
             if (it.toString().isEmpty()) {
                 binding.rvFrame.invisible()
@@ -80,13 +82,11 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             binding.rvFrame.layoutParams.height = maxHeight.toInt()
             binding.rvFrame.requestLayout()
         } else {
-//
-            val maxHeight = (screenHeight * 0.8).toInt()
+            val maxHeight = (screenHeight * 0.7).toInt()
             binding.rvFrame.layoutParams.height = maxHeight
             binding.rvFrame.requestLayout()
         }
     }
-
 
     private fun listenKeyboardEvents(editText: EditText) {
         editText.setOnFocusChangeListener { _, hasFocus ->
