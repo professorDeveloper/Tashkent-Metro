@@ -203,6 +203,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
+
         applyMapStyleBasedOnTheme(requireContext(), mMap)
 
         setupMetroLines()
@@ -221,11 +222,11 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
         mMap.setOnCameraMoveListener {
-            val currentPosition = mMap.cameraPosition.target
-            if (!tashkentBounds.contains(currentPosition)) {
-                val moveBack = CameraUpdateFactory.newLatLngBounds(tashkentBounds, 0)
-                mMap.animateCamera(moveBack)
-            }
+//            val currentPosition = mMap.cameraPosition.target
+//            if (!tashkentBounds.contains(currentPosition)) {
+//                val moveBack = CameraUpdateFactory.newLatLngBounds(tashkentBounds, 0)
+//                mMap.animateCamera(moveBack)
+//            }
         }
     }
 

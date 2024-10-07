@@ -28,7 +28,7 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
     private val adapter by lazy {
         SearchViewAdapter { station ->
             onStationSelected?.invoke(station)
-            binding.rvFrame.invisible()
+            binding.rvFrame.gone()
             hideKeyboard(binding.searchInputText)
         }
     }
@@ -55,7 +55,7 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
     private fun initTextChanged(){
         binding.searchInputText.addTextChangedListener {
             if (it.toString().isEmpty()) {
-                binding.rvFrame.invisible()
+                binding.rvFrame.gone()
             } else {
                 Log.d("TMET", ":${it.toString()} ")
                 binding.rvFrame.visible()
@@ -63,7 +63,7 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
                 if (filteredStations.isNotEmpty()) {
                     binding.rvFrame.visible()
                     binding.searchViewRv.visible()
-                    binding.placeHolderFrame.invisible()
+                    binding.placeHolderFrame.gone()
                     setRvFrameMaxHeight()
                     binding.searchViewRv.adapter = adapter
                     adapter.submitList(filteredStations)
@@ -71,8 +71,8 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
                 } else {
                     binding.rvFrame.visible()
                     binding.placeHolderFrame.visible()
-                    binding.searchViewRv.invisible()
-                    binding.noResult.text = "No Result For ${it.toString()}"
+                    binding.searchViewRv.gone()
+                    binding.noResult.text = "No Result For \"${it.toString()}\""
                 }
 
             }
