@@ -16,6 +16,7 @@ import com.azamovhudstc.tashkentmetro.databinding.ViewSearchBinding
 import com.azamovhudstc.tashkentmetro.ui.screens.map.SearchViewAdapter
 import com.azamovhudstc.tashkentmetro.utils.LocalData
 import com.azamovhudstc.tashkentmetro.utils.custom.StationFilter
+import com.azamovhudstc.tashkentmetro.utils.hideKeyboard
 import com.azamovhudstc.tashkentmetro.utils.invisible
 import com.azamovhudstc.tashkentmetro.utils.visible
 
@@ -25,15 +26,15 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
     private val adapter by lazy {
         SearchViewAdapter { station ->
             onStationSelected?.invoke(station)
-            closeSearch()
+            isItemClicked
+            binding.rvFrame.invisible()
+            hideKeyboard(binding.searchInputText)
         }
     }
-    private var itemList: ArrayList<Station> = LocalData.metro.toMutableList() as ArrayList<Station>
-    private var filteredList: ArrayList<Station> = ArrayList()
 
     private val binding: ViewSearchBinding =
         ViewSearchBinding.inflate(LayoutInflater.from(context), this, true)
-
+    var isItemClicked =false
     var onStationSelected: ((Station) -> Unit)? = null
 
     init {
@@ -42,6 +43,9 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
         binding.closeSearchButton.setOnClickListener { closeSearch() }
         setRvFrameMaxHeight()
 
+        binding.searchInputText.setOnClickListener {
+            binding.rvFrame.visibility = View.VISIBLE
+        }
         binding.searchInputText.addTextChangedListener {
             if (it.toString().isEmpty()) {
                 binding.rvFrame.invisible()
@@ -54,6 +58,7 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
                     setRvFrameMaxHeight()
                     binding.searchViewRv.adapter = adapter
                     adapter.submitList(filteredStations)
+
                 } else {
                     binding.placeHolderFrame.visible()
                     binding.searchViewRv.invisible()
@@ -137,5 +142,6 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             }
         })
     }
+
 
 }
