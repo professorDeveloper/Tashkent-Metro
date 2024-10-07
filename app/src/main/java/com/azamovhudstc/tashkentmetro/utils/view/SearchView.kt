@@ -46,16 +46,17 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             if (it.toString().isEmpty()) {
                 binding.rvFrame.invisible()
             } else {
+                binding.rvFrame.visible()
                 val filteredStations = StationFilter.filterStations(it.toString(), LocalData.metro)
                 if (filteredStations.isNotEmpty()) {
-                    binding.rvFrame.visible()
+                    binding.searchViewRv.visible()
                     binding.placeHolderFrame.invisible()
                     setRvFrameMaxHeight()
                     binding.searchViewRv.adapter = adapter
                     adapter.submitList(filteredStations)
                 } else {
                     binding.placeHolderFrame.visible()
-                    binding.rvFrame.invisible()
+                    binding.searchViewRv.invisible()
                     binding.noResult.text = "No Result For ${it.toString()}"
                 }
             }

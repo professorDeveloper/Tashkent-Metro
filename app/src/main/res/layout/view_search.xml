@@ -105,40 +105,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searchViewRv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:maxHeight="@dimen/_200sdp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="4"
-            tools:listitem="@layout/search_view_item" />
-
-    </FrameLayout>
-
-
-    <FrameLayout
-        android:id="@+id/placeHolderFrame"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_250sdp"
-        android:layout_marginHorizontal="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/blur_bg"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
-        tools:visibility="visible">
-
-
         <LinearLayout
+            android:id="@+id/placeHolderFrame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/_20sdp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="@dimen/_80sdp"
@@ -164,6 +140,18 @@
                 android:textSize="@dimen/_13sdp" />
 
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchViewRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:maxHeight="@dimen/_200sdp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="4"
+            tools:listitem="@layout/search_view_item" />
+
 
     </FrameLayout>
 
