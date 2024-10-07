@@ -15,6 +15,10 @@ class IntroViewModelImpl @Inject constructor(val appReference: AppReference) : I
     override val homeScreenLiveData: MutableLiveData<Unit> = MutableLiveData()
 
     init {
+
+    }
+
+    fun checkPage(){
         when (appReference.currentScreenEnum) {
             CurrentScreenEnum.HOME -> {
                 homeScreenLiveData.postValue(Unit)
