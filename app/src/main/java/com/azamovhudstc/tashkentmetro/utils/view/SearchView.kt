@@ -8,7 +8,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewAnimationUtils
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.core.widget.addTextChangedListener
@@ -20,7 +19,7 @@ import com.azamovhudstc.tashkentmetro.utils.custom.StationFilter
 import com.azamovhudstc.tashkentmetro.utils.invisible
 import com.azamovhudstc.tashkentmetro.utils.visible
 
-@SuppressLint("NotifyDataSetChanged")
+@SuppressLint("NotifyDataSetChanged", "SetTextI18n")
 class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
 
     private val adapter by lazy {
@@ -29,14 +28,13 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             closeSearch()
         }
     }
-    private var itemList: ArrayList<Station> =
-        LocalData.metro.toMutableList() as ArrayList<Station>
+    private var itemList: ArrayList<Station> = LocalData.metro.toMutableList() as ArrayList<Station>
     private var filteredList: ArrayList<Station> = ArrayList()
 
     private val binding: ViewSearchBinding =
         ViewSearchBinding.inflate(LayoutInflater.from(context), this, true)
 
-        var onStationSelected: ((Station) -> Unit)? = null
+    var onStationSelected: ((Station) -> Unit)? = null
 
     init {
         listenKeyboardEvents(binding.searchInputText)
@@ -48,10 +46,18 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             if (it.toString().isEmpty()) {
                 binding.rvFrame.invisible()
             } else {
-                binding.rvFrame.visible()
                 val filteredStations = StationFilter.filterStations(it.toString(), LocalData.metro)
-                binding.searchViewRv.adapter = adapter
-                adapter.submitList(filteredStations)
+                if (filteredStations.isNotEmpty()) {
+                    binding.rvFrame.visible()
+                    binding.placeHolderFrame.invisible()
+                    setRvFrameMaxHeight()
+                    binding.searchViewRv.adapter = adapter
+                    adapter.submitList(filteredStations)
+                } else {
+                    binding.placeHolderFrame.visible()
+                    binding.rvFrame.invisible()
+                    binding.noResult.text = "No Result For ${it.toString()}"
+                }
             }
         }
         binding.root.viewTreeObserver.addOnGlobalLayoutListener {
@@ -65,7 +71,6 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
 
         val r = Rect()
         binding.root.getWindowVisibleDisplayFrame(r)
-
 
 
         val visibleScreenHeight = r.bottom - r.top
@@ -83,9 +88,6 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
         }
     }
 
-
-
-
     private fun listenKeyboardEvents(editText: EditText) {
         editText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && editText.text.toString().isNotEmpty()) {
@@ -98,25 +100,6 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun filterList(text: String) {
-        filteredList.clear()
-        for (item in itemList) {
-            if (item.name.contains(text, ignoreCase = true)) {
-                filteredList.add(item)
-            }
-        }
-        if (!filteredList.isEmpty()) {
-            binding.rvFrame.visible()
-            binding.searchViewRv.adapter = adapter
-            adapter.submitList(filteredList)
-            adapter.notifyDataSetChanged()
-
-        } else {
-            binding.rvFrame.invisible()
-        }
-    }
-
 
     private fun openSearch() {
         binding.searchInputText.setText("")
@@ -125,7 +108,8 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             binding.searchOpenView,
             (binding.openSearchButton.right + binding.openSearchButton.left) / 2,
             (binding.openSearchButton.top + binding.openSearchButton.bottom) / 2,
-            0f, width.toFloat()
+            0f,
+            width.toFloat()
         )
         circularReveal.duration = 300
         circularReveal.start()
@@ -137,7 +121,8 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             binding.searchOpenView,
             (binding.openSearchButton.right + binding.openSearchButton.left) / 2,
             (binding.openSearchButton.top + binding.openSearchButton.bottom) / 2,
-            width.toFloat(), 0f
+            width.toFloat(),
+            0f
         )
 
         circularConceal.duration = 300

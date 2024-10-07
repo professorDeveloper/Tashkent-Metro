@@ -124,7 +124,7 @@
         android:layout_height="@dimen/_250sdp"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/card_background"
+        android:background="@drawable/blur_bg"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -154,14 +154,14 @@
                 android:fontFamily="@font/nunito_bold"
                 android:text="No Results For Zd"
                 android:textColor="@color/white_and_black"
-                android:textSize="@dimen/_22sdp" />
+                android:textSize="@dimen/_18sdp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_semi_bold"
                 android:text="Check the spelling or try a new search "
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_13sdp" />
 
         </LinearLayout>
 
