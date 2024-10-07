@@ -1,5 +1,7 @@
 package com.azamovhudstc.tashkentmetro.ui.screens.map
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
@@ -26,6 +28,7 @@ import com.azamovhudstc.tashkentmetro.data.model.station.Station
 import com.azamovhudstc.tashkentmetro.data.model.station.StationLine
 import com.azamovhudstc.tashkentmetro.data.model.station.StationState
 import com.azamovhudstc.tashkentmetro.databinding.MapScreenBinding
+import com.azamovhudstc.tashkentmetro.ui.activity.MainActivity
 import com.azamovhudstc.tashkentmetro.ui.screens.map.sheet.StationTimelineBottomSheet
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
 import com.azamovhudstc.tashkentmetro.utils.LocalData
@@ -67,10 +70,11 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private var isFrom = true
     private val polylines = mutableListOf<Polyline>()
     private val markers = mutableListOf<Marker>()
-    lateinit var bottomSheetDialog: BottomSheetDialog
+    private lateinit var bottomSheetDialog: BottomSheetDialog
     private val originalPolylineColors = mutableMapOf<Polyline, Int>()
     private var lastSelectedMarker: Marker? = null
     private var isPopular = true
+    private var isSheetVisible = false
 
     @Inject
     lateinit var userPreferenceManager: AppReference
@@ -82,11 +86,19 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         bottomSheetDialog = BottomSheetDialog(requireContext())
         mapView.onCreate(null)
         mapView.getMapAsync(this)
+        binding.bottomSheet.gone()
+
         binding.mapStyle.setOnClickListener {
             showMapTypeBottomSheet()
         }
-        binding.myLocation.setOnClickListener {
-            showMapStationBottomSheet()
+
+        binding.bottomSheet.setOnClickListener {
+            if (isSheetVisible) {
+                hideBottomSheet()
+            } else {
+                showBottomSheet()
+            }
+//            isSheetVisible = !isSheetVisible
         }
 
         binding.searchView.onStationSelected = { station ->
@@ -133,6 +145,42 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
     }
+
+    private fun showBottomSheet() {
+        (activity as? MainActivity)?.hideBottomNavigation()
+        binding.bottomSheet.visibility = View.VISIBLE
+        binding.bottomSheet.translationY = binding.bottomSheet.height.toFloat()
+        val animator = ObjectAnimator.ofFloat(binding.bottomSheet, "translationY", 0f)
+        animator.duration = 300
+        animator.start()
+        isSheetVisible = true
+
+    }
+
+
+    private fun hideBottomSheet() {
+
+        val animator = ObjectAnimator.ofFloat(
+            binding.bottomSheet,
+            "translationY",
+            binding.bottomSheet.height.toFloat()
+        )
+        animator.duration = 300
+        animator.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {}
+            override fun onAnimationEnd(animation: Animator) {
+                binding.bottomSheet.visibility = View.GONE
+                (activity as? MainActivity)?.showBottomNavigation()
+            }
+
+            override fun onAnimationCancel(animation: Animator) {}
+            override fun onAnimationRepeat(animation: Animator) {}
+        })
+
+        animator.start()
+        isSheetVisible = false
+    }
+
 
     private fun clearMap() {
         updateOpacity(false)
@@ -230,14 +278,50 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
     }
 
+    fun findAdjacentStations(
+        station: Station
+    ): Pair<Station?, Station?> {
+        metro.forEach { stationLine ->
+            val stations = stationLine.stations
+            val index = stations.indexOfFirst { it.id == station.id }
+            if (index != -1) {
+                val previousStation = if (index > 0) stations[index - 1] else null
+                val nextStation = if (index < stations.size - 1) stations[index + 1] else null
+                return Pair(previousStation, nextStation)
+            }
+        }
+        return Pair(null, null) // Bekat topilmagan bo'lsa
+    }
+
 
     private fun handleMarkerClick(marker: Marker) {
 
         val station = marker.tag as? Station
 
+        if (!isSheetVisible) {
+            showBottomSheet()
+        }
         station?.let {
-            Log.d("MarkerClick", "Clicked station: ${it.name}")
+            val result = findAdjacentStations(it)
+            val previousStation = result.first
+            val nextStation = result.second
+            binding.bottomDetailTwoStation.previousStation.text = previousStation?.name ?: "Last station"
+            binding.bottomDetailTwoStation.nextStation.text = nextStation?.name?: "Last station"
+            binding.bottomDetailTwoStation.currentStation.text = it.name
 
+            binding.bottomDetailTwoStation.previousStation.setOnClickListener {
+                previousStation?.let { prev ->
+                    val previousMarker = findMarkerByStation(prev)
+                    previousMarker?.let {prev1 -> handleMarkerClick(prev1) }
+                }
+            }
+
+            binding.bottomDetailTwoStation.nextStation.setOnClickListener {
+                nextStation?.let { next ->
+                    val nextMarker = findMarkerByStation(next)
+                    nextMarker?.let {next1 -> handleMarkerClick(next1) }
+                }
+            }
         }
 
         lastSelectedMarker?.let { resetMarkerColor(it, station) }
@@ -250,6 +334,13 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
 
         lastSelectedMarker = marker
+    }
+
+    private fun findMarkerByStation(station: Station): Marker? {
+        return markers.find { marker ->
+            val markerStation = marker.tag as? Station
+            markerStation == station
+        }
     }
 
     private fun resetMarkerColor(marker: Marker, station: Station?) {
@@ -426,21 +517,22 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
 
     private fun showMapStationBottomSheet() {
-        val view = layoutInflater.inflate(R.layout.map_station_bottom_sheet, null)
-        bottomSheetDialog.setContentView(view)
-        bottomSheetDialog.show()
-        bottomSheetDialog.setOnShowListener {
-            val bottomSheet =
-                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-            bottomSheet?.let {
-                val behavior = BottomSheetBehavior.from(it)
-                val displayMetrics = resources.displayMetrics
-                val screenHeight = displayMetrics.heightPixels
-                val bottomSheetHeight = (screenHeight * 0.9).toInt()
-                behavior.peekHeight = bottomSheetHeight
-            }
-        }
-        bottomSheetDialog.show()
+//        val view = layoutInflater.inflate(R.layout.map_station_bottom_sheet, null)
+//        bottomSheetDialog.setContentView(view)
+//        bottomSheetDialog.show()
+//        bottomSheetDialog.setOnShowListener {
+//            val bottomSheet =
+//                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+//            bottomSheet?.let {
+//                val behavior = BottomSheetBehavior.from(it)
+//                val displayMetrics = resources.displayMetrics
+//                val screenHeight = displayMetrics.heightPixels
+//                val bottomSheetHeight = (screenHeight * 0.9).toInt()
+//                behavior.peekHeight = bottomSheetHeight
+//            }
+//        }
+//        bottomSheetDialog.show()
+        binding.bottomDetailTwoStation.mainBottom.visible()
 
     }
 
@@ -458,6 +550,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 val bottomSheetHeight = (screenHeight * 0.9).toInt()
                 behavior.peekHeight = bottomSheetHeight
             }
+
         }
 
 

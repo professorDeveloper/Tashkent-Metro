@@ -62,8 +62,9 @@
             app:tint="@color/airplane_color" />
     </com.google.android.material.card.MaterialCardView>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_height="wrap_content">
 
@@ -154,7 +155,20 @@
             </FrameLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-    </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+        <include
+                android:id="@+id/bottom_detail_two_station"
+                layout="@layout/map_station_bottom_sheet" />
+        </LinearLayout>
+    </LinearLayout>
 
     <com.azamovhudstc.tashkentmetro.utils.view.SearchView
         android:layout_width="0dp"
