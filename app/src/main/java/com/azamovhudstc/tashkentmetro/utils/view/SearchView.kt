@@ -103,7 +103,6 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
 
 
     private fun openSearch() {
-        binding.searchInputText.setText("")
         binding.searchOpenView.visibility = View.VISIBLE
         val circularReveal = ViewAnimationUtils.createCircularReveal(
             binding.searchOpenView,
@@ -134,7 +133,6 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             override fun onAnimationStart(animation: Animator) = Unit
             override fun onAnimationEnd(animation: Animator) {
                 binding.searchOpenView.visibility = View.INVISIBLE
-                binding.searchInputText.setText("")
                 circularConceal.removeAllListeners()
             }
         })
