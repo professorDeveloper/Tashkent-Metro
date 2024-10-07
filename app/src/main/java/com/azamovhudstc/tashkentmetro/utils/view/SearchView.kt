@@ -19,7 +19,6 @@ import com.azamovhudstc.tashkentmetro.utils.LocalData
 import com.azamovhudstc.tashkentmetro.utils.custom.StationFilter
 import com.azamovhudstc.tashkentmetro.utils.gone
 import com.azamovhudstc.tashkentmetro.utils.hideKeyboard
-import com.azamovhudstc.tashkentmetro.utils.invisible
 import com.azamovhudstc.tashkentmetro.utils.visible
 
 @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
@@ -39,29 +38,32 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
 
     init {
         listenKeyboardEvents(binding.searchInputText)
-        binding.openSearchButton.setOnClickListener { openSearch() }
+        binding.openSearchButton.setOnClickListener { openSearch()
+            initTextChanged()
+        }
         binding.closeSearchButton.setOnClickListener { closeSearch() }
         setRvFrameMaxHeight()
 
         binding.searchInputText.setOnClickListener {
             if (binding.searchInputText.text.isNotEmpty()) binding.rvFrame.visibility = View.VISIBLE
+
         }
         binding.root.viewTreeObserver.addOnGlobalLayoutListener {
             setRvFrameMaxHeight()
         }
-        initTextChanged()
     }
 
-    private fun initTextChanged(){
+    private fun initTextChanged() {
         binding.searchInputText.addTextChangedListener {
             if (it.toString().isEmpty()) {
                 binding.rvFrame.gone()
             } else {
-                Log.d("TMET", ":${it.toString()} ")
-                binding.rvFrame.visible()
+                 binding.rvFrame.visible()
+
                 val filteredStations = StationFilter.filterStations(it.toString(), LocalData.metro)
                 if (filteredStations.isNotEmpty()) {
                     binding.rvFrame.visible()
+
                     binding.searchViewRv.visible()
                     binding.placeHolderFrame.gone()
                     setRvFrameMaxHeight()
@@ -104,11 +106,12 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
     }
 
     private fun listenKeyboardEvents(editText: EditText) {
+
         editText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && editText.text.toString().isNotEmpty()) {
                 binding.rvFrame.visibility = View.VISIBLE
             } else {
-                binding.rvFrame.visibility = View.INVISIBLE
+                binding.rvFrame.visibility = View.GONE
             }
         }
     }
@@ -154,4 +157,11 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
     }
 
 
+    fun destroyView() {
+        binding.searchInputText.setText("")
+        binding.rvFrame.gone()
+        binding.searchOpenView.visibility = View.INVISIBLE
+        binding.searchInputText.removeTextChangedListener(null)
+
+    }
 }

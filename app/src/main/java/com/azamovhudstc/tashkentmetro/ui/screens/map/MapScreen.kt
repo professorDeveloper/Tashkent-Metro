@@ -691,6 +691,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.clearAllValue()
+        binding.searchView.destroyView()
     }
 
     private fun drawGradient(centerColor: Int): GradientDrawable {
