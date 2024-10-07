@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewAnimationUtils
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.core.widget.addTextChangedListener
@@ -28,34 +29,29 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             closeSearch()
         }
     }
-    private var itemList: ArrayList<Station> = LocalData.metro.toMutableList() as ArrayList<Station>
+    private var itemList: ArrayList<Station> =
+        LocalData.metro.toMutableList() as ArrayList<Station>
     private var filteredList: ArrayList<Station> = ArrayList()
 
     private val binding: ViewSearchBinding =
         ViewSearchBinding.inflate(LayoutInflater.from(context), this, true)
 
-    var onStationSelected: ((Station) -> Unit)? = null
+        var onStationSelected: ((Station) -> Unit)? = null
 
     init {
         listenKeyboardEvents(binding.searchInputText)
         binding.openSearchButton.setOnClickListener { openSearch() }
         binding.closeSearchButton.setOnClickListener { closeSearch() }
+        setRvFrameMaxHeight()
+
         binding.searchInputText.addTextChangedListener {
             if (it.toString().isEmpty()) {
                 binding.rvFrame.invisible()
             } else {
+                binding.rvFrame.visible()
                 val filteredStations = StationFilter.filterStations(it.toString(), LocalData.metro)
-                if (filteredStations.isNotEmpty()) {
-                    binding.rvFrame.visible()
-                    binding.placeHolderFrame.invisible()
-                    setRvFrameMaxHeight()
-                    binding.searchViewRv.adapter = adapter
-                    adapter.submitList(filteredStations)
-                } else {
-                    binding.placeHolderFrame.visible()
-                    binding.rvFrame.invisible()
-                    binding.noResult.text = "No Result For ${it.toString()}"
-                }
+                binding.searchViewRv.adapter = adapter
+                adapter.submitList(filteredStations)
             }
         }
         binding.root.viewTreeObserver.addOnGlobalLayoutListener {
@@ -71,6 +67,7 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
         binding.root.getWindowVisibleDisplayFrame(r)
 
 
+
         val visibleScreenHeight = r.bottom - r.top
         val keypadHeight = screenHeight - visibleScreenHeight
 
@@ -80,12 +77,13 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             binding.rvFrame.layoutParams.height = maxHeight.toInt()
             binding.rvFrame.requestLayout()
         } else {
-//
-            val maxHeight = (screenHeight * 0.8).toInt()
+            val maxHeight = (screenHeight * 0.7).toInt()
             binding.rvFrame.layoutParams.height = maxHeight
             binding.rvFrame.requestLayout()
         }
     }
+
+
 
 
     private fun listenKeyboardEvents(editText: EditText) {
@@ -100,6 +98,25 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun filterList(text: String) {
+        filteredList.clear()
+        for (item in itemList) {
+            if (item.name.contains(text, ignoreCase = true)) {
+                filteredList.add(item)
+            }
+        }
+        if (!filteredList.isEmpty()) {
+            binding.rvFrame.visible()
+            binding.searchViewRv.adapter = adapter
+            adapter.submitList(filteredList)
+            adapter.notifyDataSetChanged()
+
+        } else {
+            binding.rvFrame.invisible()
+        }
+    }
+
 
     private fun openSearch() {
         binding.searchInputText.setText("")
@@ -108,8 +125,7 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             binding.searchOpenView,
             (binding.openSearchButton.right + binding.openSearchButton.left) / 2,
             (binding.openSearchButton.top + binding.openSearchButton.bottom) / 2,
-            0f,
-            width.toFloat()
+            0f, width.toFloat()
         )
         circularReveal.duration = 300
         circularReveal.start()
@@ -121,8 +137,7 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             binding.searchOpenView,
             (binding.openSearchButton.right + binding.openSearchButton.left) / 2,
             (binding.openSearchButton.top + binding.openSearchButton.bottom) / 2,
-            width.toFloat(),
-            0f
+            width.toFloat(), 0f
         )
 
         circularConceal.duration = 300
