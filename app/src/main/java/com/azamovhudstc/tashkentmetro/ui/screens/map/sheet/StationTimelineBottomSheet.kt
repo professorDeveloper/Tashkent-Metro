@@ -1,8 +1,7 @@
-package com.azamovhudstc.tashkentmetro.ui.screens.map
+package com.azamovhudstc.tashkentmetro.ui.screens.map.sheet
 
 import TimelineAdapter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
