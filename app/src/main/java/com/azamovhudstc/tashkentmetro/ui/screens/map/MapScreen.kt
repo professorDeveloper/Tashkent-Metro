@@ -180,8 +180,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
         binding.buttonFrom.setOnClickListener {
-            showInputSearchBottomSheet(viewModel.toTv.value)
-            isFrom = true
+            if (lastSelectedMarker == null) {
+                showInputSearchBottomSheet(viewModel.toTv.value)
+                isFrom = true
+            }else{
+
+            }
         }
 
         binding.showDetailRouteButton.setOnClickListener {
@@ -232,7 +236,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             override fun onAnimationCancel(animation: Animator) {}
             override fun onAnimationRepeat(animation: Animator) {}
         })
-
+        val station = lastSelectedMarker?.tag as? Station
+        lastSelectedMarker?.let { resetMarkerColor(it, station) }
+        lastSelectedMarker = null
         animator.start()
         isSheetVisible = false
     }
@@ -843,6 +849,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         viewModel.clearAllValue()
         (activity as? MainActivity)?.showBottomNavigation()
         binding.searchView.destroyView()
+        lastSelectedMarker = null
 
     }
 
