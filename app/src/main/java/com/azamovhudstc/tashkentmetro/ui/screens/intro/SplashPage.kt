@@ -1,6 +1,7 @@
 package com.azamovhudstc.tashkentmetro.ui.screens.intro
 
 import android.content.Intent
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope

@@ -12,6 +12,7 @@
     <color name="button_leaderboard">#172E4B</color>
     <color name="button_contribute">#281931</color>
     <color name="card_intro_color">#3C3C42</color>
+    <color name="card_search_color">#3C3C42</color>
     <color name="bg_black_50" alpha="128">#80C6C6C6</color>
 
     <color name="main_background">#000000</color>

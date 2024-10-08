@@ -1,5 +1,6 @@
 package com.azamovhudstc.tashkentmetro.viewmodel.imp
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.azamovhudstc.infinityinsurance.utils.enums.CurrentScreenEnum
@@ -8,15 +9,11 @@ import com.azamovhudstc.tashkentmetro.viewmodel.IntroViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@HiltViewModel
-class IntroViewModelImpl @Inject constructor(val appReference: AppReference) : IntroViewModel,
-    ViewModel() {
-    override val loginScreenLiveData: MutableLiveData<Unit> = MutableLiveData()
-    override val homeScreenLiveData: MutableLiveData<Unit> = MutableLiveData()
-
-    init {
-
-    }
+    @HiltViewModel
+    class IntroViewModelImpl @Inject constructor(val appReference: AppReference) : IntroViewModel,
+        ViewModel() {
+        override val loginScreenLiveData: MutableLiveData<Unit> = MutableLiveData()
+        override val homeScreenLiveData: MutableLiveData<Unit> = MutableLiveData()
 
     fun checkPage(){
         when (appReference.currentScreenEnum) {

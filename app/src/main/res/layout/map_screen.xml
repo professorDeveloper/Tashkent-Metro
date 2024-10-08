@@ -72,7 +72,7 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_7sdp"
             android:layout_marginBottom="@dimen/_10sdp"
-            app:cardBackgroundColor="@color/card_intro_color"
+            app:cardBackgroundColor="@color/card_search_color"
             app:cardCornerRadius="@dimen/_7sdp">
 
             <LinearLayout
