@@ -3,6 +3,7 @@ package com.azamovhudstc.tashkentmetro.utils
 import com.azamovhudstc.tashkentmetro.data.model.TrainStatusModel
 import com.azamovhudstc.tashkentmetro.data.model.station.Line
 import com.azamovhudstc.tashkentmetro.data.model.station.Station
+import com.azamovhudstc.tashkentmetro.data.model.station.StationLang
 import com.azamovhudstc.tashkentmetro.data.model.station.StationLine
 import com.azamovhudstc.tashkentmetro.data.model.station.StationLocation
 import com.azamovhudstc.tashkentmetro.data.model.station.StationState
@@ -15,6 +16,61 @@ object LocalData {
         TrainStatusModel(from = "Olmazor", to = "Chilonzor", status = "Keldi"),
         TrainStatusModel(from = "Olmazor", to = "Chilonzor", status = "Keldi"),
         TrainStatusModel(from = "Olmazor", to = "Chilonzor", status = "Keldi")
+    )
+
+    val stations = listOf(
+        StationLang("abdulla_qodiriy", mapOf("en" to "Abdulla Qodiriy", "ru" to "Абдулла Кодирий", "uz" to "Abdulla Qodiriy")),
+        StationLang("alisher_navoiy", mapOf("en" to "Alisher Navoiy", "ru" to "Алишер Навоий", "uz" to "Alisher Navoiy")),
+        StationLang("almazar", mapOf("en" to "Almazar", "ru" to "Алмазар", "uz" to "Olmazor")),
+        StationLang("amir_temur_square", mapOf("en" to "Amir Temur Square", "ru" to "Сквер Амира Темура", "uz" to "Amir Temur Maydoni")),
+        StationLang("beruniy", mapOf("en" to "Beruniy", "ru" to "Беруни", "uz" to "Beruniy")),
+        StationLang("bodomzor", mapOf("en" to "Bodomzor", "ru" to "Бодомзор", "uz" to "Bodomzor")),
+        StationLang("buyuk_ipak_yuli", mapOf("en" to "Buyuk Ipak Yuli", "ru" to "Буюк ​​ипак йули", "uz" to "Buyuk Ipak Yo’li")),
+        StationLang("chilanzar", mapOf("en" to "Chilanzar", "ru" to "Чиланзар", "uz" to "Chilonzor")),
+        StationLang("chinor", mapOf("en" to "Chinor", "ru" to "Чинор", "uz" to "Chinor")),
+        StationLang("chorsu", mapOf("en" to "Chorsu", "ru" to "Чорсу", "uz" to "Chorsu")),
+        StationLang("choshtepa", mapOf("en" to "Choshtepa", "ru" to "Чоштепа", "uz" to "Choshtepa")),
+        StationLang("dustlik", mapOf("en" to "Dustlik", "ru" to "Дустлик", "uz" to "Do’stlik")),
+        StationLang("friendship_of_peoples", mapOf("en" to "Friendship of Peoples", "ru" to "Дружба народов", "uz" to "Xalqlar Do’stligi")),
+        StationLang("gafur_gulam", mapOf("en" to "Gafur Gulam", "ru" to "Гафур Гулям", "uz" to "G’afur G’ulom")),
+        StationLang("hamid_alimjan", mapOf("en" to "Hamid Alimjan", "ru" to "Хамид Алимджан", "uz" to "Hamid Alimjon")),
+        StationLang("khonobod", mapOf("en" to "Khonobod", "ru" to "Хонобод", "uz" to "Xonobod")),
+        StationLang("kipchak", mapOf("en" to "Kipchak", "ru" to "Кипчак", "uz" to "Qipchoq")),
+        StationLang("kosmonavtlar", mapOf("en" to "Kosmonavtlar", "ru" to "Космонавты", "uz" to "Kosmonavtlar")),
+        StationLang("marhamat", mapOf("en" to "Marhamat", "ru" to "Марҳамат", "uz" to "Marhamat")),
+        StationLang("mashinasozlar", mapOf("en" to "Mashinasozlar", "ru" to "Машинасозлар", "uz" to "Mashinasozlar")),
+        StationLang("matonat", mapOf("en" to "Matonat", "ru" to "Матонат", "uz" to "Matonat")),
+        StationLang("ming_urik", mapOf("en" to "Ming Urik", "ru" to "Минг Урик", "uz" to "Ming O’rik")),
+        StationLang("minor", mapOf("en" to "Minor", "ru" to "Минор", "uz" to "Minor")),
+        StationLang("mirzo_ulugbek", mapOf("en" to "Mirzo Ulugbek", "ru" to "Мирзо Улугбек", "uz" to "Mirzo Ulug’bek")),
+        StationLang("mustakillik_square", mapOf("en" to "Mustakillik Square", "ru" to "Площадь Мустакиллик", "uz" to "Mustaqillik Maydoni")),
+        StationLang("national_park", mapOf("en" to "National Park", "ru" to "Национальный парк", "uz" to "Milliy bog’")),
+        StationLang("novza", mapOf("en" to "Novza", "ru" to "Новза", "uz" to "Novza")),
+        StationLang("olmas", mapOf("en" to "Olmas", "ru" to "Алмас", "uz" to "Olmas")),
+        StationLang("oybek", mapOf("en" to "Oybek", "ru" to "Ойбек", "uz" to "Oybek")),
+        StationLang("pakhtakor", mapOf("en" to "Pakhtakor", "ru" to "Пахтакор", "uz" to "Paxtakor")),
+        StationLang("pushkin", mapOf("en" to "Pushkin", "ru" to "Пушкин", "uz" to "Pushkin")),
+        StationLang("qiyot", mapOf("en" to "Qiyot", "ru" to "Киёт", "uz" to "Qiyot")),
+        StationLang("quruvchilar", mapOf("en" to "Quruvchilar", "ru" to "Курувчилар", "uz" to "Quruvchilar")),
+        StationLang("quyliq", mapOf("en" to "Quyliq", "ru" to "Куилик", "uz" to "Qo’yliq")),
+        StationLang("rohat", mapOf("en" to "Rohat", "ru" to "Рохат", "uz" to "Rohat")),
+        StationLang("sergeli", mapOf("en" to "Sergeli", "ru" to "Сергели", "uz" to "Sergeli")),
+        StationLang("shakhriston", mapOf("en" to "Shakhriston", "ru" to "Шахристон", "uz" to "Shahriston")),
+        StationLang("tashkent", mapOf("en" to "Tashkent", "ru" to "Ташкент", "uz" to "Toshkent")),
+        StationLang("technopark", mapOf("en" to "Technopark", "ru" to "Технопарк", "uz" to "Texnopark")),
+        StationLang("temiryo'l", mapOf("en" to "Temiryo'l", "ru" to "Темирйул", "uz" to "Temiryo’l")),
+        StationLang("tinchlik", mapOf("en" to "Tinchlik", "ru" to "Тинчлик", "uz" to "Tinchlik")),
+        StationLang("tolariq", mapOf("en" to "Tolariq", "ru" to "Толарик", "uz" to "Tolariq")),
+        StationLang("turkistan", mapOf("en" to "Turkistan", "ru" to "Туркистан", "uz" to "Turkistan")),
+        StationLang("turon", mapOf("en" to "Turon", "ru" to "Турон", "uz" to "Turon")),
+        StationLang("tuzel", mapOf("en" to "Tuzel", "ru" to "Тузель", "uz" to "Tuzel")),
+        StationLang("uzbekistan", mapOf("en" to "Uzbekistan", "ru" to "Узбекистан", "uz" to "O’zbekiston")),
+        StationLang("uzgarish", mapOf("en" to "Uzgarish", "ru" to "Узгариш", "uz" to "O’zgarish")),
+        StationLang("yangihayot", mapOf("en" to "Yangihayot", "ru" to "Янгиҳайот", "uz" to "Yangihayot")),
+        StationLang("yangiobod", mapOf("en" to "Yangiobod", "ru" to "Янгиобод", "uz" to "Yangiobod")),
+        StationLang("yashnabad", mapOf("en" to "Yashnabad", "ru" to "Яшнабад", "uz" to "Yashnobod")),
+        StationLang("yunus_rajabiy", mapOf("en" to "Yunus Rajabiy", "ru" to "Юнус Раджабий", "uz" to "Yunus Rajabiy")),
+        StationLang("yunusabad", mapOf("en" to "Yunusabad", "ru" to "Юнусабад", "uz" to "Yunusobod"))
     )
 
 
