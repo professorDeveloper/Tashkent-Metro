@@ -34,7 +34,7 @@ class IntroActivity : AppCompatActivity() {
         graph = host.navController.navInflater.inflate(R.navigation.intro_graph)
         model.loginScreenLiveData.observe(this@IntroActivity, getStartedScreenObserver)
         model.homeScreenLiveData.observe(this@IntroActivity, openHomeScreenObserver)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S) {
             model.checkPage()
         }else {
             graph.setStartDestination(R.id.splashPage)
