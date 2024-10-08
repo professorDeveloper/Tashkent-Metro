@@ -7,6 +7,7 @@
     <color name="colorSecondary">#F2A33C</color>
     <color name="button_stations">#31250E</color>
     <color name= "toolbarBg">#000000</color>
+    <color name="colorGray">#DFDFE6</color>
 
     <color name="button_leaderboard">#172E4B</color>
     <color name="button_contribute">#281931</color>

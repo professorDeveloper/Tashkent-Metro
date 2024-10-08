@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:background="@color/card_background"
     android:paddingHorizontal="16dp">
 
 
@@ -29,7 +30,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:text="Chilanzar"
-            android:textColor="@android:color/black"
+            android:textColor="@color/white_and_black"
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold" />
 

@@ -75,45 +75,45 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
-
-        <EditText
-            android:id="@+id/maskPhone"
-            android:layout_width="match_parent"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:imeOptions="actionDone"
-            android:inputType="phone"
-            android:background="@android:color/transparent"
-            android:hint="+998 XX-XXX-XX-XX"
-            android:textSize="@dimen/_12sdp"/>
+            <EditText
+                android:id="@+id/maskPhone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:background="@android:color/transparent"
+                android:hint="+998 XX-XXX-XX-XX"
+                android:imeOptions="actionDone"
+                android:inputType="phone"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:textSize="@dimen/_12sdp" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:alpha=".5"
-                android:visibility="gone"
                 android:id="@+id/divider_edit"
-                android:layout_height="wrap_content"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha=".5"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/button_edit_phone_number"
                 android:layout_width="match_parent"
-                android:paddingHorizontal="@dimen/_8sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginStart="@dimen/_4sdp"
-                android:gravity="center_vertical"
-                android:textAllCaps="false"
-                android:visibility="gone"
-                android:text="Edit phone number"
                 android:fontFamily="@font/nunito_bold"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:text="Edit phone number"
+                android:textAllCaps="false"
                 android:textColor="@color/colorAccent"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp"
+                android:visibility="gone" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -135,10 +135,10 @@
     <TextView
 
         android:id="@+id/textView14"
-        android:layout_marginTop="@dimen/_20sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_7sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:text="Verification Code"
         android:textAllCaps="true"
         android:textColor="@color/bg_black_50"
@@ -153,9 +153,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_3sdp"
         app:cardCornerRadius="@dimen/_6sdp"
         app:cardElevation="0dp"
-        android:layout_marginTop="@dimen/_3sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14">
@@ -173,12 +173,12 @@
                 android:layout_marginStart="@dimen/_4sdp"
                 android:background="@android:color/transparent"
                 android:hint="XXX-XXX"
-                app:mask="###-###"
-                android:maxLength="7"
-                android:inputType="number"
                 android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="7"
                 android:paddingHorizontal="@dimen/_8sdp"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"
+                app:mask="###-###" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
@@ -188,15 +188,16 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/button_resend_code"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="@dimen/_35sdp"
-                    android:enabled="false"
                     android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_weight="1"
+                    android:enabled="false"
                     android:fontFamily="@font/nunito_regular"
                     android:gravity="center_vertical"
                     android:paddingHorizontal="@dimen/_8sdp"
@@ -207,10 +208,10 @@
                 <TextView
                     android:id="@+id/resend_timer_tv"
                     android:layout_width="wrap_content"
-                    android:text="1:00"
-                    android:fontFamily="@font/nunito_bold"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_7sdp"
-                    android:layout_height="wrap_content"/>
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="1:00" />
             </LinearLayout>
 
         </LinearLayout>
@@ -233,9 +234,9 @@
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_enter_code"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="received_txt,cardView6,textView14"
-        android:layout_height="wrap_content"/>
+        app:constraint_referenced_ids="received_txt,cardView6,textView14" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/nextBtn"
@@ -244,11 +245,12 @@
         android:layout_marginHorizontal="@dimen/_14sdp"
         android:layout_marginBottom="@dimen/_24sdp"
         android:enabled="false"
+        android:fitsSystemWindows="true"
         android:fontFamily="@font/nunito_bold"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:fitsSystemWindows="true"
         android:text="Next"
+        android:textColor="@color/card_background"
         android:textSize="@dimen/_12ssp"
         app:cornerRadius="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -5,5 +5,5 @@
         android:topRightRadius="@dimen/_15sdp"/>
 
 
-    <solid android:color="@color/search_top_toolbar"/>
+    <solid android:color="@color/card_background"/>
 </shape>

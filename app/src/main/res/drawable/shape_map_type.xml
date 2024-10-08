@@ -3,5 +3,6 @@
 
     <corners android:topRightRadius="@dimen/_15sdp"
         android:topLeftRadius="@dimen/_15sdp"/>
+    <solid android:color="@color/card_background"/>
 
 </shape>
