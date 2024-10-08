@@ -9,9 +9,11 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -59,6 +61,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.divider.MaterialDivider
+import com.skydoves.powermenu.CircularEffect
+import com.skydoves.powermenu.MenuAnimation
+import com.skydoves.powermenu.PowerMenu
+import com.skydoves.powermenu.PowerMenuItem
 import javax.inject.Inject
 
 class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnMapReadyCallback,
@@ -87,6 +93,56 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         mapView.onCreate(null)
         mapView.getMapAsync(this)
         binding.bottomSheet.gone()
+        binding.myLocation.setOnClickListener {
+            val powerMenu = PowerMenu.Builder(requireContext())
+                .addItemList(
+                    mutableListOf(
+                        PowerMenuItem(
+                            "Delete",
+                            iconRes = R.drawable.ic_delete
+                        ), // "Delete" styled with red text
+                        PowerMenuItem("Search Station", iconRes = R.drawable.ic_search_white),
+                        PowerMenuItem("Quruvchilar", iconRes = R.drawable.icon_metro_white)
+                    )
+                )
+                .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT)
+                .setIsClipping(true)
+                .setAutoDismiss(true)
+                .setPadding(16)
+                .setMenuRadius(16f)
+                .setMenuShadow(16f)
+                .setIconSize(18)
+
+                .setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.white_and_black
+                    )
+                )
+                .setTextGravity(Gravity.START)
+                .setCircularEffect(CircularEffect.INNER)
+                .setTextTypeface(
+                    Typeface.create(
+                        "sans-serif-medium",
+                        Typeface.NORMAL
+                    )
+                )
+                .setBackgroundAlpha(0.4f) // sets the alpha of the background.
+                .setIconColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.white_and_black
+                    )
+                )
+                .build()
+
+
+            powerMenu.showAsAnchorLeftBottom(
+                binding.myLocation,
+                binding.myLocation.getMeasuredWidth() / 2 - powerMenu.getContentViewWidth(), 0
+            )
+
+        }
 
         binding.mapStyle.setOnClickListener {
             showMapTypeBottomSheet()
@@ -305,21 +361,22 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             val result = findAdjacentStations(it)
             val previousStation = result.first
             val nextStation = result.second
-            binding.bottomDetailTwoStation.previousStation.text = previousStation?.name ?: "Last station"
-            binding.bottomDetailTwoStation.nextStation.text = nextStation?.name?: "Last station"
+            binding.bottomDetailTwoStation.previousStation.text =
+                previousStation?.name ?: "Last station"
+            binding.bottomDetailTwoStation.nextStation.text = nextStation?.name ?: "Last station"
             binding.bottomDetailTwoStation.currentStation.text = it.name
 
             binding.bottomDetailTwoStation.previousStation.setOnClickListener {
                 previousStation?.let { prev ->
                     val previousMarker = findMarkerByStation(prev)
-                    previousMarker?.let {prev1 -> handleMarkerClick(prev1) }
+                    previousMarker?.let { prev1 -> handleMarkerClick(prev1) }
                 }
             }
 
             binding.bottomDetailTwoStation.nextStation.setOnClickListener {
                 nextStation?.let { next ->
                     val nextMarker = findMarkerByStation(next)
-                    nextMarker?.let {next1 -> handleMarkerClick(next1) }
+                    nextMarker?.let { next1 -> handleMarkerClick(next1) }
                 }
             }
         }
