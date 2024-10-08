@@ -124,8 +124,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
         binding.buttonFrom.setOnClickListener {
-            showInputSearchBottomSheet(viewModel.toTv.value)
-            isFrom = true
+            if (lastSelectedMarker == null) {
+                showInputSearchBottomSheet(viewModel.toTv.value)
+                isFrom = true
+            }else{
+
+            }
         }
 
         binding.showDetailRouteButton.setOnClickListener {
@@ -176,7 +180,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             override fun onAnimationCancel(animation: Animator) {}
             override fun onAnimationRepeat(animation: Animator) {}
         })
-
+        val station = lastSelectedMarker?.tag as? Station
+        lastSelectedMarker?.let { resetMarkerColor(it, station) }
+        lastSelectedMarker = null
         animator.start()
         isSheetVisible = false
     }
@@ -305,21 +311,22 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             val result = findAdjacentStations(it)
             val previousStation = result.first
             val nextStation = result.second
-            binding.bottomDetailTwoStation.previousStation.text = previousStation?.name ?: "Last station"
-            binding.bottomDetailTwoStation.nextStation.text = nextStation?.name?: "Last station"
+            binding.bottomDetailTwoStation.previousStation.text =
+                previousStation?.name ?: "Last station"
+            binding.bottomDetailTwoStation.nextStation.text = nextStation?.name ?: "Last station"
             binding.bottomDetailTwoStation.currentStation.text = it.name
 
             binding.bottomDetailTwoStation.previousStation.setOnClickListener {
                 previousStation?.let { prev ->
                     val previousMarker = findMarkerByStation(prev)
-                    previousMarker?.let {prev1 -> handleMarkerClick(prev1) }
+                    previousMarker?.let { prev1 -> handleMarkerClick(prev1) }
                 }
             }
 
             binding.bottomDetailTwoStation.nextStation.setOnClickListener {
                 nextStation?.let { next ->
                     val nextMarker = findMarkerByStation(next)
-                    nextMarker?.let {next1 -> handleMarkerClick(next1) }
+                    nextMarker?.let { next1 -> handleMarkerClick(next1) }
                 }
             }
         }
@@ -786,6 +793,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         viewModel.clearAllValue()
         (activity as? MainActivity)?.showBottomNavigation()
         binding.searchView.destroyView()
+        lastSelectedMarker = null
 
     }
 
