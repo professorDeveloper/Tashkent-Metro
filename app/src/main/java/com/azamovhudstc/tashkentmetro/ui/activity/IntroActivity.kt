@@ -22,6 +22,7 @@ class IntroActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityIntroBinding
     private lateinit var host: NavHostFragment
     private lateinit var graph: NavGraph
+//  Login screen to Home screen transition
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
