@@ -91,87 +91,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         mapView.onCreate(null)
         mapView.getMapAsync(this)
         binding.bottomSheet.gone()
-        binding.myLocation.setOnClickListener {
-//            val powerMenu = PowerMenu.Builder(requireContext())
-//
-//
-//                .addItemList(
-//                    mutableListOf(
-//                        PowerMenuItem(
-//                            "Delete",
-//                            iconRes = R.drawable.ic_delete,
-//                        ),
-//                        PowerMenuItem("Search Station", iconRes = R.drawable.ic_search_white),
-//                        PowerMenuItem("Quruvchilar", iconRes = R.drawable.icon_metro_white)
-//                    )
-//                )
-//                .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT)
-//                .setIsClipping(true)
-//                .setAutoDismiss(true)
-//                .setShowBackground(true)
-//                .setPadding(16)
-//                .setMenuRadius(16f)
-//                .setMenuShadow(16f)
-//                .setIconSize(18)
-//
-//                .setTextColor(
-//                    ContextCompat.getColor(
-//                        requireContext(),
-//                        R.color.white_and_black
-//                    )
-//                )
-//                .setMenuColorResource(R.color.card_background)
-//                .setTextGravity(Gravity.START)
-//                .setCircularEffect(CircularEffect.INNER)
-//                .setTextTypeface(
-//                    Typeface.create(
-//                        "sans-serif-medium",
-//                        Typeface.NORMAL
-//                    )
-//                )
-//                .setBackgroundAlpha(0.4f) // sets the alpha of the background.
-//                .setIconColor(
-//                    ContextCompat.getColor(
-//                        requireContext(),
-//                        R.color.white_and_black
-//                    )
-//                )
-//                .build()
-//
-//
-//            powerMenu.showAsAnchorLeftBottom(
-//                binding.myLocation,
-//                binding.myLocation.getMeasuredWidth() / 2 - powerMenu.getContentViewWidth(), 0
-//            )
-
-            val customPowerMenu: CustomPowerMenu<*, *> =
-                CustomPowerMenu.Builder<IconPowerMenuItem, IconMenuAdapter>(
-                    requireContext()!!, IconMenuAdapter()
-                ).addItemList(
-                    mutableListOf(
-                        IconPowerMenuItem(
-                            "Delete",
-                            iconRes = R.drawable.ic_delete,
-                        ),
-                        IconPowerMenuItem("Search Station", iconRes = R.drawable.ic_search_white),
-                        IconPowerMenuItem("Quruvchilar", iconRes = R.drawable.icon_metro_white)
-
-                    )
-                ).setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT).setIsClipping(true)
-                    .setAutoDismiss(true).setShowBackground(true).setPadding(4).setMenuRadius(16f)
-                    .setMenuShadow(16f)
-                    
-                    .setWidth(550)
-                    .setBackgroundAlpha(0.4f)
-                    .setMenuShadow(10f).build()
-
-            customPowerMenu.showAsAnchorLeftBottom(
-                binding.myLocation,
-                binding.myLocation.getMeasuredWidth() / 2 - customPowerMenu.getContentViewWidth(),
-                0
-            )
-
-        }
 
         binding.mapStyle.setOnClickListener {
             showMapTypeBottomSheet()
@@ -213,6 +132,35 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 showInputSearchBottomSheet(viewModel.toTv.value)
                 isFrom = true
             } else {
+                val customPowerMenu: CustomPowerMenu<*, *> =
+                    CustomPowerMenu.Builder<IconPowerMenuItem, IconMenuAdapter>(
+                        requireContext(), IconMenuAdapter()
+                    ).addItemList(
+                        mutableListOf(
+                            IconPowerMenuItem(
+                                "Delete",
+                                iconRes = R.drawable.ic_delete,
+                            ),
+                            IconPowerMenuItem("Search Station", iconRes = R.drawable.ic_search_white),
+                            IconPowerMenuItem("Quruvchilar", iconRes = R.drawable.icon_metro_white)
+
+                        )
+                    ).setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT).setIsClipping(true)
+                        .setAutoDismiss(true).setShowBackground(true).setPadding(4).setMenuRadius(16f)
+                        .setMenuShadow(16f)
+                        .setWidth(550)
+
+                        .setBackgroundAlpha(0.1f)
+                        .setMenuShadow(10f).build()
+
+                val yOffset = -(customPowerMenu.contentViewHeight * 1.15)
+                    customPowerMenu.setHeight(customPowerMenu.contentViewHeight)
+
+                customPowerMenu.showAsAnchorLeftTop(
+                    binding.buttonFrom,
+                    0, // X offset, keep it as 0
+                    yOffset.toInt() // Y offset to position it above the button
+                )
 
             }
         }
