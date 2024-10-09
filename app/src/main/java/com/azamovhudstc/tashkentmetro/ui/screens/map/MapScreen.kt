@@ -94,6 +94,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         mapView.getMapAsync(this)
         binding.bottomSheet.gone()
         binding.myLocation.setOnClickListener {
+            val isDarkThemeOn =
+                resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
             val powerMenu = PowerMenu.Builder(requireContext())
                 .addItemList(
                     mutableListOf(
@@ -108,6 +110,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT)
                 .setIsClipping(true)
                 .setAutoDismiss(true)
+                .setShowBackground(true)
                 .setPadding(16)
                 .setMenuRadius(16f)
                 .setMenuShadow(16f)
@@ -119,6 +122,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                         R.color.white_and_black
                     )
                 )
+
+                .setMenuColorResource(R.color.card_background)
                 .setTextGravity(Gravity.START)
                 .setCircularEffect(CircularEffect.INNER)
                 .setTextTypeface(
