@@ -48,6 +48,7 @@ class StationTimelineBottomSheet(val result: MutableList<StationLine>) : BottomS
         super.onDestroyView()
         _binding = null
     }
+
     fun search(){
         val a = splitStationLinesByLine(result)
         val lineTimeList = mapToStationItems(a)

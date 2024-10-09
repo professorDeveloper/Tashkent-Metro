@@ -105,7 +105,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             } else {
                 showBottomSheet()
             }
-//            isSheetVisible = !isSheetVisible
         }
 
         binding.searchView.onStationSelected = { station ->
@@ -152,7 +151,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             } else {
                 val station = lastSelectedMarker?.tag as Station
                 showCustomMenu(binding.buttonTo,station,viewModel.toTv.value,false)
-
             }
 
         }
@@ -164,20 +162,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             viewModel.clearToValue()
         }
 
-    }
-
-    fun getLocationInCardView(): Pair<Int, Int> {
-
-        val buttonLocation = IntArray(2)
-        val cardLocation = IntArray(2)
-
-        binding.buttonFrom.getLocationOnScreen(buttonLocation)
-        binding.pp.getLocationOnScreen(cardLocation)
-
-        val relativeX = buttonLocation[0] - cardLocation[0]
-        val relativeY = buttonLocation[1] - cardLocation[1]
-
-        return Pair(relativeX, relativeY)
     }
 
     private fun showCustomMenu(view: View, station: Station, value: Station?, b: Boolean) {
@@ -221,8 +205,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         stationName.isEnabled = shouldEnable
         stationName.alpha = if (shouldEnable) 1f else 0.4f
 
-
-
         popupView.findViewById<TextView>(R.id.menu_station_name_tv).text = station.name
 
         delete.setOnClickListener {
@@ -250,28 +232,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         popupWindow.showAtLocation(binding.buttonFrom, Gravity.NO_GRAVITY, x, y)
     }
 
-
-    private fun PopupMenu.setForceShowIcon() {
-        try {
-            val fields = this.javaClass.declaredFields
-            for (field in fields) {
-                if ("mPopup" == field.name) {
-                    field.isAccessible = true
-                    val menuPopupHelper = field.get(this)
-                    val classPopupHelper = Class.forName(menuPopupHelper.javaClass.name)
-                    val setForceIcons = classPopupHelper.getMethod(
-                        "setForceShowIcon",
-                        Boolean::class.javaPrimitiveType
-                    )
-                    setForceIcons.invoke(menuPopupHelper, true)
-                    break
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
     private fun showBottomSheet() {
         (activity as? MainActivity)?.hideBottomNavigation()
         binding.bottomSheet.visibility = View.VISIBLE
@@ -285,7 +245,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
 
     private fun hideBottomSheet() {
-
+        lastSelectedMarker = null
         val animator = ObjectAnimator.ofFloat(
             binding.bottomSheet, "translationY", binding.bottomSheet.height.toFloat()
         )
@@ -341,6 +301,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val fromStation = pair.first
         val toStation = pair.second
         getDirections(fromStation, toStation)
+        hideBottomSheet()
 
     }
 
@@ -390,16 +351,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             true // Return true to indicate that the click was handled
         }
 
-        mMap.setOnCameraMoveListener {
-//            val currentPosition = mMap.cameraPosition.target
-//            if (!tashkentBounds.contains(currentPosition)) {
-//                val moveBack = CameraUpdateFactory.newLatLngBounds(tashkentBounds, 0)
-//                mMap.animateCamera(moveBack)
-//            }
-        }
     }
 
-    fun findAdjacentStations(
+    private fun findAdjacentStations(
         station: Station
     ): Pair<Station?, Station?> {
         metro.forEach { stationLine ->
@@ -411,7 +365,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 return Pair(previousStation, nextStation)
             }
         }
-        return Pair(null, null) // Bekat topilmagan bo'lsa
+        return Pair(null, null)
     }
 
 
@@ -467,7 +421,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private fun resetMarkerColor(marker: Marker, station: Station?) {
         val icon =
-            station?.state?.let { createStationIcon(it) } // Using OVERGROUND state just as an example
+            station?.state?.let { createStationIcon(it) }
 
         marker.setIcon(icon)
     }
@@ -496,7 +450,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
         val orangeColor = Color.rgb(255, 165, 0) // Orange color
         val icon = station?.state?.let { createStationIcon(it, orangeColor) }
-
 
         marker.setIcon(icon)
 
@@ -537,6 +490,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         markers.forEach { marker ->
             marker.alpha = markerAlpha
         }
+
+
     }
 
     private fun setupMetroLine(line: StationLine, isReducedOpacity: Boolean = false) {
@@ -579,7 +534,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             0, 0, vectorDrawable.intrinsicWidth, vectorDrawable.intrinsicHeight
         )
 
-        // Use the custom tint color if provided, otherwise use status-based color
+
         val tintColor =
             customTintColor ?: if (status == StationState.UNDERGROUND) Color.RED else Color.BLUE
         vectorDrawable?.setTint(tintColor)
@@ -614,7 +569,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private fun getLineColor(line: Line): Int {
         return when (line) {
-            Line.CHILANZAR -> requireContext().getColor(com.azamovhudstc.tashkentmetro.R.color.map_red)
+            Line.CHILANZAR -> requireContext().getColor(R.color.map_red)
             Line.UZBEKISTAN -> requireContext().getColor(com.azamovhudstc.tashkentmetro.R.color.map_blue)
             Line.YUNUSOBOD -> requireContext().getColor(com.azamovhudstc.tashkentmetro.R.color.map_green)
             Line.INDEPENDENCEDAY -> requireContext().getColor(com.azamovhudstc.tashkentmetro.R.color.map_yellow)
@@ -625,27 +580,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val status =
             LocalData.trainsStatusList.find { it.from == stationName || it.to == stationName }?.status
         return status ?: "Ma'lumot yo'q"
-    }
-
-
-    private fun showMapStationBottomSheet() {
-//        val view = layoutInflater.inflate(R.layout.map_station_bottom_sheet, null)
-//        bottomSheetDialog.setContentView(view)
-//        bottomSheetDialog.show()
-//        bottomSheetDialog.setOnShowListener {
-//            val bottomSheet =
-//                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-//            bottomSheet?.let {
-//                val behavior = BottomSheetBehavior.from(it)
-//                val displayMetrics = resources.displayMetrics
-//                val screenHeight = displayMetrics.heightPixels
-//                val bottomSheetHeight = (screenHeight * 0.9).toInt()
-//                behavior.peekHeight = bottomSheetHeight
-//            }
-//        }
-//        bottomSheetDialog.show()
-        binding.bottomDetailTwoStation.mainBottom.visible()
-
     }
 
     private fun showInputSearchBottomSheet(value: Station?) {
@@ -664,9 +598,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 val bottomSheetHeight = (screenHeight * 0.9).toInt()
                 behavior.peekHeight = bottomSheetHeight
             }
-
         }
-
 
         val popularStationRv =
             view.findViewById<RecyclerView>(R.id.popular_station_rv)
@@ -676,13 +608,13 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val popularTextFrame =
             view.findViewById<FrameLayout>(R.id.popular_station_frame)
         val popularDivider =
-            view.findViewById<MaterialDivider>(com.azamovhudstc.tashkentmetro.R.id.popular_divider)
+            view.findViewById<MaterialDivider>(R.id.popular_divider)
         val viewGradient =
-            view.findViewById<View>(com.azamovhudstc.tashkentmetro.R.id.gradient_view)
+            view.findViewById<View>(R.id.gradient_view)
         val layoutManager = LinearLayoutManager(requireContext())
         viewGradient.background = drawGradient(
             ContextCompat.getColor(
-                requireContext(), com.azamovhudstc.tashkentmetro.R.color.map_red
+                requireContext(), R.color.map_red
             )
         )
         viewGradient.gone()
@@ -716,7 +648,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         })
 
 
-        val searchEt = view.findViewById<EditText>(com.azamovhudstc.tashkentmetro.R.id.search_et)
+        val searchEt = view.findViewById<EditText>(R.id.search_et)
         searchEt.addTextChangedListener {
             if (!it.isNullOrEmpty()) {
                 isPopular = false
@@ -733,7 +665,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
             }
         }
-        view.findViewById<MaterialButton>(com.azamovhudstc.tashkentmetro.R.id.button_cancel)
+        view.findViewById<MaterialButton>(R.id.button_cancel)
             .setOnClickListener { bottomSheetDialog.dismiss() }
         bottomSheetDialog.show()
     }
@@ -746,11 +678,11 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
 
         val normalMapOption =
-            view.findViewById<MaterialCardView>(com.azamovhudstc.tashkentmetro.R.id.normal_map_option)
+            view.findViewById<MaterialCardView>(R.id.normal_map_option)
         val satelliteMapOption =
-            view.findViewById<MaterialCardView>(com.azamovhudstc.tashkentmetro.R.id.satellite_map_option)
+            view.findViewById<MaterialCardView>(R.id.satellite_map_option)
         val buttonClose =
-            view.findViewById<FrameLayout>(com.azamovhudstc.tashkentmetro.R.id.button_close)
+            view.findViewById<FrameLayout>(R.id.button_close)
         if (mMap.mapType != GoogleMap.MAP_TYPE_SATELLITE) normalMapOption.select() else satelliteMapOption.select()
 
         normalMapOption.setOnClickListener {
@@ -807,9 +739,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
             val styleRes =
                 when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                    Configuration.UI_MODE_NIGHT_YES -> com.azamovhudstc.tashkentmetro.R.raw.map_style_dark
-                    Configuration.UI_MODE_NIGHT_NO -> com.azamovhudstc.tashkentmetro.R.raw.map_style_light
-                    else -> com.azamovhudstc.tashkentmetro.R.raw.map_style_light
+                    Configuration.UI_MODE_NIGHT_YES -> R.raw.map_style_dark
+                    Configuration.UI_MODE_NIGHT_NO -> R.raw.map_style_light
+                    else -> R.raw.map_style_light
                 }
 
             val success =
