@@ -12,11 +12,15 @@ import android.graphics.Paint
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.PopupMenu
+import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -131,33 +135,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 showInputSearchBottomSheet(viewModel.toTv.value)
                 isFrom = true
             } else {
-//                val customPowerMenu: CustomPowerMenu<*, *> =
-//                    CustomPowerMenu.Builder<IconPowerMenuItem, IconMenuAdapter>(
-//                        requireContext(), IconMenuAdapter()
-//                    ).addItemList(
-//                        mutableListOf(
-//                            IconPowerMenuItem("Delete", iconRes = R.drawable.ic_delete),
-//                            IconPowerMenuItem("Search Station", iconRes = R.drawable.ic_search_white),
-//                            IconPowerMenuItem("Quruvchilar", iconRes = R.drawable.icon_metro_white)
-//                        )
-//                    ).setAnimation(MenuAnimation.DROP_DOWN)
-//                        .setIsClipping(false)
-//                        .setAutoDismiss(true)
-//                        .setShowBackground(true)
-//                        .setPadding(4)
-//                        .setMenuRadius(16f)
-//                        .setMenuShadow(16f)
-//                        .setWidth(600)
-//                        .setBackgroundAlpha(0.1f)
-//                        .build()
-//
-//
-//                customPowerMenu.showAsAnchorLeftTop(
-//                    binding.buttonFrom,
-//                    binding.buttonFrom.width - customPowerMenu.contentViewWidth,
-//                    yOffset
-//                )
-                showCustomMenu(binding.buttonFrom)
+                val station = lastSelectedMarker?.tag as Station
+                showCustomMenu(binding.buttonFrom,station,viewModel.fromTv.value)
 
             }
         }
@@ -167,8 +146,15 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
         binding.buttonTo.setOnClickListener {
-            showInputSearchBottomSheet(viewModel.fromTv.value)
-            isFrom = false
+            if (lastSelectedMarker == null) {
+                showInputSearchBottomSheet(viewModel.fromTv.value)
+                isFrom = false
+            } else {
+                val station = lastSelectedMarker?.tag as Station
+                showCustomMenu(binding.buttonFrom,station,viewModel.toTv.value)
+
+            }
+
         }
 
         binding.buttonRemoveFrom.setOnClickListener {
@@ -180,22 +166,73 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     }
 
-    private fun showCustomMenu(view: View) {
-        val popupMenu = PopupMenu(requireActivity(), view)
-        popupMenu.menuInflater.inflate(R.menu.map_menu, popupMenu.menu)
-        popupMenu.setForceShowIcon()
+    fun getLocationInCardView(): Pair<Int, Int> {
 
-        popupMenu.setOnMenuItemClickListener { menuItem: MenuItem ->
-            when (menuItem.itemId) {
-                R.id.ic_delete -> true
-                R.id.ic_station -> true
-                R.id.ic_builder -> true
-                else -> false
-            }
+        val buttonLocation = IntArray(2)
+        val cardLocation = IntArray(2)
+
+        binding.buttonFrom.getLocationOnScreen(buttonLocation)
+        binding.pp.getLocationOnScreen(cardLocation)
+
+        val relativeX = buttonLocation[0] - cardLocation[0]
+        val relativeY = buttonLocation[1] - cardLocation[1]
+
+        return Pair(relativeX, relativeY)
+    }
+
+    private fun showCustomMenu(view: View, station: Station, value: Station?) {
+        val popupView = LayoutInflater.from(requireContext()).inflate(R.layout.popup_layout_menu, null)
+        val popupWindow = PopupWindow(
+            popupView,
+            (binding.pp.width / 2),
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        )
+
+        val delete = popupView.findViewById<LinearLayout>(R.id.menu_delete)
+        val searchStation = popupView.findViewById<LinearLayout>(R.id.menu_search)
+        val stationName = popupView.findViewById<LinearLayout>(R.id.menu_station_name)
+
+        if (value == null){
+            delete.gone()
+            popupView.findViewById<MaterialDivider>(R.id.menu_delete_divider).gone()
+        }else{
+            delete.visible()
+            popupView.findViewById<MaterialDivider>(R.id.menu_delete_divider).visible()
         }
 
-        popupMenu.show()
+        searchStation.setOnClickListener {
+            showInputSearchBottomSheet(value)
+            isFrom = true
+            popupWindow.dismiss()
+        }
+
+        stationName.setOnClickListener {
+            if (isFrom){
+                viewModel.setFromValue(station)
+            }else{
+                viewModel.setToValue(station)
+            }
+            popupWindow.dismiss()
+        }
+        popupView.findViewById<TextView>(R.id.menu_station_name_tv).text = station.name
+
+        popupWindow.contentView.measure(
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        )
+
+
+        val location = IntArray(2)
+
+        view.getLocationOnScreen(location)
+
+        val x = location[0]
+        val y = (location[1] - (popupWindow.contentView.measuredHeight *1.02)).toInt()
+
+        popupWindow.showAtLocation(binding.buttonFrom, Gravity.NO_GRAVITY, x, y)
     }
+
 
     private fun PopupMenu.setForceShowIcon() {
         try {
@@ -205,7 +242,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                     field.isAccessible = true
                     val menuPopupHelper = field.get(this)
                     val classPopupHelper = Class.forName(menuPopupHelper.javaClass.name)
-                    val setForceIcons = classPopupHelper.getMethod("setForceShowIcon", Boolean::class.javaPrimitiveType)
+                    val setForceIcons = classPopupHelper.getMethod(
+                        "setForceShowIcon",
+                        Boolean::class.javaPrimitiveType
+                    )
                     setForceIcons.invoke(menuPopupHelper, true)
                     break
                 }
@@ -214,6 +254,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             e.printStackTrace()
         }
     }
+
     private fun showBottomSheet() {
         (activity as? MainActivity)?.hideBottomNavigation()
         binding.bottomSheet.visibility = View.VISIBLE
@@ -592,7 +633,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private fun showInputSearchBottomSheet(value: Station?) {
         val view = layoutInflater.inflate(
-            com.azamovhudstc.tashkentmetro.R.layout.search_bottom_dialog, null
+            R.layout.search_bottom_dialog, null
         )
         bottomSheetDialog.setContentView(view)
 
@@ -611,12 +652,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
 
         val popularStationRv =
-            view.findViewById<RecyclerView>(com.azamovhudstc.tashkentmetro.R.id.popular_station_rv)
+            view.findViewById<RecyclerView>(R.id.popular_station_rv)
 
         val stationLineTv =
-            view.findViewById<TextView>(com.azamovhudstc.tashkentmetro.R.id.station_line)
+            view.findViewById<TextView>(R.id.station_line)
         val popularTextFrame =
-            view.findViewById<FrameLayout>(com.azamovhudstc.tashkentmetro.R.id.popular_station_frame)
+            view.findViewById<FrameLayout>(R.id.popular_station_frame)
         val popularDivider =
             view.findViewById<MaterialDivider>(com.azamovhudstc.tashkentmetro.R.id.popular_divider)
         val viewGradient =
@@ -683,7 +724,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private fun showMapTypeBottomSheet() {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(
-            com.azamovhudstc.tashkentmetro.R.layout.layout_bottom_sheet_map_type, null
+            R.layout.layout_bottom_sheet_map_type, null
         )
 
 

@@ -5,18 +5,17 @@
         android:id="@+id/ic_delete"
         android:actionLayout="@layout/item_menu_power"
         android:icon="@drawable/ic_delete"
-
         android:title="Delete"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/ic_station"
         android:actionLayout="@layout/item_menu_power"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_search_white"
         android:title="Search Station" />
     <item
         android:id="@+id/ic_builder"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/icon_metro_white"
         android:actionLayout="@layout/item_menu_power"
         android:title="Quruvchilar" />

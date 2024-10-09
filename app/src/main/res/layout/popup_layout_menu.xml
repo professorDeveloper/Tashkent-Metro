@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:maxWidth="@dimen/_180sdp"
+
+    android:background="@drawable/background_menu"
+    android:paddingVertical="@dimen/_5sdp"
+    android:paddingHorizontal="@dimen/_10sdp"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:id="@+id/menu_delete"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+
+        android:paddingVertical="@dimen/_3sdp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:text="Delete"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_width="@dimen/_18sdp"
+            android:src="@drawable/ic_delete"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_height="@dimen/_18sdp"/>
+    </LinearLayout>
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/menu_delete_divider"
+        android:layout_width="wrap_content"
+        android:alpha=".5"
+        android:layout_marginVertical="@dimen/_3sdp"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:id="@+id/menu_search"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:paddingVertical="@dimen/_3sdp"
+
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:text="Search station"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_width="@dimen/_18sdp"
+            android:src="@drawable/ic_search_white"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_height="@dimen/_18sdp"/>
+    </LinearLayout>
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="wrap_content"
+        android:alpha=".5"
+        android:layout_marginVertical="@dimen/_3sdp"
+
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/menu_station_name"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:paddingVertical="@dimen/_3sdp"
+
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/menu_station_name_tv"
+
+            android:layout_width="0dp"
+            android:text="Quruvchilar"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_width="@dimen/_18sdp"
+            android:src="@drawable/icon_metro_white"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_height="@dimen/_18sdp"/>
+    </LinearLayout>
+
+
+</LinearLayout>
