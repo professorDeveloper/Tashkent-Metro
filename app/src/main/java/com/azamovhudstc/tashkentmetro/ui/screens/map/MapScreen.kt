@@ -134,7 +134,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 isFrom = true
             } else {
                 val station = lastSelectedMarker?.tag as Station
-                showCustomMenu(binding.buttonFrom,station,viewModel.fromTv.value,true)
+                showCustomMenu(binding.buttonFrom, station, viewModel.fromTv.value, true)
 
             }
         }
@@ -149,10 +149,13 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 isFrom = false
             } else {
                 val station = lastSelectedMarker?.tag as Station
-                showCustomMenu(binding.buttonTo,station,viewModel.toTv.value,false)
+                showCustomMenu(binding.buttonTo, station, viewModel.toTv.value, false)
             }
 
         }
+
+
+
 
         binding.buttonRemoveFrom.setOnClickListener {
             viewModel.clearFromValue()
@@ -161,10 +164,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             viewModel.clearToValue()
         }
 
+
     }
 
     private fun showCustomMenu(view: View, station: Station, value: Station?, b: Boolean) {
-        val popupView = LayoutInflater.from(requireContext()).inflate(R.layout.popup_layout_menu, null)
+        val popupView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.popup_layout_menu, binding.root)
         val popupWindow = PopupWindow(
             popupView,
             (binding.pp.width / 2),
@@ -176,10 +181,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val searchStation = popupView.findViewById<LinearLayout>(R.id.menu_search)
         val stationName = popupView.findViewById<LinearLayout>(R.id.menu_station_name)
 
-        if (value == null){
+        if (value == null) {
             delete.gone()
             popupView.findViewById<MaterialDivider>(R.id.menu_delete_divider).gone()
-        }else{
+        } else {
             delete.visible()
             popupView.findViewById<MaterialDivider>(R.id.menu_delete_divider).visible()
         }
@@ -191,15 +196,16 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
         stationName.setOnClickListener {
-            if (b){
+            if (b) {
                 viewModel.setFromValue(station)
-            }else{
+            } else {
                 viewModel.setToValue(station)
             }
             popupWindow.dismiss()
         }
 
-        val shouldEnable = !(b && viewModel.toTv.value == station) && !(viewModel.fromTv.value == station)
+        val shouldEnable =
+            !(b && viewModel.toTv.value == station) && !(viewModel.fromTv.value == station)
 
         stationName.isEnabled = shouldEnable
         stationName.alpha = if (shouldEnable) 1f else 0.4f
@@ -207,9 +213,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         popupView.findViewById<TextView>(R.id.menu_station_name_tv).text = station.name
 
         delete.setOnClickListener {
-            if (b){
+            if (b) {
                 viewModel.clearFromValue()
-            }else{
+            } else {
                 viewModel.clearToValue()
             }
             popupWindow.dismiss()
@@ -226,7 +232,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         view.getLocationOnScreen(location)
 
         val x = location[0]
-        val y = (location[1] - (popupWindow.contentView.measuredHeight *1.02)).toInt()
+        val y = (location[1] - (popupWindow.contentView.measuredHeight * 1.02)).toInt()
 
         popupWindow.showAtLocation(binding.buttonFrom, Gravity.NO_GRAVITY, x, y)
     }
@@ -327,11 +333,15 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             bottomSheetDialog.dismiss()
         }
 
+
     }
 
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
+
+
+
 
         applyMapStyleBasedOnTheme(requireContext(), mMap)
 
@@ -349,6 +359,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             handleMarkerClick(marker)
             true // Return true to indicate that the click was handled
         }
+
 
     }
 
@@ -686,12 +697,14 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
         normalMapOption.setOnClickListener {
             mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+            AppReference(requireContext()).mapStyle = "normal"
             normalMapOption.select()
             satelliteMapOption.unSelect()
 //            bottomSheetDialog.dismiss()
         }
 //
         satelliteMapOption.setOnClickListener {
+            AppReference(requireContext()).mapStyle = "satellite"
             mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
             normalMapOption.unSelect()
             satelliteMapOption.select()
@@ -720,6 +733,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     override fun onDestroy() {
         super.onDestroy()
         mapView.onDestroy()
+
     }
 
     override fun onLowMemory() {
@@ -745,6 +759,13 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
             val success =
                 googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, styleRes))
+            val mapStyle = AppReference(requireContext()).mapStyle.toString() ?: "standart"
+            if (mapStyle == "standart") {
+                mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+            } else {
+                mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+
+            }
             if (!success) {
                 Log.e("MapStyle", "Xarita uslubi muvaffaqiyatsiz o'rnatildi.")
             }

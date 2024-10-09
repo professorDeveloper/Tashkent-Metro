@@ -27,6 +27,12 @@ class AppReference @Inject constructor(
             sharedPref.edit().putString("current_screen", value.name).apply()
         }
 
+    var mapStyle:String
+        get() = sharedPref.getString("mapStyle", "standart").toString()
+        set(value) {
+            sharedPref.edit().putString("mapStyle", value).apply()
+        }
+
     var token: String
         get() = sharedPref.getString("token", "null")!!
         set(value) {
