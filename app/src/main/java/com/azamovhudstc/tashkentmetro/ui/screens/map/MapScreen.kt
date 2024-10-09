@@ -137,30 +137,29 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                         requireContext(), IconMenuAdapter()
                     ).addItemList(
                         mutableListOf(
-                            IconPowerMenuItem(
-                                "Delete",
-                                iconRes = R.drawable.ic_delete,
-                            ),
+                            IconPowerMenuItem("Delete", iconRes = R.drawable.ic_delete),
                             IconPowerMenuItem("Search Station", iconRes = R.drawable.ic_search_white),
                             IconPowerMenuItem("Quruvchilar", iconRes = R.drawable.icon_metro_white)
-
                         )
-                    ).setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT).setIsClipping(true)
-                        .setAutoDismiss(true).setShowBackground(true).setPadding(4).setMenuRadius(16f)
+                    ).setAnimation(MenuAnimation.DROP_DOWN)
+                        .setIsClipping(false)
+                        .setAutoDismiss(true)
+                        .setShowBackground(true)
+                        .setPadding(4)
+                        .setMenuRadius(16f)
                         .setMenuShadow(16f)
-                        .setWidth(550)
-
+                        .setWidth(600)
                         .setBackgroundAlpha(0.1f)
-                        .setMenuShadow(10f).build()
+                        .build()
 
-                val yOffset = -(customPowerMenu.contentViewHeight * 1.15)
-                    customPowerMenu.setHeight(customPowerMenu.contentViewHeight)
+                val yOffset = -4
 
                 customPowerMenu.showAsAnchorLeftTop(
                     binding.buttonFrom,
-                    0, // X offset, keep it as 0
-                    yOffset.toInt() // Y offset to position it above the button
+                    binding.buttonFrom.width - customPowerMenu.contentViewWidth,
+                    yOffset
                 )
+
 
             }
         }
