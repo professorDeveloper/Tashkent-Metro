@@ -8,11 +8,10 @@
     ]
   },
   {
-    "elementType": "labels.text.fill",
+    "featureType": "all",
+    "elementType": "labels",
     "stylers": [
-      {
-        "color": "#523735"
-      }
+      {"visibility": "off"}
     ]
   }
 ]

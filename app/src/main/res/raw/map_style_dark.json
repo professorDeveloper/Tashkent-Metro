@@ -8,27 +8,10 @@
     ]
   },
   {
-    "elementType": "labels.icon",
+    "featureType": "all",
+    "elementType": "labels",
     "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#757575"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.stroke",
-    "stylers": [
-      {
-        "color": "#212121"
-      }
+      {"visibility": "off"}
     ]
   }
 ]

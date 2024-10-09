@@ -36,7 +36,6 @@ class IntroActivity : AppCompatActivity() {
         model.loginScreenLiveData.observe(this@IntroActivity, getStartedScreenObserver)
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S) {
             model.checkPage()
-
         }else {
             graph.setStartDestination(R.id.splashPage)
             viewBinding.navHost.visible()

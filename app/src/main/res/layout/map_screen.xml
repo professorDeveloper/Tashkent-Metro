@@ -190,4 +190,8 @@
         app:layout_constraintTop_toTopOf="@+id/map_style" />
 
 
+    <com.azamovhudstc.tashkentmetro.custom.markerWithText.FloatingMarkerTitlesOverlay
+        android:id="@+id/map_floating_markers_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

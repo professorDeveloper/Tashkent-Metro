@@ -19,7 +19,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import android.widget.PopupMenu
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -28,7 +27,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.azamovhudstc.tashkentmetro.R
+import com.azamovhudstc.tashkentmetro.custom.markerWithText.MarkerInfo
 import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
+import com.azamovhudstc.tashkentmetro.data.local.shp.ThemeStyle
 import com.azamovhudstc.tashkentmetro.data.model.station.Line
 import com.azamovhudstc.tashkentmetro.data.model.station.Station
 import com.azamovhudstc.tashkentmetro.data.model.station.StationLine
@@ -65,9 +66,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.divider.MaterialDivider
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.Collections.max
 import javax.inject.Inject
+import kotlin.math.max
 
 
+@AndroidEntryPoint
 class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnMapReadyCallback,
     PopularStationAdapter.OnItemClickListener {
 
@@ -82,6 +87,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private var lastSelectedMarker: Marker? = null
     private var isPopular = true
     private var isSheetVisible = false
+
 
     @Inject
     lateinit var userPreferenceManager: AppReference
@@ -334,6 +340,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
 
+        binding.mapFloatingMarkersOverlay.setSource(mMap);
         applyMapStyleBasedOnTheme(requireContext(), mMap)
 
         setupMetroLines()
@@ -502,13 +509,27 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             polylineOptions.add(position)
 
             val icon = createStationIcon(station.state)
+//            val icon = createStationIconWithText(station.state, stationName = station.name)
+
+            val id = station.id.toLong()
+            val latLang = LatLng(station.location.latitude,station.location.longitude)
+            val title = station.name
+            val color = if (userPreferenceManager.theme == ThemeStyle.DARK) ContextCompat.getColor(requireContext(),R.color.white)
+            else ContextCompat.getColor(requireContext(),R.color.black)
+            val markerInfo = MarkerInfo(latLang,title,color)
+
 
             val markerOptions =
-                MarkerOptions().position(position).title("${station.name} - ${line.line}")
-                    .snippet(getTrainStatus(station.name)).icon(icon)
+                MarkerOptions()
+                    .position(markerInfo.coordinates)
+                    .title("${station.name} - ${line.line}")
+                    .snippet(getTrainStatus(station.name))
+                    .icon(icon)
+
 
 
             val marker = mMap.addMarker(markerOptions)
+            binding.mapFloatingMarkersOverlay.addMarker(id,markerInfo)
             marker?.tag = station
 
             marker?.let { markers.add(it) }
@@ -523,6 +544,52 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
         polylines.add(polyline)
     }
+
+    private fun createStationIconWithText(
+        status: StationState, stationName: String, customTintColor: Int? = null
+    ): BitmapDescriptor? {
+        // Ikongacha qoladigan drawable ni yuklaymiz
+        val vectorDrawable = ContextCompat.getDrawable(
+            requireContext(), com.azamovhudstc.tashkentmetro.R.drawable.icon_metro
+        ) ?: return null  // Agar drawable topilmasa, null qaytariladi
+
+        vectorDrawable.setBounds(0, 0, vectorDrawable.intrinsicWidth, vectorDrawable.intrinsicHeight)
+
+        val textPaint = Paint().apply {
+            color = ContextCompat.getColor(requireContext(), R.color.white_and_black)
+            textSize = 25f  // Matn o'lchami
+            textAlign = Paint.Align.CENTER  // Matnni markazlash
+        }
+
+        // Matn uchun minimal kenglikni hisoblash
+        val textWidth = textPaint.measureText(stationName)
+        val fontMetrics = textPaint.fontMetrics
+        val textHeight = fontMetrics.bottom - fontMetrics.top
+
+        // Bitmap hajmini hisoblash
+        val bitmapWidth = max(vectorDrawable.intrinsicWidth, textWidth.toInt())
+        val bitmapHeight = vectorDrawable.intrinsicHeight + textHeight.toInt() + 5  // Matn uchun qo'shimcha joy
+
+        val bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        val tintColor = customTintColor ?: if (status == StationState.UNDERGROUND) Color.RED else Color.BLUE
+        vectorDrawable.setTint(tintColor)
+
+        // Ikonni chizish
+        vectorDrawable.draw(canvas)
+
+        // Matnni ikonning pastki qismida yozamiz, markazga joylashtiramiz
+        canvas.drawText(
+            stationName,
+            bitmapWidth / 2f,  // Markazni topish uchun kenglikning yarmi
+            vectorDrawable.intrinsicHeight + textHeight / 2 - fontMetrics.top,  // Matn yoziladigan balandlik
+            textPaint
+        )
+
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
 
     private fun createStationIcon(
         status: StationState, customTintColor: Int? = null
