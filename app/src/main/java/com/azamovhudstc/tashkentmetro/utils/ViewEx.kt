@@ -3,7 +3,6 @@ package com.azamovhudstc.tashkentmetro.utils
 import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RoundRectShape
@@ -62,8 +61,7 @@ fun snackString(s: String?, activity: Activity? = null, clipboard: String? = nul
                     translationY = (24f + 32f)
                     translationZ = 32f
                     val shapeDrawable = ShapeDrawable()
-                    shapeDrawable.paint.color =
-                        Color.parseColor("#9E120F0F") // Set the background color if needed
+                    shapeDrawable.paint.setColor(activity.getColor(R.color.card_background))// Set the background color if needed
                     shapeDrawable.paint.style = Paint.Style.FILL
                     shapeDrawable.shape = RoundRectShape(
                         floatArrayOf(120f, 120f, 120f, 120f, 120f, 120f, 120f, 120f),

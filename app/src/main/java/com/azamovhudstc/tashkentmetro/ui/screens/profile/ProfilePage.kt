@@ -1,5 +1,7 @@
 package com.azamovhudstc.tashkentmetro.ui.screens.profile
 
+import android.content.Intent
+import android.net.Uri
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -10,8 +12,7 @@ import com.azamovhudstc.tashkentmetro.data.local.shp.ThemeStyle
 import com.azamovhudstc.tashkentmetro.databinding.ProfilePageBinding
 import com.azamovhudstc.tashkentmetro.utils.BaseFragment
 import com.azamovhudstc.tashkentmetro.utils.animationTransaction
-import com.azamovhudstc.tashkentmetro.utils.slideStart
-import com.azamovhudstc.tashkentmetro.utils.slideUp
+import com.azamovhudstc.tashkentmetro.utils.snackString
 import com.azamovhudstc.tashkentmetro.viewmodel.profile.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -29,8 +30,10 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
         val dropdownIcon = binding.dropdownIcon
         val dropdownIconTheme = binding.dropdownIconTheme
 
-        binding.loginTv.text = if (userPreferenceManager.userName == "null") getString(R.string.login_register) else userPreferenceManager.userName
-        binding.phoneNumberTv.text = if (userPreferenceManager.userName == "null") getString(R.string.contribute_join_leaderboard) else userPreferenceManager.userPhone
+        binding.loginTv.text =
+            if (userPreferenceManager.userName == "null") getString(R.string.login_register) else userPreferenceManager.userName
+        binding.phoneNumberTv.text =
+            if (userPreferenceManager.userName == "null") getString(R.string.contribute_join_leaderboard) else userPreferenceManager.userPhone
 
         binding.languageText.text = getLanguageString(userPreferenceManager.language)
         binding.themeTxt.text = getThemeText()
@@ -40,6 +43,17 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
         // Set up a PopupMenu to show a dropdown-like language selector
         dropdownIcon.setOnClickListener {
             showPopupMenuLanguage()
+        }
+        binding.contactUs.setOnClickListener {
+            val tgContact = Uri.parse("https://bekzodrakhmatof.t.me")
+            val intent = Intent(Intent.ACTION_VIEW, tgContact)
+
+            if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                startActivity(intent)
+            } else {
+                snackString("No app available to open this link")
+            }
+
         }
 
         dropdownIconTheme.setOnClickListener {

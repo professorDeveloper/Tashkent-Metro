@@ -384,7 +384,8 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView4"
+        android:id="@+id/contactUs"
+        android:background="?selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
@@ -399,7 +400,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingVertical="@dimen/_12sdp">
+            android:paddingVertical="@dimen/_4sdp">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -410,7 +411,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="@dimen/_2sdp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -446,11 +446,13 @@
 
             <View
                 style="@style/Divider"
+                android:visibility="gone"
                 android:layout_marginStart="@dimen/_37sdp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
+                android:visibility="gone"
                 android:padding="4dp">
 
                 <LinearLayout
@@ -505,7 +507,7 @@
         app:cardBackgroundColor="@color/settings_card_background"
         app:cardCornerRadius="12dp"
         app:cardElevation="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/cardView4">
+        app:layout_constraintTop_toBottomOf="@+id/contactUs">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -522,7 +524,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="@dimen/_2sdp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
