@@ -116,8 +116,5 @@ dependencies {
     implementation "com.github.naz013:gradient-view-kit:1.0.1"
     implementation 'com.github.lriccardo:TimelineView:1.1.2'
 
-    //Custom menu
-    implementation "com.github.skydoves:powermenu:2.2.4"
-
 
 }
