@@ -160,6 +160,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 ).setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT).setIsClipping(true)
                     .setAutoDismiss(true).setShowBackground(true).setPadding(4).setMenuRadius(16f)
                     .setMenuShadow(16f)
+                    
                     .setWidth(550)
                     .setBackgroundAlpha(0.4f)
                     .setMenuShadow(10f).build()
