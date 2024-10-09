@@ -9,11 +9,9 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -25,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.azamovhudstc.tashkentmetro.R
 import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
+import com.azamovhudstc.tashkentmetro.data.model.IconPowerMenuItem
 import com.azamovhudstc.tashkentmetro.data.model.station.Line
 import com.azamovhudstc.tashkentmetro.data.model.station.Station
 import com.azamovhudstc.tashkentmetro.data.model.station.StationLine
@@ -61,11 +60,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.divider.MaterialDivider
-import com.skydoves.powermenu.CircularEffect
+import com.skydoves.powermenu.CustomPowerMenu
 import com.skydoves.powermenu.MenuAnimation
-import com.skydoves.powermenu.PowerMenu
-import com.skydoves.powermenu.PowerMenuItem
 import javax.inject.Inject
+
 
 class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnMapReadyCallback,
     PopularStationAdapter.OnItemClickListener {
@@ -94,57 +92,82 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         mapView.getMapAsync(this)
         binding.bottomSheet.gone()
         binding.myLocation.setOnClickListener {
-            val isDarkThemeOn =
-                resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
-            val powerMenu = PowerMenu.Builder(requireContext())
-                .addItemList(
+//            val powerMenu = PowerMenu.Builder(requireContext())
+//
+//
+//                .addItemList(
+//                    mutableListOf(
+//                        PowerMenuItem(
+//                            "Delete",
+//                            iconRes = R.drawable.ic_delete,
+//                        ),
+//                        PowerMenuItem("Search Station", iconRes = R.drawable.ic_search_white),
+//                        PowerMenuItem("Quruvchilar", iconRes = R.drawable.icon_metro_white)
+//                    )
+//                )
+//                .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT)
+//                .setIsClipping(true)
+//                .setAutoDismiss(true)
+//                .setShowBackground(true)
+//                .setPadding(16)
+//                .setMenuRadius(16f)
+//                .setMenuShadow(16f)
+//                .setIconSize(18)
+//
+//                .setTextColor(
+//                    ContextCompat.getColor(
+//                        requireContext(),
+//                        R.color.white_and_black
+//                    )
+//                )
+//                .setMenuColorResource(R.color.card_background)
+//                .setTextGravity(Gravity.START)
+//                .setCircularEffect(CircularEffect.INNER)
+//                .setTextTypeface(
+//                    Typeface.create(
+//                        "sans-serif-medium",
+//                        Typeface.NORMAL
+//                    )
+//                )
+//                .setBackgroundAlpha(0.4f) // sets the alpha of the background.
+//                .setIconColor(
+//                    ContextCompat.getColor(
+//                        requireContext(),
+//                        R.color.white_and_black
+//                    )
+//                )
+//                .build()
+//
+//
+//            powerMenu.showAsAnchorLeftBottom(
+//                binding.myLocation,
+//                binding.myLocation.getMeasuredWidth() / 2 - powerMenu.getContentViewWidth(), 0
+//            )
+
+            val customPowerMenu: CustomPowerMenu<*, *> =
+                CustomPowerMenu.Builder<IconPowerMenuItem, IconMenuAdapter>(
+                    requireContext()!!, IconMenuAdapter()
+                ).addItemList(
                     mutableListOf(
-                        PowerMenuItem(
+                        IconPowerMenuItem(
                             "Delete",
-                            iconRes = R.drawable.ic_delete
-                        ), // "Delete" styled with red text
-                        PowerMenuItem("Search Station", iconRes = R.drawable.ic_search_white),
-                        PowerMenuItem("Quruvchilar", iconRes = R.drawable.icon_metro_white)
-                    )
-                )
-                .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT)
-                .setIsClipping(true)
-                .setAutoDismiss(true)
-                .setShowBackground(true)
-                .setPadding(16)
-                .setMenuRadius(16f)
-                .setMenuShadow(16f)
-                .setIconSize(18)
+                            iconRes = R.drawable.ic_delete,
+                        ),
+                        IconPowerMenuItem("Search Station", iconRes = R.drawable.ic_search_white),
+                        IconPowerMenuItem("Quruvchilar", iconRes = R.drawable.icon_metro_white)
 
-                .setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.white_and_black
                     )
-                )
+                ).setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT).setIsClipping(true)
+                    .setAutoDismiss(true).setShowBackground(true).setPadding(4).setMenuRadius(16f)
+                    .setMenuShadow(16f)
+                    .setWidth(550)
+                    .setBackgroundAlpha(0.4f)
+                    .setMenuShadow(10f).build()
 
-                .setMenuColorResource(R.color.card_background)
-                .setTextGravity(Gravity.START)
-                .setCircularEffect(CircularEffect.INNER)
-                .setTextTypeface(
-                    Typeface.create(
-                        "sans-serif-medium",
-                        Typeface.NORMAL
-                    )
-                )
-                .setBackgroundAlpha(0.4f) // sets the alpha of the background.
-                .setIconColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.white_and_black
-                    )
-                )
-                .build()
-
-
-            powerMenu.showAsAnchorLeftBottom(
+            customPowerMenu.showAsAnchorLeftBottom(
                 binding.myLocation,
-                binding.myLocation.getMeasuredWidth() / 2 - powerMenu.getContentViewWidth(), 0
+                binding.myLocation.getMeasuredWidth() / 2 - customPowerMenu.getContentViewWidth(),
+                0
             )
 
         }
@@ -188,7 +211,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             if (lastSelectedMarker == null) {
                 showInputSearchBottomSheet(viewModel.toTv.value)
                 isFrom = true
-            }else{
+            } else {
 
             }
         }
@@ -226,9 +249,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private fun hideBottomSheet() {
 
         val animator = ObjectAnimator.ofFloat(
-            binding.bottomSheet,
-            "translationY",
-            binding.bottomSheet.height.toFloat()
+            binding.bottomSheet, "translationY", binding.bottomSheet.height.toFloat()
         )
         animator.duration = 300
         animator.addListener(object : Animator.AnimatorListener {
@@ -255,15 +276,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private fun moveCameraToStation(station: Station) {
         val stationLatLng = LatLng(station.location.latitude, station.location.longitude)
-        val cameraPosition = CameraPosition.Builder()
-            .target(stationLatLng)
-            .zoom(15f)
-            .bearing(90f)
-            .tilt(45f)
-            .build()
+        val cameraPosition =
+            CameraPosition.Builder().target(stationLatLng).zoom(15f).bearing(90f).tilt(45f).build()
 
-        mMap.animateCamera(
-            CameraUpdateFactory.newCameraPosition(cameraPosition),
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
             1500,
             object : GoogleMap.CancelableCallback {
                 override fun onFinish() {
@@ -419,15 +435,13 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
     private fun moveCameraToMarker(marker: Marker) {
-        val cameraPosition = CameraPosition.Builder()
-            .target(marker.position)
-            .zoom(15f) // Zoom level
-            .bearing(90f) // Rotation angle
-            .tilt(45f) // Tilt angle
-            .build()
+        val cameraPosition =
+            CameraPosition.Builder().target(marker.position).zoom(15f) // Zoom level
+                .bearing(90f) // Rotation angle
+                .tilt(45f) // Tilt angle
+                .build()
 
-        mMap.animateCamera(
-            CameraUpdateFactory.newCameraPosition(cameraPosition),
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
             1500,
             object : GoogleMap.CancelableCallback {
                 override fun onFinish() {
@@ -437,15 +451,13 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 override fun onCancel() {
                     // Handle if the animation is cancelled
                 }
-            }
-        )
+            })
     }
 
     private fun changeMarkerIconColorToOrange(marker: Marker, station: Station?) {
 
         val orangeColor = Color.rgb(255, 165, 0) // Orange color
-        val icon =
-            station?.state?.let { createStationIcon(it, orangeColor) }
+        val icon = station?.state?.let { createStationIcon(it, orangeColor) }
 
 
         marker.setIcon(icon)
@@ -498,11 +510,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
             val icon = createStationIcon(station.state)
 
-            val markerOptions = MarkerOptions()
-                .position(position)
-                .title("${station.name} - ${line.line}")
-                .snippet(getTrainStatus(station.name))
-                .icon(icon)
+            val markerOptions =
+                MarkerOptions().position(position).title("${station.name} - ${line.line}")
+                    .snippet(getTrainStatus(station.name)).icon(icon)
 
 
             val marker = mMap.addMarker(markerOptions)
@@ -522,15 +532,13 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
     private fun createStationIcon(
-        status: StationState,
-        customTintColor: Int? = null
+        status: StationState, customTintColor: Int? = null
     ): BitmapDescriptor? {
-        val vectorDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.icon_metro)
+        val vectorDrawable = ContextCompat.getDrawable(
+            requireContext(), com.azamovhudstc.tashkentmetro.R.drawable.icon_metro
+        )
         vectorDrawable?.setBounds(
-            0,
-            0,
-            vectorDrawable.intrinsicWidth,
-            vectorDrawable.intrinsicHeight
+            0, 0, vectorDrawable.intrinsicWidth, vectorDrawable.intrinsicHeight
         )
 
         // Use the custom tint color if provided, otherwise use status-based color
@@ -540,9 +548,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
         val bitmap = vectorDrawable?.let {
             Bitmap.createBitmap(
-                it.intrinsicWidth,
-                it.intrinsicHeight,
-                Bitmap.Config.ARGB_8888
+                it.intrinsicWidth, it.intrinsicHeight, Bitmap.Config.ARGB_8888
             )
         }
         val canvas = bitmap?.let { Canvas(it) }
@@ -570,10 +576,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private fun getLineColor(line: Line): Int {
         return when (line) {
-            Line.CHILANZAR -> requireContext().getColor(R.color.map_red)
-            Line.UZBEKISTAN -> requireContext().getColor(R.color.map_blue)
-            Line.YUNUSOBOD -> requireContext().getColor(R.color.map_green)
-            Line.INDEPENDENCEDAY -> requireContext().getColor(R.color.map_yellow)
+            Line.CHILANZAR -> requireContext().getColor(com.azamovhudstc.tashkentmetro.R.color.map_red)
+            Line.UZBEKISTAN -> requireContext().getColor(com.azamovhudstc.tashkentmetro.R.color.map_blue)
+            Line.YUNUSOBOD -> requireContext().getColor(com.azamovhudstc.tashkentmetro.R.color.map_green)
+            Line.INDEPENDENCEDAY -> requireContext().getColor(com.azamovhudstc.tashkentmetro.R.color.map_yellow)
         }
     }
 
@@ -605,7 +611,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
     private fun showInputSearchBottomSheet(value: Station?) {
-        val view = layoutInflater.inflate(R.layout.search_bottom_dialog, null)
+        val view = layoutInflater.inflate(
+            com.azamovhudstc.tashkentmetro.R.layout.search_bottom_dialog, null
+        )
         bottomSheetDialog.setContentView(view)
 
         bottomSheetDialog.setOnShowListener {
@@ -622,15 +630,23 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
 
-        val popularStationRv = view.findViewById<RecyclerView>(R.id.popular_station_rv)
+        val popularStationRv =
+            view.findViewById<RecyclerView>(com.azamovhudstc.tashkentmetro.R.id.popular_station_rv)
 
-        val stationLineTv = view.findViewById<TextView>(R.id.station_line)
-        val popularTextFrame = view.findViewById<FrameLayout>(R.id.popular_station_frame)
-        val popularDivider = view.findViewById<MaterialDivider>(R.id.popular_divider)
-        val viewGradient = view.findViewById<View>(R.id.gradient_view)
-        val layoutManager = LinearLayoutManager(context)
-        viewGradient.background =
-            drawGradient(ContextCompat.getColor(requireContext(), R.color.map_red))
+        val stationLineTv =
+            view.findViewById<TextView>(com.azamovhudstc.tashkentmetro.R.id.station_line)
+        val popularTextFrame =
+            view.findViewById<FrameLayout>(com.azamovhudstc.tashkentmetro.R.id.popular_station_frame)
+        val popularDivider =
+            view.findViewById<MaterialDivider>(com.azamovhudstc.tashkentmetro.R.id.popular_divider)
+        val viewGradient =
+            view.findViewById<View>(com.azamovhudstc.tashkentmetro.R.id.gradient_view)
+        val layoutManager = LinearLayoutManager(requireContext())
+        viewGradient.background = drawGradient(
+            ContextCompat.getColor(
+                requireContext(), com.azamovhudstc.tashkentmetro.R.color.map_red
+            )
+        )
         viewGradient.gone()
         popularStationRv.layoutManager = layoutManager
         adapter.submitList(popularStations, true, value)
@@ -662,7 +678,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         })
 
 
-        val searchEt = view.findViewById<EditText>(R.id.search_et)
+        val searchEt = view.findViewById<EditText>(com.azamovhudstc.tashkentmetro.R.id.search_et)
         searchEt.addTextChangedListener {
             if (!it.isNullOrEmpty()) {
                 isPopular = false
@@ -679,19 +695,24 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
             }
         }
-        view.findViewById<MaterialButton>(R.id.button_cancel)
+        view.findViewById<MaterialButton>(com.azamovhudstc.tashkentmetro.R.id.button_cancel)
             .setOnClickListener { bottomSheetDialog.dismiss() }
         bottomSheetDialog.show()
     }
 
     private fun showMapTypeBottomSheet() {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
-        val view = layoutInflater.inflate(R.layout.layout_bottom_sheet_map_type, null)
+        val view = layoutInflater.inflate(
+            com.azamovhudstc.tashkentmetro.R.layout.layout_bottom_sheet_map_type, null
+        )
 
 
-        val normalMapOption = view.findViewById<MaterialCardView>(R.id.normal_map_option)
-        val satelliteMapOption = view.findViewById<MaterialCardView>(R.id.satellite_map_option)
-        val buttonClose = view.findViewById<FrameLayout>(R.id.button_close)
+        val normalMapOption =
+            view.findViewById<MaterialCardView>(com.azamovhudstc.tashkentmetro.R.id.normal_map_option)
+        val satelliteMapOption =
+            view.findViewById<MaterialCardView>(com.azamovhudstc.tashkentmetro.R.id.satellite_map_option)
+        val buttonClose =
+            view.findViewById<FrameLayout>(com.azamovhudstc.tashkentmetro.R.id.button_close)
         if (mMap.mapType != GoogleMap.MAP_TYPE_SATELLITE) normalMapOption.select() else satelliteMapOption.select()
 
         normalMapOption.setOnClickListener {
@@ -748,9 +769,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
             val styleRes =
                 when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                    Configuration.UI_MODE_NIGHT_YES -> R.raw.map_style_dark
-                    Configuration.UI_MODE_NIGHT_NO -> R.raw.map_style_light
-                    else -> R.raw.map_style_light
+                    Configuration.UI_MODE_NIGHT_YES -> com.azamovhudstc.tashkentmetro.R.raw.map_style_dark
+                    Configuration.UI_MODE_NIGHT_NO -> com.azamovhudstc.tashkentmetro.R.raw.map_style_light
+                    else -> com.azamovhudstc.tashkentmetro.R.raw.map_style_light
                 }
 
             val success =
@@ -860,11 +881,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private fun drawGradient(centerColor: Int): GradientDrawable {
         val gradientDrawable = GradientDrawable(
-            GradientDrawable.Orientation.TL_BR,
-            intArrayOf(
-                Color.parseColor("#E6F1FF"),
-                centerColor,
-                Color.parseColor("#E6F1FF")
+            GradientDrawable.Orientation.TL_BR, intArrayOf(
+                Color.parseColor("#E6F1FF"), centerColor, Color.parseColor("#E6F1FF")
             )
         )
         gradientDrawable.cornerRadius = 5f
