@@ -19,7 +19,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import android.widget.PopupMenu
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -67,7 +66,7 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.divider.MaterialDivider
 import javax.inject.Inject
 
-
+//We have 15 task :((( damn
 class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnMapReadyCallback,
     PopularStationAdapter.OnItemClickListener {
 
