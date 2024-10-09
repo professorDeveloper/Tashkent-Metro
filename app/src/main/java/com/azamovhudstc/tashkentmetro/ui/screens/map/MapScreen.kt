@@ -136,7 +136,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 isFrom = true
             } else {
                 val station = lastSelectedMarker?.tag as Station
-                showCustomMenu(binding.buttonFrom,station,viewModel.fromTv.value)
+                showCustomMenu(binding.buttonFrom,station,viewModel.fromTv.value,true)
 
             }
         }
@@ -151,7 +151,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 isFrom = false
             } else {
                 val station = lastSelectedMarker?.tag as Station
-                showCustomMenu(binding.buttonFrom,station,viewModel.toTv.value)
+                showCustomMenu(binding.buttonTo,station,viewModel.toTv.value,false)
 
             }
 
@@ -180,7 +180,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         return Pair(relativeX, relativeY)
     }
 
-    private fun showCustomMenu(view: View, station: Station, value: Station?) {
+    private fun showCustomMenu(view: View, station: Station, value: Station?, b: Boolean) {
         val popupView = LayoutInflater.from(requireContext()).inflate(R.layout.popup_layout_menu, null)
         val popupWindow = PopupWindow(
             popupView,
@@ -203,19 +203,36 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
         searchStation.setOnClickListener {
             showInputSearchBottomSheet(value)
-            isFrom = true
+            isFrom = b
             popupWindow.dismiss()
         }
 
         stationName.setOnClickListener {
-            if (isFrom){
+            if (b){
                 viewModel.setFromValue(station)
             }else{
                 viewModel.setToValue(station)
             }
             popupWindow.dismiss()
         }
+
+        val shouldEnable = !(b && viewModel.toTv.value == station) && !(viewModel.fromTv.value == station)
+
+        stationName.isEnabled = shouldEnable
+        stationName.alpha = if (shouldEnable) 1f else 0.4f
+
+
+
         popupView.findViewById<TextView>(R.id.menu_station_name_tv).text = station.name
+
+        delete.setOnClickListener {
+            if (b){
+                viewModel.clearFromValue()
+            }else{
+                viewModel.clearToValue()
+            }
+            popupWindow.dismiss()
+        }
 
         popupWindow.contentView.measure(
             View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
