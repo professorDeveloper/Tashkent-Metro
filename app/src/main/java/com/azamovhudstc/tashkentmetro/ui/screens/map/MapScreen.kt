@@ -12,9 +12,11 @@ import android.graphics.Paint
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -23,7 +25,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.azamovhudstc.tashkentmetro.R
 import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
-import com.azamovhudstc.tashkentmetro.data.model.IconPowerMenuItem
 import com.azamovhudstc.tashkentmetro.data.model.station.Line
 import com.azamovhudstc.tashkentmetro.data.model.station.Station
 import com.azamovhudstc.tashkentmetro.data.model.station.StationLine
@@ -60,8 +61,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.divider.MaterialDivider
-import com.skydoves.powermenu.CustomPowerMenu
-import com.skydoves.powermenu.MenuAnimation
 import javax.inject.Inject
 
 
@@ -132,34 +131,33 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 showInputSearchBottomSheet(viewModel.toTv.value)
                 isFrom = true
             } else {
-                val customPowerMenu: CustomPowerMenu<*, *> =
-                    CustomPowerMenu.Builder<IconPowerMenuItem, IconMenuAdapter>(
-                        requireContext(), IconMenuAdapter()
-                    ).addItemList(
-                        mutableListOf(
-                            IconPowerMenuItem("Delete", iconRes = R.drawable.ic_delete),
-                            IconPowerMenuItem("Search Station", iconRes = R.drawable.ic_search_white),
-                            IconPowerMenuItem("Quruvchilar", iconRes = R.drawable.icon_metro_white)
-                        )
-                    ).setAnimation(MenuAnimation.DROP_DOWN)
-                        .setIsClipping(false)
-                        .setAutoDismiss(true)
-                        .setShowBackground(true)
-                        .setPadding(4)
-                        .setMenuRadius(16f)
-                        .setMenuShadow(16f)
-                        .setWidth(600)
-                        .setBackgroundAlpha(0.1f)
-                        .build()
-
-                val yOffset = -4
-
-                customPowerMenu.showAsAnchorLeftTop(
-                    binding.buttonFrom,
-                    binding.buttonFrom.width - customPowerMenu.contentViewWidth,
-                    yOffset
-                )
-
+//                val customPowerMenu: CustomPowerMenu<*, *> =
+//                    CustomPowerMenu.Builder<IconPowerMenuItem, IconMenuAdapter>(
+//                        requireContext(), IconMenuAdapter()
+//                    ).addItemList(
+//                        mutableListOf(
+//                            IconPowerMenuItem("Delete", iconRes = R.drawable.ic_delete),
+//                            IconPowerMenuItem("Search Station", iconRes = R.drawable.ic_search_white),
+//                            IconPowerMenuItem("Quruvchilar", iconRes = R.drawable.icon_metro_white)
+//                        )
+//                    ).setAnimation(MenuAnimation.DROP_DOWN)
+//                        .setIsClipping(false)
+//                        .setAutoDismiss(true)
+//                        .setShowBackground(true)
+//                        .setPadding(4)
+//                        .setMenuRadius(16f)
+//                        .setMenuShadow(16f)
+//                        .setWidth(600)
+//                        .setBackgroundAlpha(0.1f)
+//                        .build()
+//
+//
+//                customPowerMenu.showAsAnchorLeftTop(
+//                    binding.buttonFrom,
+//                    binding.buttonFrom.width - customPowerMenu.contentViewWidth,
+//                    yOffset
+//                )
+                showCustomMenu(binding.buttonFrom)
 
             }
         }
@@ -182,6 +180,40 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     }
 
+    private fun showCustomMenu(view: View) {
+        val popupMenu = PopupMenu(requireActivity(), view)
+        popupMenu.menuInflater.inflate(R.menu.map_menu, popupMenu.menu)
+        popupMenu.setForceShowIcon()
+
+        popupMenu.setOnMenuItemClickListener { menuItem: MenuItem ->
+            when (menuItem.itemId) {
+                R.id.ic_delete -> true
+                R.id.ic_station -> true
+                R.id.ic_builder -> true
+                else -> false
+            }
+        }
+
+        popupMenu.show()
+    }
+
+    private fun PopupMenu.setForceShowIcon() {
+        try {
+            val fields = this.javaClass.declaredFields
+            for (field in fields) {
+                if ("mPopup" == field.name) {
+                    field.isAccessible = true
+                    val menuPopupHelper = field.get(this)
+                    val classPopupHelper = Class.forName(menuPopupHelper.javaClass.name)
+                    val setForceIcons = classPopupHelper.getMethod("setForceShowIcon", Boolean::class.javaPrimitiveType)
+                    setForceIcons.invoke(menuPopupHelper, true)
+                    break
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
     private fun showBottomSheet() {
         (activity as? MainActivity)?.hideBottomNavigation()
         binding.bottomSheet.visibility = View.VISIBLE

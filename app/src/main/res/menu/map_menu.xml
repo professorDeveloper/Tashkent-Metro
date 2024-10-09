@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/ic_delete"
+        android:actionLayout="@layout/item_menu_power"
+        android:icon="@drawable/ic_delete"
+
+        android:title="Delete"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/ic_station"
+        android:actionLayout="@layout/item_menu_power"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_search_white"
+        android:title="Search Station" />
+    <item
+        android:id="@+id/ic_builder"
+        app:showAsAction="always"
+        android:icon="@drawable/icon_metro_white"
+        android:actionLayout="@layout/item_menu_power"
+        android:title="Quruvchilar" />
+</menu>
