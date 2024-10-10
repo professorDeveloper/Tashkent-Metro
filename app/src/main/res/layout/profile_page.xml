@@ -256,6 +256,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/dropdown_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
@@ -288,7 +289,6 @@
 
                     <!-- Dropdown Icon -->
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/dropdown_icon"
                         android:layout_width="@dimen/_15sdp"
                         android:layout_height="@dimen/_15sdp"
                         android:layout_marginStart="@dimen/_2sdp"
@@ -344,6 +344,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/dropdown_icon_theme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
@@ -369,7 +370,6 @@
 
                     <!-- Dropdown Icon -->
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/dropdown_icon_theme"
                         android:layout_width="@dimen/_15sdp"
                         android:layout_height="@dimen/_15sdp"
                         android:layout_marginStart="@dimen/_2sdp"
