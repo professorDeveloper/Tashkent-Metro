@@ -27,9 +27,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.azamovhudstc.tashkentmetro.R
-import com.azamovhudstc.tashkentmetro.custom.markerWithText.MarkerInfo
 import com.azamovhudstc.tashkentmetro.data.local.shp.AppReference
-import com.azamovhudstc.tashkentmetro.data.local.shp.ThemeStyle
 import com.azamovhudstc.tashkentmetro.data.model.station.Line
 import com.azamovhudstc.tashkentmetro.data.model.station.Station
 import com.azamovhudstc.tashkentmetro.data.model.station.StationLine
@@ -66,13 +64,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.divider.MaterialDivider
-import dagger.hilt.android.AndroidEntryPoint
-import java.util.Collections.max
 import javax.inject.Inject
-import kotlin.math.max
 
-
-@AndroidEntryPoint
+//We have 15 task :((( damn
 class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnMapReadyCallback,
     PopularStationAdapter.OnItemClickListener {
 
@@ -87,7 +81,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private var lastSelectedMarker: Marker? = null
     private var isPopular = true
     private var isSheetVisible = false
-
 
     @Inject
     lateinit var userPreferenceManager: AppReference
@@ -141,7 +134,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 isFrom = true
             } else {
                 val station = lastSelectedMarker?.tag as Station
-                showCustomMenu(binding.buttonFrom,station,viewModel.fromTv.value,true)
+                showCustomMenu(binding.buttonFrom, station, viewModel.fromTv.value, true)
 
             }
         }
@@ -161,6 +154,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
         }
 
+
+
+
         binding.buttonRemoveFrom.setOnClickListener {
             viewModel.clearFromValue()
         }
@@ -168,10 +164,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             viewModel.clearToValue()
         }
 
+
     }
 
     private fun showCustomMenu(view: View, station: Station, value: Station?, b: Boolean) {
-        val popupView = LayoutInflater.from(requireContext()).inflate(R.layout.popup_layout_menu, null)
+        val popupView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.popup_layout_menu, binding.root)
         val popupWindow = PopupWindow(
             popupView,
             (binding.pp.width / 2),
@@ -183,7 +181,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val searchStation = popupView.findViewById<LinearLayout>(R.id.menu_search)
         val stationName = popupView.findViewById<LinearLayout>(R.id.menu_station_name)
 
-        if (value == null){
+        if (value == null) {
             delete.gone()
             popupView.findViewById<MaterialDivider>(R.id.menu_delete_divider).gone()
         } else {
@@ -335,13 +333,15 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             bottomSheetDialog.dismiss()
         }
 
+
     }
 
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
 
-        binding.mapFloatingMarkersOverlay.setSource(mMap);
+
+
         applyMapStyleBasedOnTheme(requireContext(), mMap)
 
         setupMetroLines()
@@ -358,6 +358,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             handleMarkerClick(marker)
             true // Return true to indicate that the click was handled
         }
+
 
     }
 
@@ -465,6 +466,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private fun setupMetroLines() {
         metro.forEach { line ->
+            Log.d("LINES", "setupMetroLines: ${line}")
             setupMetroLine(line)
         }
 
@@ -511,25 +513,12 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
             val icon = createStationIcon(station.state)
 
-            val id = station.id.toLong()
-            val latLang = LatLng(station.location.latitude,station.location.longitude)
-            val title = station.name
-            val color = if (userPreferenceManager.theme == ThemeStyle.DARK) ContextCompat.getColor(requireContext(),R.color.white)
-            else ContextCompat.getColor(requireContext(),R.color.black)
-            val markerInfo = MarkerInfo(latLang,title,color)
-
-
             val markerOptions =
-                MarkerOptions()
-                    .position(markerInfo.coordinates)
-                    .title("${station.name} - ${line.line}")
-                    .snippet(getTrainStatus(station.name))
-                    .icon(icon)
-
+                MarkerOptions().position(position).title("${station.name} - ${line.line}")
+                    .snippet(getTrainStatus(station.name)).icon(icon)
 
 
             val marker = mMap.addMarker(markerOptions)
-            binding.mapFloatingMarkersOverlay.addMarker(id,markerInfo)
             marker?.tag = station
 
             marker?.let { markers.add(it) }
@@ -544,7 +533,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
         polylines.add(polyline)
     }
-
 
     private fun createStationIcon(
         status: StationState, customTintColor: Int? = null
@@ -709,12 +697,14 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
         normalMapOption.setOnClickListener {
             mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+            AppReference(requireContext()).mapStyle = "normal"
             normalMapOption.select()
             satelliteMapOption.unSelect()
 //            bottomSheetDialog.dismiss()
         }
 //
         satelliteMapOption.setOnClickListener {
+            AppReference(requireContext()).mapStyle = "satellite"
             mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
             normalMapOption.unSelect()
             satelliteMapOption.select()
@@ -743,6 +733,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     override fun onDestroy() {
         super.onDestroy()
         mapView.onDestroy()
+
     }
 
     override fun onLowMemory() {
@@ -768,6 +759,13 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
             val success =
                 googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, styleRes))
+            val mapStyle = AppReference(requireContext()).mapStyle.toString() ?: "standart"
+            if (mapStyle == "standart") {
+                mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+            } else {
+                mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+
+            }
             if (!success) {
                 Log.e("MapStyle", "Xarita uslubi muvaffaqiyatsiz o'rnatildi.")
             }
