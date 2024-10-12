@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/firstPage"
-        android:name="com.azamovhudstc.tashkentmetro.ui.screens.intro.FirstPage"
+        android:name="com.zbekz.tashkentmetro.ui.screens.intro.FirstPage"
         android:label="first_page"
         tools:layout="@layout/first_page" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/secondPage"
-        android:name="com.azamovhudstc.tashkentmetro.ui.screens.intro.SecondPage"
+        android:name="com.zbekz.tashkentmetro.ui.screens.intro.SecondPage"
         android:label="second_page"
         tools:layout="@layout/second_page" >
         <action
@@ -26,11 +26,11 @@
     <fragment
         android:id="@+id/thirdPage"
         tools:layout="@layout/third_page"
-        android:name="com.azamovhudstc.tashkentmetro.ui.screens.intro.ThirdPage"
+        android:name="com.zbekz.tashkentmetro.ui.screens.intro.ThirdPage"
         android:label="ThirdPage" />
     <fragment
         android:id="@+id/splashPage"
-        android:name="com.azamovhudstc.tashkentmetro.ui.screens.intro.SplashPage"
+        android:name="com.zbekz.tashkentmetro.ui.screens.intro.SplashPage"
         android:label="splash_page"
         tools:layout="@layout/splash_page" >
         <action
