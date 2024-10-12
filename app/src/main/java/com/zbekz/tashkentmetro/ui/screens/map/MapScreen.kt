@@ -71,6 +71,7 @@ import com.zbekz.tashkentmetro.utils.LocalData
 import com.zbekz.tashkentmetro.utils.LocalData.metro
 import com.zbekz.tashkentmetro.utils.LocalData.popularStations
 import com.zbekz.tashkentmetro.utils.custom.StationFilter
+import com.zbekz.tashkentmetro.utils.formatString
 import com.zbekz.tashkentmetro.utils.gone
 import com.zbekz.tashkentmetro.utils.select
 import com.zbekz.tashkentmetro.utils.snackString
@@ -231,7 +232,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         stationName.isEnabled = shouldEnable
         stationName.alpha = if (shouldEnable) 1f else 0.4f
 
-        popupView.findViewById<TextView>(R.id.menu_station_name_tv).text = station.name
+        popupView.findViewById<TextView>(R.id.menu_station_name_tv).text = formatString(station.name,requireContext())
 
         delete.setOnClickListener {
             if (b) {
@@ -333,7 +334,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private fun updateUiToStation(station: Station?) {
         if (station != null) {
-            binding.buttonTo.text = station.name
+            binding.buttonTo.text = formatString(station.name,requireContext())
             binding.buttonRemoveTo.visible()
             bottomSheetDialog.dismiss()
         } else {
@@ -345,7 +346,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private fun updateUiFromStation(station: Station?) {
         if (station != null) {
-            binding.buttonFrom.text = station.name
+            binding.buttonFrom.text = formatString(station.name,requireContext())
             binding.buttonRemoveFrom.visible()
             bottomSheetDialog.dismiss()
         } else {
@@ -656,7 +657,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
             val id = station.id.toLong()
             val latLang = LatLng(station.location.latitude, station.location.longitude)
-            val title = station.name
+            val title = formatString(station.name,requireContext())
             val color = if (userPreferenceManager.theme == ThemeStyle.DARK) ContextCompat.getColor(
                 requireContext(),
                 R.color.white
@@ -668,8 +669,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             val markerOptions =
                 MarkerOptions()
                     .position(markerInfo.coordinates)
-                    .title("${station.name} - ${line.line}")
-                    .snippet(getTrainStatus(station.name))
+                    .title("${formatString(station.name,requireContext())} - ${line.line}")
+                    .snippet(getTrainStatus(formatString(station.name,requireContext())))
                     .icon(icon)
 
 
