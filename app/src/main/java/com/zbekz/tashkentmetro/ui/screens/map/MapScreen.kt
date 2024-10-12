@@ -805,7 +805,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                     val firstVisiblePosition = lm.findFirstVisibleItemPosition()
                     if (firstVisiblePosition != RecyclerView.NO_POSITION) {
                         val (station, gradient) = adapter.getStationAt(firstVisiblePosition)
-                        stationLineTv.text = station.line.name
+                        stationLineTv.text = formatString(station.line.name,requireContext())
                         viewGradient.visible()
                         viewGradient.background = gradient
                     }
