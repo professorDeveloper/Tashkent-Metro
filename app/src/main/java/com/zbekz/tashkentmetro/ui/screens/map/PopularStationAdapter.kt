@@ -13,6 +13,7 @@ import com.zbekz.tashkentmetro.data.model.station.Station
 import com.zbekz.tashkentmetro.data.model.station.StationState
 import com.zbekz.tashkentmetro.databinding.ItemPopularStationsBinding
 import com.zbekz.tashkentmetro.utils.LocalData
+import com.zbekz.tashkentmetro.utils.currContext
 import com.zbekz.tashkentmetro.utils.formatString
 
 class PopularStationAdapter(private val listener: OnItemClickListener) : RecyclerView.Adapter<PopularStationAdapter.SVHolder>() {
@@ -40,7 +41,7 @@ class PopularStationAdapter(private val listener: OnItemClickListener) : Recycle
                 itemView.alpha = 1f
 
             }
-            itemBinding.popularStation.text = formatString(model.name)
+            itemBinding.popularStation.text = formatString(model.name, context = currContext()!!)
             itemBinding.stationPosition.text = model.state.name
 
             if (previousLineName != model.line.name && !isPopular && position > 0) {

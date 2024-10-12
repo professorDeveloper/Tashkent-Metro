@@ -1,8 +1,13 @@
 package com.zbekz.tashkentmetro.utils
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
+import com.zbekz.tashkentmetro.data.local.shp.AppReference
+import com.zbekz.tashkentmetro.data.local.shp.Language
+import com.zbekz.tashkentmetro.data.model.station.StationLang
+import com.zbekz.tashkentmetro.utils.custom.StationFilter
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -23,9 +28,29 @@ fun String.firstLetterUpper(): String {
 //    }
 //}
 
-fun formatString(input: String): String {
-    return input.split("_")  // Pastki chiziqlar bo'yicha bo'lib olish
+fun formatString(input: String, context: Context): String {
+    return checkLanAndReturn(input, context).split("_")  // Pastki chiziqlar bo'yicha bo'lib olish
         .joinToString(" ") { it.capitalize() }  // So'zlarni bosh harfini katta qilish va probel bilan birlashtirish
+}
+
+fun checkLanAndReturn(name: String, context: Context): String {
+    val appReference = AppReference(context)
+    val lang = appReference.language
+    val langResult =StationFilter.getStationByQuery(name)?: StationLang("none", mapOf())
+    return when (lang) {
+        Language.ENGLISH -> {
+            langResult.translations["en"] ?: name
+        }
+
+        Language.RUSSIAN -> {
+            langResult.translations["ru"] ?: name
+
+        }
+
+        Language.UZBEK -> {
+            langResult.translations["uz"] ?: name
+        }
+    }
 }
 
 fun Bitmap.toStringWithBitmap(): String {

@@ -19,12 +19,17 @@ object StationFilter {
         return newResult
     }
 
-   private fun searchStation(query: String): List<StationLang> {
+    fun searchStation(query: String): List<StationLang> {
         return stations.filter { station ->
             station.translations.any { (_, translation) ->
                 translation.contains(query, ignoreCase = true)
             }
         }
+    }
+
+
+    fun getStationByQuery(query: String): StationLang? {
+        return stations.find { it.id == query }
     }
 
 }
