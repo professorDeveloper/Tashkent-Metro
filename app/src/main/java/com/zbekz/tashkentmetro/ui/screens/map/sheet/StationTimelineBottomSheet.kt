@@ -42,7 +42,6 @@ class StationTimelineBottomSheet(val result: MutableList<StationLine>) : BottomS
 
         val bottomSheetBehavior = BottomSheetBehavior.from(binding.root.parent as View)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED // or STATE_EXPANDED
-        bottomSheetBehavior.peekHeight = 8000 // Set your desired peek height
     }
 
     override fun onDestroyView() {
