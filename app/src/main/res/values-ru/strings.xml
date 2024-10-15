@@ -54,6 +54,6 @@
     <string name="search_hint">Поиск станции</string>
     <string name="check_the_spelling_or_try_a_new_search">Проверьте правописание или попробуйте новый поиск</string>
     <string name="from">От</string>
-    <string name="to">К</string>
+    <string name="to">До</string>
 
 </resources>
