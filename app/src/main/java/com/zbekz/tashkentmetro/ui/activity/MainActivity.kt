@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.zbekz.tashkentmetro.R
@@ -32,25 +31,8 @@ class MainActivity : AppCompatActivity() {
         ViewUtils.setLanguageForService(this, userPreferenceManager)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-
-
         viewBinding.homeNavigation.setupWithNavController(navController)
 
-        viewBinding.homeNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.button_maps -> {
-                    navController.navigate(R.id.button_maps)
-                    true
-                }
-                R.id.button_settings -> {
-                    navController.navigate(R.id.button_settings, null, NavOptions.Builder()
-                        .setPopUpTo(navController.graph.startDestinationId, true)
-                        .build())
-                    true
-                }
-                else -> false
-            }
-        }
     }
 
 
@@ -62,11 +44,4 @@ class MainActivity : AppCompatActivity() {
         viewBinding.homeNavigation.visibility = View.VISIBLE
     }
 
-    override fun onBackPressed() {
-        if (navController.currentDestination?.id == R.id.button_settings) {
-            finish()
-        } else {
-            super.onBackPressed()
-        }
-    }
 }
