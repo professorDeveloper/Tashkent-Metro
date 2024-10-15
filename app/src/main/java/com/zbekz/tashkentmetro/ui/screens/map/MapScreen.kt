@@ -909,9 +909,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        if(this::mapView.isInitialized){
+            mapView.onSaveInstanceState(outState)
+        }
     }
-
 
     private fun applyMapStyleBasedOnTheme(context: Context, googleMap: GoogleMap) {
         try {

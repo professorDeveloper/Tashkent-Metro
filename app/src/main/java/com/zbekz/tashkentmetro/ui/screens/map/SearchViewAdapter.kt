@@ -11,6 +11,7 @@ import com.zbekz.tashkentmetro.data.model.station.Line
 import com.zbekz.tashkentmetro.data.model.station.Station
 import com.zbekz.tashkentmetro.data.model.station.StationState
 import com.zbekz.tashkentmetro.databinding.SearchViewItemBinding
+import com.zbekz.tashkentmetro.utils.formatString
 
 class SearchViewAdapter(private val onItemClickListener: (Station) -> Unit) : RecyclerView.Adapter<SearchViewAdapter.SearchViewVh>(
 ) {
@@ -20,7 +21,7 @@ class SearchViewAdapter(private val onItemClickListener: (Station) -> Unit) : Re
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(station: Station) {
             binding.apply {
-                popularStation.text = station.name
+                popularStation.text = formatString(station.name.toString(),binding.root.context)
                 stationPosition.text = station.state.name
                 lineName.text = station.line.name
                 gradientView.background = drawGradient(getLineColor(station.line))
