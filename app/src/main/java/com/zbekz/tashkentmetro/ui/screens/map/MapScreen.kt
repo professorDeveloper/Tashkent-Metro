@@ -3,6 +3,7 @@ package com.zbekz.tashkentmetro.ui.screens.map
 import android.Manifest
 import android.animation.Animator
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -232,7 +233,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         stationName.isEnabled = shouldEnable
         stationName.alpha = if (shouldEnable) 1f else 0.4f
 
-        popupView.findViewById<TextView>(R.id.menu_station_name_tv).text = formatString(station.name,requireContext())
+        popupView.findViewById<TextView>(R.id.menu_station_name_tv).text =
+            formatString(station.name, requireContext())
 
         delete.setOnClickListener {
             if (b) {
@@ -334,7 +336,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private fun updateUiToStation(station: Station?) {
         if (station != null) {
-            binding.buttonTo.text = formatString(station.name,requireContext())
+            binding.buttonTo.text = formatString(station.name, requireContext())
             binding.buttonRemoveTo.visible()
             bottomSheetDialog.dismiss()
         } else {
@@ -346,7 +348,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private fun updateUiFromStation(station: Station?) {
         if (station != null) {
-            binding.buttonFrom.text = formatString(station.name,requireContext())
+            binding.buttonFrom.text = formatString(station.name, requireContext())
             binding.buttonRemoveFrom.visible()
             bottomSheetDialog.dismiss()
         } else {
@@ -657,7 +659,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
             val id = station.id.toLong()
             val latLang = LatLng(station.location.latitude, station.location.longitude)
-            val title = formatString(station.name,requireContext())
+            val title = formatString(station.name, requireContext())
             val color = if (userPreferenceManager.theme == ThemeStyle.DARK) ContextCompat.getColor(
                 requireContext(),
                 R.color.white
@@ -669,8 +671,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             val markerOptions =
                 MarkerOptions()
                     .position(markerInfo.coordinates)
-                    .title("${formatString(station.name,requireContext())} - ${line.line}")
-                    .snippet(getTrainStatus(formatString(station.name,requireContext())))
+                    .title("${formatString(station.name, requireContext())} - ${line.line}")
+                    .snippet(getTrainStatus(formatString(station.name, requireContext())))
                     .icon(icon)
 
 
@@ -750,6 +752,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         return status ?: "Ma'lumot yo'q"
     }
 
+    @SuppressLint("MissingInflatedId")
     private fun showInputSearchBottomSheet(value: Station?) {
         val view = layoutInflater.inflate(
             R.layout.search_bottom_dialog, null
@@ -770,7 +773,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
         val popularStationRv =
             view.findViewById<RecyclerView>(R.id.popular_station_rv)
-
         val stationLineTv =
             view.findViewById<TextView>(R.id.station_line)
         val popularTextFrame =
@@ -805,7 +807,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                     val firstVisiblePosition = lm.findFirstVisibleItemPosition()
                     if (firstVisiblePosition != RecyclerView.NO_POSITION) {
                         val (station, gradient) = adapter.getStationAt(firstVisiblePosition)
-                        stationLineTv.text = formatString(station.line.name,requireContext())
+                        stationLineTv.text = formatString(station.line.name, requireContext())
                         viewGradient.visible()
                         viewGradient.background = gradient
                     }
@@ -822,10 +824,25 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 isPopular = false
                 viewGradient.visible()
                 val filteredStations = StationFilter.filterStations(it.toString(), metro)
-                stationLineTv.text = filteredStations[0].line.name
-                adapter.submitList(filteredStations, false, value)
+                if (filteredStations.isNullOrEmpty()) {
+                    stationLineTv.gone()
+                    popularStationRv.gone()
+                    popularDivider.gone()
+                    popularTextFrame.gone()
+                } else {
+                    popularTextFrame.visible()
+                    stationLineTv.visible()
+                    popularStationRv.visible()
+                    stationLineTv.text = filteredStations[0].line.name
+                    adapter.submitList(filteredStations, false, value)
+                }
+
+
+
             } else {
                 isPopular = true
+                stationLineTv.visible()
+                popularStationRv.visible()
                 popularTextFrame.visible()
                 popularDivider.visible()
                 viewGradient.gone()
@@ -909,7 +926,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-            mapView.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
     }
 
     private fun applyMapStyleBasedOnTheme(context: Context, googleMap: GoogleMap) {
