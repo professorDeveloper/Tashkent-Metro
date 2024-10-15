@@ -838,7 +838,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 }
 
 
-
             } else {
                 isPopular = true
                 stationLineTv.visible()
@@ -906,35 +905,38 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     override fun onResume() {
         super.onResume()
-        if(this::mapView.isInitialized){
+        if (this::mapView.isInitialized) {
             mapView.onResume()
         }
     }
 
     override fun onPause() {
         super.onPause()
-        if(this::mapView.isInitialized){
+        if (this::mapView.isInitialized) {
             mapView.onPause()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if(this::mapView.isInitialized){
+        if (this::mapView.isInitialized) {
             mapView.onDestroy()
         }
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        if(this::mapView.isInitialized){
+        if (this::mapView.isInitialized) {
             mapView.onLowMemory()
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        if (this::mapView.isInitialized) {
+
+            mapView.onSaveInstanceState(outState)
+        }
     }
 
     private fun applyMapStyleBasedOnTheme(context: Context, googleMap: GoogleMap) {
