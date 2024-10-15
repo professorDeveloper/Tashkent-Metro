@@ -23,7 +23,7 @@
         app:itemBackground="@drawable/item_bg"
         app:itemIconTint="@drawable/item_navbar_bg"
         app:itemTextColor="@drawable/item_navbar_bg"
-        
+        android:background="?attr/colorSurfaceContainer"
         android:layout_width="match_parent"
 
         app:layout_constraintBottom_toBottomOf="parent"

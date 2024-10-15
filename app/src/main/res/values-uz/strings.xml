@@ -39,5 +39,20 @@
     <string name="privacy_policy">Maxfiylik siyosati</string>
     <string name="russian">Rus tili</string>
     <string name="uzbek">O\'zbek tili</string>
+    <string name="transfer_to_the_other_line">Boshqa qatorga o‘tkazish..</string>
+    <string name="delete">O`chirish</string>
+    <string name="popular_stations">Mashxur stansiyalar</string>
+    <string name="underground">Metro</string>
+    <string name="route_details">Mashrut haqida</string>
+    <string name="search_station">Stansiya qidirish</string>
+    <string name="phone_number">Telefon raqam</string>
+    <string name="type_your_valid_phone_number">Telefon raqamni kiriting</string>
+    <string name="edit_phone_number">Telefon raqamni tahrirlash</string>
+    <string name="verification_code">Kod</string>
+    <string name="resend_code">Kodni qayta yuborish</string>
+    <string name="enter_received_code_from">Kodni Kiriting</string>
+    <string name="search_hint">Stansiya qidirish </string>
+    <string name="check_the_spelling_or_try_a_new_search">Izohni tekshiring yoki yangi qidiring</string>
+
 
 </resources>

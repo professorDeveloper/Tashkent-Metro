@@ -57,4 +57,17 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_hint">Search Station</string>
+    <string name="transfer_to_the_other_line">Transfer to the other line.</string>
+    <string name="delete">Delete</string>
+    <string name="popular_stations">Popular stations</string>
+    <string name="underground">Underground</string>
+    <string name="route_details">Route Details\t\t\t\t\t\t</string>
+    <string name="search_station">Search station</string>
+    <string name="phone_number">PHONE NUMBER</string>
+    <string name="type_your_valid_phone_number">Type your valid phone number</string>
+    <string name="edit_phone_number">Edit phone number</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="resend_code">Resend code</string>
+    <string name="enter_received_code_from">Enter received code from</string>
+    <string name="check_the_spelling_or_try_a_new_search">Check the spelling or try a new search</string>
 </resources>

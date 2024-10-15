@@ -74,6 +74,7 @@ import com.zbekz.tashkentmetro.utils.LocalData.popularStations
 import com.zbekz.tashkentmetro.utils.custom.StationFilter
 import com.zbekz.tashkentmetro.utils.formatString
 import com.zbekz.tashkentmetro.utils.gone
+import com.zbekz.tashkentmetro.utils.localizeLastStation
 import com.zbekz.tashkentmetro.utils.select
 import com.zbekz.tashkentmetro.utils.snackString
 import com.zbekz.tashkentmetro.utils.unSelect
@@ -411,9 +412,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             val previousStation = result.first
             val nextStation = result.second
             binding.bottomDetailTwoStation.previousStation.text =
-                previousStation?.name ?: "Last station"
-            binding.bottomDetailTwoStation.nextStation.text = nextStation?.name ?: "Last station"
-            binding.bottomDetailTwoStation.currentStation.text = it.name
+                formatString(previousStation?.name!!,requireContext()) ?: localizeLastStation()
+            binding.bottomDetailTwoStation.nextStation.text = formatString(nextStation?.name!!,requireContext()) ?: localizeLastStation()
+            binding.bottomDetailTwoStation.currentStation.text = formatString(it.name, requireContext())
 
             binding.bottomDetailTwoStation.previousStation.setOnClickListener {
                 previousStation?.let { prev ->
@@ -741,7 +742,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         return when (line) {
             Line.CHILANZAR -> requireContext().getColor(R.color.map_red)
             Line.UZBEKISTAN -> requireContext().getColor(com.zbekz.tashkentmetro.R.color.map_blue)
-            Line.YUNUSOBOD -> requireContext().getColor(com.zbekz.tashkentmetro.R.color.map_green)
+            Line.YUNUSABAD -> requireContext().getColor(com.zbekz.tashkentmetro.R.color.map_green)
             Line.INDEPENDENCEDAY -> requireContext().getColor(com.zbekz.tashkentmetro.R.color.map_yellow)
         }
     }

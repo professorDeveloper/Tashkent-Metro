@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Settings"
+                android:text="@string/settings"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/nunito_bold"
-            android:text="Login/Register"
+            android:text="@string/login_register"
             android:textColor="@color/black"
             android:textSize="@dimen/_15sdp" />
     </FrameLayout>
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_7sdp"
         android:layout_marginTop="@dimen/_8sdp"
-        android:text="PHONE NUMBER"
+        android:text="@string/phone_number"
         android:textColor="@color/bg_black_50"
         android:textSize="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="@+id/cardView5"
@@ -109,7 +109,7 @@
                 android:fontFamily="@font/nunito_bold"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="@dimen/_8sdp"
-                android:text="Edit phone number"
+                android:text="@string/edit_phone_number"
                 android:textAllCaps="false"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/_12sdp"
@@ -125,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_4sdp"
         android:layout_marginTop="@dimen/_4sdp"
-        android:text="Type your valid phone number"
+        android:text="@string/type_your_valid_phone_number"
         android:textColor="@color/bg_black_50"
         android:textSize="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="@+id/textView11"
@@ -139,7 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_7sdp"
         android:layout_marginTop="@dimen/_20sdp"
-        android:text="Verification Code"
+        android:text="@string/verification_code"
         android:textAllCaps="true"
         android:textColor="@color/bg_black_50"
         android:textSize="@dimen/_10sdp"
@@ -201,7 +201,7 @@
                     android:fontFamily="@font/nunito_regular"
                     android:gravity="center_vertical"
                     android:paddingHorizontal="@dimen/_8sdp"
-                    android:text="Resend code"
+                    android:text="@string/resend_code"
 
                     android:textSize="@dimen/_12sdp" />
 
@@ -225,7 +225,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_4sdp"
         android:layout_marginTop="@dimen/_4sdp"
-        android:text="Enter received code from"
+        android:text="@string/enter_received_code_from"
         android:textColor="@color/bg_black_50"
         android:textSize="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="@+id/textView11"
@@ -249,7 +249,7 @@
         android:fontFamily="@font/nunito_bold"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:text="Next"
+        android:text="@string/next"
         android:textColor="@color/card_background"
         android:textSize="@dimen/_12ssp"
         app:cornerRadius="@dimen/_8sdp"

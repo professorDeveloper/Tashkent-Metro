@@ -14,7 +14,7 @@
         android:layout_gravity="start|center"
         android:layout_marginStart="@dimen/_8sdp"
         android:fontFamily="@font/nunito_bold"
-        android:text="Delete"
+        android:text="@string/delete"
 
         android:textColor="#BF463D"
         android:textSize="@dimen/_13sdp" />

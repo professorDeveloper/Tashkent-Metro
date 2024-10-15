@@ -39,5 +39,19 @@
     <string name="privacy_policy">Политика конфиденциальности</string>
     <string name="russian">Русский</string>
     <string name="uzbek">Узбекский</string>
+    <string name="transfer_to_the_other_line">Перевести на другую линию..</string>
+    <string name="delete">Удалить</string>
+    <string name="popular_stations">Популярная станция</string>
+    <string name="underground">Метро</string>
+    <string name="route_details">Детали маршрута</string>
+    <string name="search_station">Поисковая станция</string>
+    <string name="phone_number">НОМЕР ТЕЛЕФОНА</string>
+    <string name="type_your_valid_phone_number">Напишите свой валидный номер</string>
+    <string name="edit_phone_number">Изменить номер</string>
+    <string name="verification_code">КОД ПОДТВЕРЖДЕНИЯ</string>
+    <string name="resend_code">Переслать код</string>
+    <string name="enter_received_code_from">Введите полученный код</string>
+    <string name="search_hint">Поиск станции</string>
+    <string name="check_the_spelling_or_try_a_new_search">Проверьте правописание или попробуйте новый поиск</string>
 
 </resources>

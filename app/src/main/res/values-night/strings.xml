@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delete">Delete</string>
+    <string name="popular_stations">Popular stations</string>
+    <string name="underground">Underground</string>
+    <string name="route_details">Route Details\t\t\t\t\t\t</string>
+    <string name="search_station">Search station</string>
+    <string name="phone_number">PHONE NUMBER</string>
+    <string name="type_your_valid_phone_number">Type your valid phone number</string>
+    <string name="edit_phone_number">Edit phone number</string>
+</resources>

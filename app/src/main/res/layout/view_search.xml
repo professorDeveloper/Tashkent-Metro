@@ -137,7 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_semi_bold"
-                android:text="Check the spelling or try a new search "
+                android:text="@string/check_the_spelling_or_try_a_new_search"
                 android:textSize="@dimen/_13sdp" />
 
         </LinearLayout>

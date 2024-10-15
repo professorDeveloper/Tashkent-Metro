@@ -6,7 +6,7 @@ data class StationLocation(
 )
 
 enum class Line {
-    CHILANZAR, UZBEKISTAN, YUNUSOBOD, INDEPENDENCEDAY
+    CHILANZAR, UZBEKISTAN, YUNUSABAD, INDEPENDENCEDAY
 }
 
 enum class StationState {

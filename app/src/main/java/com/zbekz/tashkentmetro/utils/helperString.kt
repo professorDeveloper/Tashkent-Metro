@@ -28,6 +28,32 @@ fun String.firstLetterUpper(): String {
 //    }
 //}
 
+
+fun localizeDone(context: Context):String{
+    val appReference = AppReference(context)
+    return when (appReference.language) {
+        Language.ENGLISH -> "Done"
+        Language.RUSSIAN -> "Готово"
+        Language.UZBEK -> "Tugatish"
+    }
+}
+fun localizeEnterCode(context: Context,input: String):String{
+    val appReference = AppReference(context)
+    return when (appReference.language) {
+
+        Language.ENGLISH -> "Enter received code from ${input}"
+        Language.RUSSIAN -> "Введи полученный код от ${input}"
+        Language.UZBEK -> "Shu ${input} bilan yuborilgan kodni kiriting"
+    }
+}
+fun localizeLastStation():String{
+    val appReference   = AppReference(currContext()!!)
+    return when (appReference.language) {
+        Language.ENGLISH -> "Last station"
+        Language.RUSSIAN -> "Последняя станция"
+        Language.UZBEK -> "So`ngi stansiya"
+    }
+}
 fun formatString(input: String, context: Context): String {
     return checkLanAndReturn(input, context).split("_")  // Pastki chiziqlar bo'yicha bo'lib olish
         .joinToString(" ") { it.capitalize() }  // So'zlarni bosh harfini katta qilish va probel bilan birlashtirish

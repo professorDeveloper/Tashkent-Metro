@@ -64,7 +64,7 @@ class SearchViewAdapter(private val onItemClickListener: (Station) -> Unit) : Re
         return when (line) {
             Line.CHILANZAR -> "#FF453A"
             Line.UZBEKISTAN -> "#0B84FF"
-            Line.YUNUSOBOD -> "#31D158"
+            Line.YUNUSABAD -> "#31D158"
             Line.INDEPENDENCEDAY -> "#FED709"
         }
     }

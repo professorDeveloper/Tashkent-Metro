@@ -123,7 +123,7 @@ object LocalData {
         ),
         Station(
             id = 35,
-            line = Line.YUNUSOBOD,
+            line = Line.YUNUSABAD,
             location = StationLocation(41.312733, 69.283470),
             name = "yunus_rajabiy",
             state = StationState.UNDERGROUND,
@@ -131,7 +131,7 @@ object LocalData {
         ),
         Station(
             id = 36,
-            line = Line.YUNUSOBOD,
+            line = Line.YUNUSABAD,
             location = StationLocation(41.298992, 69.273019),
             name = "ming_urik",
             state = StationState.UNDERGROUND,
@@ -357,53 +357,53 @@ object LocalData {
         ),
         StationLine(
             id = 3,
-            line = Line.YUNUSOBOD,
+            line = Line.YUNUSABAD,
             stations = mutableListOf(
                 Station(
                     id = 29,
-                    line = Line.YUNUSOBOD,
+                    line = Line.YUNUSABAD,
                     location = StationLocation(41.377288, 69.295934),
                     name = "turkistan",
                     state = StationState.UNDERGROUND
                 ),
                 Station(
                     id = 30,
-                    line = Line.YUNUSOBOD,
+                    line = Line.YUNUSABAD,
                     location = StationLocation(41.366611, 69.292198),
                     name = "yunusabad",
                     state = StationState.UNDERGROUND
                 ),
                 Station(
                     id = 31,
-                    line = Line.YUNUSOBOD,
+                    line = Line.YUNUSABAD,
                     location = StationLocation(41.353020, 69.288083),
                     name = "shakhriston",
                     state = StationState.UNDERGROUND
                 ),
                 Station(
                     id = 32,
-                    line = Line.YUNUSOBOD,
+                    line = Line.YUNUSABAD,
                     location = StationLocation(41.337080, 69.284779),
                     name = "bodomzor",
                     state = StationState.UNDERGROUND
                 ),
                 Station(
                     id = 33,
-                    line = Line.YUNUSOBOD,
+                    line = Line.YUNUSABAD,
                     location = StationLocation(41.326844, 69.283335),
                     name = "minor",
                     state = StationState.UNDERGROUND
                 ),
                 Station(
                     id = 34,
-                    line = Line.YUNUSOBOD,
+                    line = Line.YUNUSABAD,
                     location = StationLocation(41.321484, 69.281998),
                     name = "abdulla_qodiriy",
                     state = StationState.UNDERGROUND
                 ),
                 Station(
                     id = 35,
-                    line = Line.YUNUSOBOD,
+                    line = Line.YUNUSABAD,
                     location = StationLocation(41.312733, 69.283470),
                     name = "yunus_rajabiy",
                     state = StationState.UNDERGROUND,
@@ -411,7 +411,7 @@ object LocalData {
                 ),
                 Station(
                     id = 36,
-                    line = Line.YUNUSOBOD,
+                    line = Line.YUNUSABAD,
                     location = StationLocation(41.298992, 69.273019),
                     name = "ming_urik",
                     state = StationState.UNDERGROUND,

@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:alpha=".8"
         android:paddingHorizontal="@dimen/_10sdp"
-        android:text="Underground"
+        android:text="@string/underground"
         android:textSize="@dimen/_10ssp"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout4"
         app:layout_constraintStart_toEndOf="@+id/imageView2"

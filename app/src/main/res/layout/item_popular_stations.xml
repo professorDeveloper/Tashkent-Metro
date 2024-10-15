@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="Popular stations"
+                android:text="@string/popular_stations"
                 android:textColor="@color/uncheckedColor"
 
                 android:textSize="@dimen/_12ssp"
@@ -76,7 +76,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/_10sdp"
-        android:text="Underground"
+        android:text="@string/underground"
         android:textSize="@dimen/_10ssp"
         android:alpha=".8"
         app:layout_constraintEnd_toEndOf="parent"

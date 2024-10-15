@@ -72,7 +72,7 @@ class StationTimelineBottomSheet(val result: MutableList<StationLine>) : BottomS
                             stationItems.add(
                                 StartStation(
                                     name = formatString(station.name,requireContext()),
-                                    line = line.name,
+                                    line = formatString(line.name,requireContext()),
                                     time = if (firstTime) getCurrentTime() else getTimeAfterMinutes(22)
                                 )
                             )
@@ -82,7 +82,7 @@ class StationTimelineBottomSheet(val result: MutableList<StationLine>) : BottomS
                             stationItems.add(
                                 EndStation(
                                     name = formatString(station.name,requireContext()),
-                                    line = line.name,
+                                    line = formatString(line.name,requireContext()),
                                     time = if (endTime) getTimeAfterMinutes(20) else getTimeAfterMinutes(42)
                                 )
                             )
@@ -92,7 +92,7 @@ class StationTimelineBottomSheet(val result: MutableList<StationLine>) : BottomS
                             stationItems.add(
                                 MiddleStation(
                                     name = formatString(station.name,requireContext()),
-                                    line = line.name
+                                    line = formatString(line.name,requireContext())
                                 )
                             )
                         }

@@ -11,12 +11,17 @@ import android.view.WindowManager
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.button.MaterialButton
 import com.zbekz.tashkentmetro.R
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.databinding.RegisterScreenBinding
 import com.zbekz.tashkentmetro.ui.activity.MainActivity
-import com.zbekz.tashkentmetro.utils.*
-import com.google.android.material.button.MaterialButton
+import com.zbekz.tashkentmetro.utils.BaseFragment
+import com.zbekz.tashkentmetro.utils.ResendTimerUtil
+import com.zbekz.tashkentmetro.utils.localizeDone
+import com.zbekz.tashkentmetro.utils.localizeEnterCode
+import com.zbekz.tashkentmetro.utils.setupPhoneNumberEditText
+import com.zbekz.tashkentmetro.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -29,7 +34,7 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
     lateinit var userPreferenceManager: AppReference
 
     override fun onViewCreate() {
-        requireActivity().window.statusBarColor= Color.parseColor("#F2F2F7")
+        requireActivity().window.statusBarColor = Color.parseColor("#F2F2F7")
         binding.maskPhone.setupPhoneNumberEditText(
             onChangedToEnable = { enableButton(binding.nextBtn) },
             onChangedToDisable = { disableButton(binding.nextBtn) })
@@ -38,7 +43,7 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
             inputCode.addTextChangedListener {
                 if (it.toString().length == 7) {
                     enableButton(nextBtn)
-                }else{
+                } else {
                     disableButton(nextBtn)
                 }
             }
@@ -46,9 +51,9 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
 
         binding.nextBtn.setOnClickListener {
             val text = binding.nextBtn.text
-            if (text == "Next"){
+            if (text == "Next") {
                 showInputCode()
-            }else{
+            } else {
                 finishLogin()
             }
         }
@@ -70,7 +75,7 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
 
     private fun showInputCode() {
         visibleAllItems()
-        binding.nextBtn.text = "Done"
+        binding.nextBtn.text = localizeDone(requireContext())
         phone = binding.maskPhone.text.toString()
         disableButton(binding.nextBtn)
         binding.inputCode.requestFocus()
@@ -79,17 +84,17 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
     }
 
     private fun visibleAllItems() {
-        with(binding){
+        with(binding) {
             dividerEdit.visible()
             buttonEditPhoneNumber.visible()
             groupEnterCode.visible()
-            receivedTxt.text="Enter received code from ${maskPhone.text}"
+            receivedTxt.text = localizeEnterCode(requireContext(), maskPhone.text.toString())
         }
     }
 
     private fun finishLogin() {
         val pin = binding.inputCode.text.toString()
-        if (pin == "444-444" && phone == "+998 00-000-00-00"){
+        if (pin == "444-444" && phone == "+998 00-000-00-00") {
             timer.stop()
             userPreferenceManager.userName = "Bekzod Rakhmatov"
             userPreferenceManager.userPhone = phone

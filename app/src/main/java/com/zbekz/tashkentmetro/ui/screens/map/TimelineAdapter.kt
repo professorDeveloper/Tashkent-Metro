@@ -1,10 +1,14 @@
-
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
+import com.lriccardo.timelineview.TimelineAdapter
+import com.lriccardo.timelineview.TimelineView
+import com.zbekz.tashkentmetro.data.local.shp.AppReference
+import com.zbekz.tashkentmetro.data.local.shp.Language
 import com.zbekz.tashkentmetro.data.model.station.EndStation
 import com.zbekz.tashkentmetro.data.model.station.Line
 import com.zbekz.tashkentmetro.data.model.station.MiddleStation
@@ -13,10 +17,10 @@ import com.zbekz.tashkentmetro.data.model.station.StationItem
 import com.zbekz.tashkentmetro.databinding.ItemLineEndBinding
 import com.zbekz.tashkentmetro.databinding.ItemLineMiddleBinding
 import com.zbekz.tashkentmetro.databinding.ItemTimelineStationBinding
+import com.zbekz.tashkentmetro.utils.LocalData.stations
 import com.zbekz.tashkentmetro.utils.gone
 import com.zbekz.tashkentmetro.utils.visible
-import com.lriccardo.timelineview.TimelineAdapter
-import com.lriccardo.timelineview.TimelineView
+import java.util.Locale
 
 class TimelineAdapter(private val items: List<StationItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(), TimelineAdapter {
@@ -27,14 +31,34 @@ class TimelineAdapter(private val items: List<StationItem>) :
         private const val VIEW_TYPE_MIDDLE = 2
     }
 
+
+    fun localizeLine(line: String, context: Context): String {
+        val query = line.toString().lowercase(Locale.getDefault())
+        val data = stations.find { it.id == query }
+        val appReference = AppReference(context)
+        return when (appReference.language) {
+            Language.ENGLISH -> {
+                data?.translations?.get("en") ?: line.toString()
+            }
+
+            Language.RUSSIAN -> {
+                data?.translations?.get("ru") ?: line.toString()
+            }
+
+            Language.UZBEK -> {
+                data?.translations?.get("uz") ?: line.toString()
+            }
+        }
+    }
+
     inner class StartViewHolder(val binding: ItemTimelineStationBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(station: StartStation) {
             binding.stationName.text = station.name
-            binding.lineName.text = station.line
+            binding.lineName.text = localizeLine(station.line.toString(), binding.root.context)
             binding.stationTime.text = station.time
-            binding.cardCircle.setCardBackgroundColor( Color.parseColor(getLineColor(station.line)))
-            setLineColor(station.line,binding.timelineView)
+            binding.cardCircle.setCardBackgroundColor(Color.parseColor(getLineColor(station.line)))
+            setLineColor(station.line, binding.timelineView)
 
         }
     }
@@ -44,12 +68,12 @@ class TimelineAdapter(private val items: List<StationItem>) :
         fun bind(station: EndStation) {
             binding.stationName.text = station.name
             binding.stationTime.text = station.time
-            if (items[items.size - 1] == station){
+            if (items[items.size - 1] == station) {
                 binding.transferTv.gone()
-            }else{
+            } else {
                 binding.transferTv.visible()
             }
-            setLineColor(station.line,binding.timelineView)
+            setLineColor(station.line, binding.timelineView)
         }
     }
 
@@ -57,24 +81,36 @@ class TimelineAdapter(private val items: List<StationItem>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(station: MiddleStation) {
             binding.stationName.text = station.name
-            setLineColor(station.line,binding.timelineView)
+            setLineColor(station.line, binding.timelineView)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_START -> {
-                val binding = ItemTimelineStationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding = ItemTimelineStationBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
                 StartViewHolder(binding)
             }
+
             VIEW_TYPE_END -> {
-                val binding = ItemLineEndBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding =
+                    ItemLineEndBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 EndViewHolder(binding)
             }
+
             VIEW_TYPE_MIDDLE -> {
-                val binding = ItemLineMiddleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding = ItemLineMiddleBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
                 MiddleViewHolder(binding)
             }
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -139,18 +175,21 @@ class TimelineAdapter(private val items: List<StationItem>) :
         return 10f
     }
 
-    private fun setLineColor(station: String, timelineView: TimelineView){
+    private fun setLineColor(station: String, timelineView: TimelineView) {
         val color = getLineColor(station)
         timelineView.indicatorColor = Color.parseColor(color)
         timelineView.lineColor = Color.parseColor(color)
     }
+
     private fun getLineColor(line: String): String {
         return when (line) {
             Line.CHILANZAR.name -> "#FF453A"
             Line.UZBEKISTAN.name -> "#0B84FF"
-            Line.YUNUSOBOD.name -> "#31D158"
+            Line.YUNUSABAD.name -> "#31D158"
             Line.INDEPENDENCEDAY.name -> "#FED709"
-            else -> {"#FF453A"}
+            else -> {
+                "#FF453A"
+            }
         }
     }
 }
