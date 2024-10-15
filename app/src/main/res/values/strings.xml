@@ -70,4 +70,6 @@
     <string name="resend_code">Resend code</string>
     <string name="enter_received_code_from">Enter received code from</string>
     <string name="check_the_spelling_or_try_a_new_search">Check the spelling or try a new search</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
 </resources>

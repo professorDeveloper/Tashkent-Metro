@@ -101,7 +101,7 @@
                         android:layout_marginEnd="@dimen/_4sdp"
                         android:background="@drawable/shame_frame"
                         android:gravity="center_vertical"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:paddingHorizontal="@dimen/_6sdp"
                         android:textColor="@color/white_and_black"
                         android:textColorHint="@color/white_and_black" />
@@ -133,7 +133,7 @@
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:background="@drawable/shame_frame"
                         android:gravity="center_vertical"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:paddingHorizontal="@dimen/_6sdp"
                         android:textColor="@color/white_and_black"
                         android:textColorHint="@color/white_and_black" />

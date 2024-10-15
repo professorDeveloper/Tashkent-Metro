@@ -11,6 +11,8 @@ import android.view.ViewAnimationUtils
 import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.core.widget.addTextChangedListener
+import com.zbekz.tashkentmetro.data.local.shp.AppReference
+import com.zbekz.tashkentmetro.data.local.shp.Language
 import com.zbekz.tashkentmetro.data.model.station.Station
 import com.zbekz.tashkentmetro.databinding.ViewSearchBinding
 import com.zbekz.tashkentmetro.ui.screens.map.SearchViewAdapter
@@ -37,7 +39,8 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
 
     init {
         listenKeyboardEvents(binding.searchInputText)
-        binding.openSearchButton.setOnClickListener { openSearch()
+        binding.openSearchButton.setOnClickListener {
+            openSearch()
             initTextChanged()
         }
         binding.closeSearchButton.setOnClickListener { closeSearch() }
@@ -57,7 +60,7 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             if (it.toString().isEmpty()) {
                 binding.rvFrame.gone()
             } else {
-                 binding.rvFrame.visible()
+                binding.rvFrame.visible()
 
                 val filteredStations = StationFilter.filterStations(it.toString(), LocalData.metro)
                 if (filteredStations.isNotEmpty()) {
@@ -73,12 +76,29 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
                     binding.rvFrame.visible()
                     binding.placeHolderFrame.visible()
                     binding.searchViewRv.gone()
-                    binding.noResult.text = "No Result For \"${it.toString()}\""
+                    binding.noResult.text = localizeNoRsult(it.toString())
                 }
 
             }
         }
 
+    }
+
+  private  fun localizeNoRsult(text: String): String  {
+        val appReference = AppReference(binding.root.context)
+        return when (appReference.language) {
+            Language.ENGLISH -> {
+                 "No Result For \"${text.toString()}\""
+            }
+
+            Language.UZBEK -> {
+                 "Qidirish \"${text.toString()}\" topilmadi"
+            }
+
+            Language.RUSSIAN -> {
+                 "Нет результатов для \"${text.toString()}\""
+            }
+        }
     }
 
     private fun setRvFrameMaxHeight() {
