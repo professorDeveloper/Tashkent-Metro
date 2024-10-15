@@ -906,22 +906,30 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        if(this::mapView.isInitialized){
+            mapView.onResume()
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        if(this::mapView.isInitialized){
+            mapView.onPause()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        if(this::mapView.isInitialized){
+            mapView.onDestroy()
+        }
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        if(this::mapView.isInitialized){
+            mapView.onLowMemory()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -1057,7 +1065,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private fun drawGradient(centerColor: Int): GradientDrawable {
         val gradientDrawable = GradientDrawable(
             GradientDrawable.Orientation.TL_BR, intArrayOf(
-                Color.parseColor("#E6F1FF"), centerColor, Color.parseColor("#E6F1FF")
+                Color.TRANSPARENT, centerColor, Color.TRANSPARENT
             )
         )
         gradientDrawable.cornerRadius = 5f
