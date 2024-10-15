@@ -72,12 +72,13 @@ class SearchViewAdapter(private val onItemClickListener: (Station) -> Unit) : Re
         val gradientDrawable = GradientDrawable(
             GradientDrawable.Orientation.TL_BR,
             intArrayOf(
-                Color.parseColor("#E6F1FF"),
+                Color.TRANSPARENT,
                 Color.parseColor(centerColor),
-                Color.parseColor("#E6F1FF")
+                Color.TRANSPARENT
             )
         )
         gradientDrawable.cornerRadius = 5f
         return gradientDrawable
     }
+
 }
