@@ -19,8 +19,8 @@ object StationFilter {
         return newResult
     }
 
-    fun searchStation(query: String): List<StationLang> {
-        return stations.filter { station ->
+    private fun searchStation(query: String): List<StationLang> {
+        return stations.filterIndexed { _, station ->
             station.translations.any { (_, translation) ->
                 translation.contains(query, ignoreCase = true)
             }

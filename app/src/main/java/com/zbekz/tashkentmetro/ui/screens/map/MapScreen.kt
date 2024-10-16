@@ -83,18 +83,17 @@ import com.zbekz.tashkentmetro.viewmodel.search.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnMapReadyCallback,
     PopularStationAdapter.OnItemClickListener {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1001
+    private  val LOCATION_PERMISSION_REQUEST_CODE = 1001
 
     private lateinit var tashkentBounds: LatLngBounds
     private val adapter by lazy { PopularStationAdapter(this) }
     private val viewModel by viewModels<SearchViewModel>()
     private var isFrom = true
-    private val polylines = mutableListOf<Polyline>()
+    private val polyline = mutableListOf<Polyline>()
     private val markers = mutableListOf<Marker>()
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private val originalPolylineColors = mutableMapOf<Polyline, Int>()
@@ -191,6 +190,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     }
 
+    @SuppressLint("InflateParams")
     private fun showCustomMenu(view: View, station: Station, value: Station?, b: Boolean) {
         val popupView =
             LayoutInflater.from(requireContext()).inflate(R.layout.popup_layout_menu, null)
@@ -228,8 +228,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             popupWindow.dismiss()
         }
 
-        val shouldEnable =
-            !(b && viewModel.toTv.value == station) && !(viewModel.fromTv.value == station)
+        val shouldEnable = !(b && viewModel.toTv.value == station) && viewModel.fromTv.value != station
 
         stationName.isEnabled = shouldEnable
         stationName.alpha = if (shouldEnable) 1f else 0.4f
@@ -412,9 +411,11 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             val previousStation = result.first
             val nextStation = result.second
             binding.bottomDetailTwoStation.previousStation.text =
-                formatString(previousStation?.name!!,requireContext()) ?: localizeLastStation()
-            binding.bottomDetailTwoStation.nextStation.text = formatString(nextStation?.name!!,requireContext()) ?: localizeLastStation()
-            binding.bottomDetailTwoStation.currentStation.text = formatString(it.name, requireContext())
+                formatString(previousStation?.name!!, requireContext()) ?: localizeLastStation()
+            binding.bottomDetailTwoStation.nextStation.text =
+                formatString(nextStation?.name!!, requireContext()) ?: localizeLastStation()
+            binding.bottomDetailTwoStation.currentStation.text =
+                formatString(it.name, requireContext())
 
             binding.bottomDetailTwoStation.previousStation.setOnClickListener {
                 previousStation?.let { prev ->
@@ -628,7 +629,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val opacityValue = if (isReducedOpacity) 120 else 255
         val markerAlpha = if (isReducedOpacity) 0.4f else 1.0f
 
-        polylines.forEach { polyline ->
+        polyline.forEach { polyline ->
             if (!originalPolylineColors.containsKey(polyline)) {
                 originalPolylineColors[polyline] = polyline.color
             }
@@ -691,7 +692,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         line.stations.forEach { station ->
             polyline.tag = station
         }
-        polylines.add(polyline)
+        this.polyline.add(polyline)
     }
 
 

@@ -5,7 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.zbekz.infinityinsurance.utils.enums.CurrentScreenEnum
+import com.zbekz.tashkentmetro.utils.enums.CurrentScreenEnum
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.databinding.ThirdPageBinding
 import com.zbekz.tashkentmetro.ui.activity.MainActivity

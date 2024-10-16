@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
-import com.zbekz.infinityinsurance.utils.enums.CurrentScreenEnum
+import com.zbekz.tashkentmetro.utils.enums.CurrentScreenEnum
 import com.zbekz.tashkentmetro.utils.screenCurrentEnum
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

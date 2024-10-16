@@ -2,7 +2,7 @@ package com.zbekz.tashkentmetro.viewmodel.imp
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zbekz.infinityinsurance.utils.enums.CurrentScreenEnum
+import com.zbekz.tashkentmetro.utils.enums.CurrentScreenEnum
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.viewmodel.IntroViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

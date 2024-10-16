@@ -19,19 +19,23 @@ class FadingEdgeRecyclerView : RecyclerView {
     )
 
     override fun isPaddingOffsetRequired(): Boolean {
-        return !clipToPadding
+        return !this.clipToPadding
     }
 
     override fun getLeftPaddingOffset(): Int {
-        return if (clipToPadding) 0 else -paddingLeft
+        return if (clipToPadding) {
+            0
+        } else -paddingLeft
     }
 
     override fun getTopPaddingOffset(): Int {
-        return if (clipToPadding) 0 else -paddingTop
+        return if (clipToPadding) {
+            0
+        } else -paddingTop
     }
 
     override fun getRightPaddingOffset(): Int {
-        return if (clipToPadding) 0 else paddingRight
+        return if (this.clipToPadding) 0 else paddingRight
     }
 
     override fun getBottomPaddingOffset(): Int {
