@@ -4,29 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     tools:context=".ui.screens.intro.FirstPage">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/gradient_shadow"
-  />
+        android:src="@drawable/gradient_shadow" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_14sdp"
-        android:layout_marginTop="@dimen/_34sdp"
         android:fontFamily="@font/nunito_semi_bold"
         android:text="@string/live"
         android:textColor="@color/whiteMain"
-        android:textSize="@dimen/_24sdp"
+        android:textSize="@dimen/_24ssp"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
         tools:visibility="visible" />
 
     <TextView
@@ -37,7 +40,7 @@
         android:fontFamily="@font/nunito_semi_bold"
         android:text="@string/location"
         android:textColor="@color/colorSecondary"
-        android:textSize="32sp"
+        android:textSize="@dimen/_22ssp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/textView2"
         app:layout_constraintStart_toEndOf="@+id/textView2"
@@ -46,35 +49,38 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleIntro"
-        android:layout_width="@dimen/_130sdp"
-        android:layout_height="@dimen/_130sdp"
-        android:layout_marginEnd="@dimen/_28sdp"
-        android:layout_marginBottom="@dimen/_14sdp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:src="@drawable/circle_intro"
         app:civ_border_color="@color/whiteMain"
         app:civ_border_width="@dimen/_3sdp"
-        app:layout_constraintBottom_toTopOf="@+id/circleImageView2"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toEndOf="@id/circleImageView2"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:layout_constraintWidth_percent=".42" />
 
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImageView2"
-        android:layout_width="@dimen/_130sdp"
-        android:layout_height="@dimen/_130sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:src="@drawable/circle_intro2"
         app:civ_border_color="@color/whiteMain"
         app:civ_border_width="@dimen/_3sdp"
-        app:layout_constraintBottom_toTopOf="@+id/timeTxt"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/circleIntro"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/circleIntro"
+        app:layout_constraintWidth_percent=".42" />
 
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/_5sdp"
         android:fontFamily="@font/nunito_semi_bold"
         android:text="@string/live"
         android:textColor="@color/white"
@@ -90,34 +96,31 @@
         android:id="@+id/timeTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_24sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:fontFamily="@font/nunito_semi_bold"
         android:text="@string/time"
         android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_24sdp"
+        android:textSize="@dimen/_24ssp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/textView8"
 
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
         tools:visibility="visible" />
 
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_14sdp"
-        android:layout_marginBottom="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:fontFamily="@font/nunito_bold"
         android:text="@string/colored_text"
         android:textColor="@color/white"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="@dimen/_13ssp"
 
         app:layout_constraintBottom_toTopOf="@+id/logoContainer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 
@@ -125,15 +128,27 @@
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="563dp" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".05" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".15" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".94" />
 
     <LinearLayout
         android:id="@+id/logoContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_24sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/nextBtn"
         app:layout_constraintEnd_toEndOf="@+id/nextBtn"
@@ -165,25 +180,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="647dp" />
+        app:layout_constraintGuide_percent=".05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".97" />
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/nextBtn"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/_40sdp"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginBottom="@dimen/_16sdp"
         android:fontFamily="@font/nunito_extra_bold"
         android:insetTop="0dp"
         android:insetRight="0dp"
         android:insetBottom="0dp"
         android:text="@string/next"
         android:textColor="@color/white"
-        app:backgroundTint="@color/colorPrimary"
         android:textSize="@dimen/_14ssp"
+        app:backgroundTint="@color/colorPrimary"
         app:cornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

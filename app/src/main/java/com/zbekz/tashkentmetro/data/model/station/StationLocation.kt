@@ -34,8 +34,8 @@ fun localizeStationState(stationState: StationState,context: Context):String{
         }
         Language.UZBEK ->{
             return when(stationState){
-                StationState.ABOVEGROUND->"Yerli"
-                StationState.UNDERGROUND->"Tenglik"
+                StationState.ABOVEGROUND->"Yer usti"
+                StationState.UNDERGROUND->"Yer osti"
             }
         }
     }

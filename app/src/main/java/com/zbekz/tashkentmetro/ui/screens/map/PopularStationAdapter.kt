@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zbekz.tashkentmetro.data.model.station.Line
 import com.zbekz.tashkentmetro.data.model.station.Station
 import com.zbekz.tashkentmetro.data.model.station.StationState
+import com.zbekz.tashkentmetro.data.model.station.localizeStationState
 import com.zbekz.tashkentmetro.databinding.ItemPopularStationsBinding
 import com.zbekz.tashkentmetro.utils.LocalData
 import com.zbekz.tashkentmetro.utils.currContext
@@ -42,7 +43,8 @@ class PopularStationAdapter(private val listener: OnItemClickListener) : Recycle
 
             }
             itemBinding.popularStation.text = formatString(model.name, context = currContext()!!)
-            itemBinding.stationPosition.text = model.state.name
+            itemBinding.stationPosition.text = localizeStationState(model.state, itemBinding.root.context)
+
 
             if (previousLineName != model.line.name && !isPopular && position > 0) {
                 itemBinding.linearLayout5.visibility = View.VISIBLE

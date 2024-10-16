@@ -124,7 +124,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
         }
 
-
         binding.bottomSheet.setOnClickListener {
             if (isSheetVisible) {
                 hideBottomSheet()

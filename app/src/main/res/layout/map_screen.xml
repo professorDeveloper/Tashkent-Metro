@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,6 +13,7 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
+
     <com.zbekz.tashkentmetro.custom.markerWithText.FloatingMarkerTitlesOverlay
         android:id="@+id/map_floating_markers_overlay"
         android:layout_width="match_parent"
@@ -104,7 +106,7 @@
                         android:hint="@string/from"
                         android:paddingHorizontal="@dimen/_6sdp"
                         android:textColor="@color/white_and_black"
-                        android:textColorHint="@color/white_and_black" />
+                        android:textColorHint="@color/white_and_black_hint" />
 
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -136,7 +138,7 @@
                         android:hint="@string/to"
                         android:paddingHorizontal="@dimen/_6sdp"
                         android:textColor="@color/white_and_black"
-                        android:textColorHint="@color/white_and_black" />
+                        android:textColorHint="@color/white_and_black_hint" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/button_remove_to"
@@ -192,7 +194,6 @@
         app:layout_constraintEnd_toStartOf="@+id/map_style"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/map_style" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

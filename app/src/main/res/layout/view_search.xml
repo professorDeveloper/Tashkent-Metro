@@ -113,8 +113,8 @@
             android:layout_gravity="center"
             android:layout_marginVertical="@dimen/_20sdp"
             android:gravity="center"
-            android:orientation="vertical"
             android:visibility="gone"
+            android:orientation="vertical"
             tools:visibility="visible">
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -130,6 +130,7 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:fontFamily="@font/nunito_bold"
                 android:text="No Results For Zd"
+                android:textAlignment="center"
                 android:textColor="@color/white_and_black"
                 android:textSize="@dimen/_18sdp" />
 

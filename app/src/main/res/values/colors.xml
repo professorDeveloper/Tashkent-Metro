@@ -39,6 +39,7 @@
     <color name="card_background">#F2F2F7</color>
     <color name="settings_card_background">#FFFFFF</color>
     <color name="white_and_black">#000000</color>
+    <color name="white_and_black_hint">#99000000</color>
     <color name="settings_background">#F2F2F7</color>
     <color name="button_stations">#ffe9cc</color>
     <color name="button_leaderboard">#C8A6C7EC</color>
