@@ -34,28 +34,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.Polyline
-import com.google.android.gms.maps.model.PolylineOptions
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
-import com.google.android.material.divider.MaterialDivider
-import com.mostafa_anter.marker.CustomMarker
 import com.Zbekz.tashkentmetro.R
 import com.Zbekz.tashkentmetro.custom.markerWithText.MarkerInfo
 import com.Zbekz.tashkentmetro.data.local.shp.AppReference
@@ -80,6 +58,28 @@ import com.Zbekz.tashkentmetro.utils.snackString
 import com.Zbekz.tashkentmetro.utils.unSelect
 import com.Zbekz.tashkentmetro.utils.visible
 import com.Zbekz.tashkentmetro.viewmodel.search.SearchViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.Polyline
+import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.divider.MaterialDivider
+import com.mostafa_anter.marker.CustomMarker
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -87,7 +87,7 @@ import javax.inject.Inject
 class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnMapReadyCallback,
     PopularStationAdapter.OnItemClickListener {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private  val LOCATION_PERMISSION_REQUEST_CODE = 1001
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1001
 
     private lateinit var tashkentBounds: LatLngBounds
     private val adapter by lazy { PopularStationAdapter(this) }
@@ -227,7 +227,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             popupWindow.dismiss()
         }
 
-        val shouldEnable = !(b && viewModel.toTv.value == station) && viewModel.fromTv.value != station
+        val shouldEnable =
+            !(b && viewModel.toTv.value == station) && viewModel.fromTv.value != station
 
         stationName.isEnabled = shouldEnable
         stationName.alpha = if (shouldEnable) 1f else 0.4f
@@ -410,9 +411,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             val previousStation = result.first
             val nextStation = result.second
             binding.bottomDetailTwoStation.previousStation.text =
-                formatString(previousStation?.name!!, requireContext()) ?: localizeLastStation()
+                formatString(previousStation?.name ?: "", requireContext()) ?: localizeLastStation()
             binding.bottomDetailTwoStation.nextStation.text =
-                formatString(nextStation?.name!!, requireContext()) ?: localizeLastStation()
+                formatString(nextStation?.name ?: "", requireContext()) ?: localizeLastStation()
             binding.bottomDetailTwoStation.currentStation.text =
                 formatString(it.name, requireContext())
 
