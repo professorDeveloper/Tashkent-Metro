@@ -7,7 +7,9 @@ plugins {
 
 android {
     compileSdk 34
-
+    kapt {
+        correctErrorTypes = true
+    }
     defaultConfig {
         applicationId "com.zbekz.tashkentmetro"
         minSdk 26
