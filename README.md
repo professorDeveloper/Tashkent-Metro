@@ -41,7 +41,7 @@ Here’s a brief introduction to the project:
 Download the project on your preferred platform:
 
 <div align="center">
-  <a href="https://apps.apple.com/app/idXXXXXXXXXX">
+  <a href="https://apps.apple.com/app/id6535681859">
     <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" alt="Download on the App Store" width="200">
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
