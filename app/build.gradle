@@ -14,8 +14,8 @@ android {
         applicationId "com.zbekz.tashkentmetro"
         minSdk 26
         targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -76,7 +76,9 @@ dependencies {
     implementation 'com.github.prongbang:localization:2.1.2'
     //
 
-    /**
+    /** //dd
+     * /
+     * //
      * Glide
      * */
     implementation 'com.github.bumptech.glide:glide:4.15.1'
@@ -88,6 +90,7 @@ dependencies {
     implementation 'com.airbnb.android:lottie:5.2.0'
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
+    //
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
 
 
@@ -106,6 +109,7 @@ dependencies {
      * sdp-ssp
      * */
     implementation 'com.intuit.sdp:sdp-android:1.1.1'
+    //
     implementation 'com.intuit.ssp:ssp-android:1.1.1'
 
     /**/
