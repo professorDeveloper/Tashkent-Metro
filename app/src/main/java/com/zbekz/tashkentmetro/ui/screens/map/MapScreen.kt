@@ -887,7 +887,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 //
         satelliteMapOption.setOnClickListener {
-            mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+            mMap.setMapStyle(null)
+            mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
             AppReference(requireContext()).mapStyle = "satellite"
 
             normalMapOption.unSelect()
@@ -954,8 +955,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             if (result == "standart") {
                 mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             } else {
-                mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
-
+                mMap.setMapStyle(null)
+                mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
             }
 
             setupMetroLines()
