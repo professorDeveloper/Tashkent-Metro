@@ -61,6 +61,13 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
                 animationTransaction().build()
             )
         }
+        binding.privacyPolicy.setOnClickListener {
+            val tgContact = Uri.parse("https://zbekz.com/products/tashkent-metro/privacy-policy")
+            val intent = Intent(Intent.ACTION_VIEW, tgContact)
+
+            startActivity(intent)
+
+        }
     }
 
 
