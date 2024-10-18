@@ -501,7 +501,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cardview5"
+        android:id="@+id/privacyPolicy"
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_28sdp"
         app:cardBackgroundColor="@color/settings_card_background"
