@@ -1,5 +1,6 @@
 package com.Zbekz.tashkentmetro.ui.screens.profile
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.widget.PopupMenu
@@ -24,6 +25,7 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
     @Inject
     lateinit var userPreferenceManager: AppReference
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreate() {
         // Access views via binding
         val dropdownIcon = binding.dropdownIcon
@@ -32,7 +34,6 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
         binding.contactUs.setOnClickListener {
             val tgContact = Uri.parse("https://t.me/bekzodrakhmatof")
             val intent = Intent(Intent.ACTION_VIEW, tgContact)
-
                 startActivity(intent)
         }
         binding.loginTv.text =

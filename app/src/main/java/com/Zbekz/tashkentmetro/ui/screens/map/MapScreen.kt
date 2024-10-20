@@ -561,7 +561,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             .context(requireActivity())
             .avatar("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&s") //your avatar url
             .googleMap(mMap)
-            .lat(location.latitude) // your latitude
+            .setMarkerBackground(R.drawable.item_bg).lat(location.latitude) // your latitude
             .long(location.longitude)
             .googleMap(mMap)// your longitude
             .build()
