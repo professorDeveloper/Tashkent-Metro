@@ -94,13 +94,13 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private val viewModel by viewModels<SearchViewModel>()
     private var isFrom = true
     private val polyline = mutableListOf<Polyline>()
+    private var myLoc =LatLng(0.0,0.0)
     private val markers = mutableListOf<Marker>()
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private val originalPolylineColors = mutableMapOf<Polyline, Int>()
     private var lastSelectedMarker: Marker? = null
     private var isPopular = true
     private var isSheetVisible = false
-    private var myLocation =LatLng(0.0, 0.0)
 
 
     @Inject
@@ -110,7 +110,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance=true
     }
 
     override fun onViewCreate(savedInstanceState: Bundle?) {
@@ -383,7 +382,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         mMap.setLatLngBoundsForCameraTarget(tashkentBounds)
 
         mMap.setOnMarkerClickListener { marker ->
-            if(!(myLocation.latitude == marker.position.latitude && myLocation.longitude == marker.position.longitude)) {
+            if (!(myLoc.latitude == marker.position.latitude && myLoc.longitude == marker.position.longitude)) {
                 handleMarkerClick(marker)
             }
             true // Return true to indicate that the click was handled
@@ -552,7 +551,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             if (location != null) {
                 val currentLatLng = LatLng(location.latitude, location.longitude)
                 addCustomMarker(currentLatLng, "you")
-                myLocation = currentLatLng
+                myLoc =currentLatLng
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
             } else {
                 snackString("Unable to get current location")
@@ -873,29 +872,38 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
-        print("Tushdi ::::")
+        if (this::mapView.isInitialized ) {
+            mapView.onResume()
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        if (this::mapView.isInitialized) {
+            mapView.onPause()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        if (this::mapView.isInitialized) {
+            mapView.onDestroy()
+        }
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        if (this::mapView.isInitialized) {
+            mapView.onLowMemory()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        if (this::mapView.isInitialized) {
 
-        mapView.onSaveInstanceState(outState)
+            mapView.onSaveInstanceState(outState)
+        }
     }
 
     private fun applyMapStyleBasedOnTheme(context: Context, googleMap: GoogleMap) {
