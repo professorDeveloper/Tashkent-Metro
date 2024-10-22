@@ -3,6 +3,7 @@ package com.Zbekz.tashkentmetro.ui.screens.profile
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -26,7 +27,7 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
     lateinit var userPreferenceManager: AppReference
 
     @SuppressLint("SuspiciousIndentation")
-    override fun onViewCreate() {
+    override fun onViewCreate(savedInstanceState: Bundle?) {
         // Access views via binding
         val dropdownIcon = binding.dropdownIcon
         val dropdownIconTheme = binding.dropdownIconTheme

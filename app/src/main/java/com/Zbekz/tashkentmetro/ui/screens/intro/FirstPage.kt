@@ -1,5 +1,6 @@
 package com.Zbekz.tashkentmetro.ui.screens.intro
 
+import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.Zbekz.tashkentmetro.R
 import com.Zbekz.tashkentmetro.databinding.FirstPageBinding
@@ -13,7 +14,7 @@ import com.Zbekz.tashkentmetro.utils.visible
 
 class FirstPage : BaseFragment<FirstPageBinding>(FirstPageBinding::inflate) {
 
-    override fun onViewCreate() {
+    override fun onViewCreate(savedInstanceState: Bundle?) {
         val a = requireActivity()
 //        val window = a.window
 //        WindowCompat.setDecorFitsSystemWindows(window, true)

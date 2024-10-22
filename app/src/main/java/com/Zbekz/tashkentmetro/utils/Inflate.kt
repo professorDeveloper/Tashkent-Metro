@@ -29,9 +29,9 @@ abstract class BaseFragment<VB : ViewBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
-        onViewCreate()
+        onViewCreate(savedInstanceState)
     }
 
-    abstract fun onViewCreate()
+    abstract fun onViewCreate(savedInstanceState: Bundle?=null)
 
 }

@@ -18,6 +18,7 @@
     </style>
 
     <style name="Theme.Main" parent="Theme.Material3.DayNight.NoActionBar">
+
     <!-- Primary brand color. -->
     <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:statusBarColor">@color/main_background</item>

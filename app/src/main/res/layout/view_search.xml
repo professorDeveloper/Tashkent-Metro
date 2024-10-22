@@ -81,6 +81,9 @@
                     android:layout_centerInParent="true"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    android:maxLines="1"
+
+                    android:maxLength="20"
                     android:layout_toEndOf="@id/close_search_button"
                     android:background="@android:color/transparent"
                     android:ellipsize="start"

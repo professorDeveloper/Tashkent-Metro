@@ -12,11 +12,6 @@
         tools:layout="@layout/register_screen" />
 
     <fragment
-        android:id="@+id/button_home"
-        android:name="com.Zbekz.tashkentmetro.ui.screens.home.HomeScreen"
-        android:label="home_screen"
-        tools:layout="@layout/home_screen" />
-    <fragment
         android:id="@+id/button_settings"
         android:name="com.Zbekz.tashkentmetro.ui.screens.profile.ProfilePage"
         android:label="profile_screen"

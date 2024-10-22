@@ -107,10 +107,15 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private lateinit var mapView: MapView
     private lateinit var mMap: GoogleMap
 
-    override fun onViewCreate() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance=true
+    }
+
+    override fun onViewCreate(savedInstanceState: Bundle?) {
         mapView = binding.map
         bottomSheetDialog = BottomSheetDialog(requireContext())
-        mapView.onCreate(null)
+        mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         binding.bottomSheet.gone()
@@ -539,15 +544,11 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         ) {
             return
         }
-        mMap.isMyLocationEnabled = true
 
-        // Get current location and zoom in
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             if (location != null) {
                 val currentLatLng = LatLng(location.latitude, location.longitude)
                 addCustomMarker(currentLatLng, "you")
-
-                // Zoom the camera to the user's location
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
             } else {
                 snackString("Unable to get current location")
@@ -561,69 +562,14 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             .context(requireActivity())
             .avatar("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&s") //your avatar url
             .googleMap(mMap)
-            .setMarkerBackground(R.drawable.item_bg).lat(location.latitude) // your latitude
+
+            .lat(location.latitude) // your latitude
             .long(location.longitude)
             .googleMap(mMap)// your longitude
             .build()
     }
 
-//    private fun createCustomMarker(context: Context, timeText: String): Bitmap {
-//        // Create a Bitmap to draw on
-//        val bitmap = Bitmap.createBitmap(150, 200, Bitmap.Config.ARGB_8888)
-//        val canvas = Canvas(bitmap)
-//
-//        // Paint object for drawing
-//        val paint = Paint()
-//        paint.isAntiAlias = true
-//        paint.style = Paint.Style.FILL
-//
-//        // Draw rounded rectangle with gradient as background
-//        val gradient = LinearGradient(
-//            0f, 0f, 0f, 200f,
-//            intArrayOf(requireActivity().getColor(R.color.colorPrimary), Color.rgb(255, 200, 0)),
-//            null, Shader.TileMode.CLAMP
-//        )
-//        paint.shader = gradient
-//        val rectF = RectF(20f, 20f, 130f, 130f)  // Rounded rectangle
-//        canvas.drawRoundRect(rectF, 50f, 50f, paint)
-//
-//        // Draw a circle at the bottom for the pointer
-//        paint.shader = null
-//        paint.color = Color.BLACK
-//        canvas.drawCircle(75f, 180f, 20f, paint)
-//
-//        // Inner circle for pointer (white circle inside black)
-//        paint.color = Color.WHITE
-//        canvas.drawCircle(75f, 180f, 15f, paint)
-//
-//        // Draw text in the middle of the rounded rectangle
-//        paint.color = Color.BLACK
-//        paint.textSize = 40f
-//        paint.textAlign = Paint.Align.CENTER
-//
-//        // Calculate text position
-//        val xPos = (canvas.width / 2).toFloat()
-//        val yPos = (rectF.centerY() - (paint.descent() + paint.ascent()) / 2)
-//
-//        // Draw the text (e.g., "2 min")
-//        canvas.drawText(timeText, xPos, yPos, paint)
-//
-//        return bitmap
-//    }
 
-    private fun setupMetroLines() {
-        metro.forEach { line ->
-            setupMetroLine(line)
-        }
-
-        setupCameraToCenter()
-    }
-
-
-    private fun setupCameraToCenter() {
-        val centralStation = LatLng(41.29374972350616, 69.2807024717331)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centralStation, 11.5f))
-    }
 
     private fun updateOpacity(isReducedOpacity: Boolean) {
         val opacityValue = if (isReducedOpacity) 120 else 255
@@ -648,6 +594,18 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
 
+    }
+    private fun setupMetroLines() {
+        metro.forEach { line ->
+            setupMetroLine(line)
+        }
+        setupCameraToCenter()
+    }
+
+
+    private fun setupCameraToCenter() {
+        val centralStation = LatLng(41.29374972350616, 69.2807024717331)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centralStation, 11.5f))
     }
 
     private fun setupMetroLine(line: StationLine, isReducedOpacity: Boolean = false) {
@@ -868,7 +826,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val view = layoutInflater.inflate(
             R.layout.layout_bottom_sheet_map_type, null
         )
-
+        val type = AppReference(requireContext()).mapStyle
 
         val normalMapOption =
             view.findViewById<MaterialCardView>(R.id.normal_map_option)
@@ -876,7 +834,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             view.findViewById<MaterialCardView>(R.id.satellite_map_option)
         val buttonClose =
             view.findViewById<FrameLayout>(R.id.button_close)
-        if (mMap.mapType != GoogleMap.MAP_TYPE_SATELLITE) normalMapOption.select() else satelliteMapOption.select()
+        if (mMap.mapType == GoogleMap.MAP_TYPE_NORMAL) normalMapOption.select() else satelliteMapOption.select()
+
+
+
 
         normalMapOption.setOnClickListener {
             mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
@@ -908,7 +869,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     override fun onResume() {
         super.onResume()
-        if (this::mapView.isInitialized) {
+        if (this::mapView.isInitialized ) {
             mapView.onResume()
         }
     }
@@ -944,6 +905,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     private fun applyMapStyleBasedOnTheme(context: Context, googleMap: GoogleMap) {
         try {
+            val reference =AppReference(requireContext())
 
             val styleRes =
                 when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
@@ -952,8 +914,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                     else -> R.raw.map_style_light
                 }
 
-            val result = AppReference(requireContext()).mapStyle
-            if (result == "standart") {
+
+            if (reference.mapStyle =="normal") {
                 mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             } else {
                 mMap.setMapStyle(null)

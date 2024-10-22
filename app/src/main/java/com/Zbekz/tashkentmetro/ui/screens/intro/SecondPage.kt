@@ -1,5 +1,6 @@
 package com.Zbekz.tashkentmetro.ui.screens.intro
 
+import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.Zbekz.tashkentmetro.R
 import com.Zbekz.tashkentmetro.databinding.SecondPageBinding
@@ -12,7 +13,7 @@ import com.Zbekz.tashkentmetro.utils.slideUp
 
 class SecondPage : BaseFragment<SecondPageBinding>(SecondPageBinding::inflate) {
 
-    override fun onViewCreate() {
+    override fun onViewCreate(savedInstanceState: Bundle?) {
 
         binding.textView5.slideUp(800,0)
         binding.textView6.slideUp(800,0)

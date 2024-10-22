@@ -1,6 +1,7 @@
 package com.Zbekz.tashkentmetro.ui.screens.intro
 
 import android.content.Intent
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -20,7 +21,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SplashPage : BaseFragment<SplashPageBinding>(SplashPageBinding::inflate) {
     private val model by viewModels<IntroViewModelImpl>()
-    override fun onViewCreate() {
+    override fun onViewCreate(savedInstanceState: Bundle?) {
 
         lifecycleScope.launch {
             binding.appLogo.visible()

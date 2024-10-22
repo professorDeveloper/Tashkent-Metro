@@ -160,6 +160,7 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             0f
         )
 
+        hideKeyboard(binding.searchInputText)
         circularConceal.duration = 300
         circularConceal.start()
         circularConceal.addListener(object : Animator.AnimatorListener {

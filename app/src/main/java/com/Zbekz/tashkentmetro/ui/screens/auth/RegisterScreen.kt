@@ -11,7 +11,6 @@ import android.view.WindowManager
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import com.google.android.material.button.MaterialButton
 import com.Zbekz.tashkentmetro.R
 import com.Zbekz.tashkentmetro.data.local.shp.AppReference
 import com.Zbekz.tashkentmetro.databinding.RegisterScreenBinding
@@ -22,6 +21,7 @@ import com.Zbekz.tashkentmetro.utils.localizeDone
 import com.Zbekz.tashkentmetro.utils.localizeEnterCode
 import com.Zbekz.tashkentmetro.utils.setupPhoneNumberEditText
 import com.Zbekz.tashkentmetro.utils.visible
+import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -33,7 +33,7 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
     @Inject
     lateinit var userPreferenceManager: AppReference
 
-    override fun onViewCreate() {
+    override fun onViewCreate(savedInstanceState: Bundle?) {
         requireActivity().window.statusBarColor = Color.parseColor("#F2F2F7")
         binding.maskPhone.setupPhoneNumberEditText(
             onChangedToEnable = { enableButton(binding.nextBtn) },
