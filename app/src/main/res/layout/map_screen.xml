@@ -210,15 +210,17 @@
         android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_4sdp"
         android:layout_marginStart="@dimen/_8sdp"
         android:background="?selectableItemBackgroundBorderless"
         android:clickable="true"
         android:fitsSystemWindows="true"
+        android:layout_marginTop="@dimen/_10sdp"
+
         android:focusable="true"
         app:layout_constraintEnd_toStartOf="@+id/map_style"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/map_style_hidden"
-        app:layout_constraintTop_toTopOf="@+id/map_style_hidden" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

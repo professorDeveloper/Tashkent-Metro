@@ -11,8 +11,8 @@
         android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
-        app:layout_constraintEnd_toEndOf="parent"
 
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent    ">
 
@@ -20,16 +20,17 @@
             android:id="@+id/search_closed_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:layout_gravity="center"
             android:background="@android:color/transparent">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/open_search_button"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="@dimen/_8sdp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
@@ -81,14 +82,14 @@
                     android:layout_centerInParent="true"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:maxLines="1"
 
-                    android:maxLength="20"
                     android:layout_toEndOf="@id/close_search_button"
                     android:background="@android:color/transparent"
                     android:ellipsize="start"
                     android:gravity="start|center_vertical"
-                    android:hint="@string/search_hint" />
+                    android:hint="@string/search_hint"
+                    android:maxLength="20"
+                    android:maxLines="1" />
 
             </RelativeLayout>
 
@@ -100,7 +101,7 @@
         android:id="@+id/rvFrame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_2sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/blur_bg"
         android:fitsSystemWindows="true"

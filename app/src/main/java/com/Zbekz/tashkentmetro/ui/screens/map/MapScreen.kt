@@ -100,6 +100,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private var lastSelectedMarker: Marker? = null
     private var isPopular = true
     private var isSheetVisible = false
+    private var myLocation =LatLng(0.0, 0.0)
 
 
     @Inject
@@ -382,7 +383,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         mMap.setLatLngBoundsForCameraTarget(tashkentBounds)
 
         mMap.setOnMarkerClickListener { marker ->
-            handleMarkerClick(marker)
+            if(!(myLocation.latitude == marker.position.latitude && myLocation.longitude == marker.position.longitude)) {
+                handleMarkerClick(marker)
+            }
             true // Return true to indicate that the click was handled
         }
 
@@ -549,6 +552,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             if (location != null) {
                 val currentLatLng = LatLng(location.latitude, location.longitude)
                 addCustomMarker(currentLatLng, "you")
+                myLocation = currentLatLng
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
             } else {
                 snackString("Unable to get current location")
@@ -869,38 +873,29 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
     override fun onResume() {
         super.onResume()
-        if (this::mapView.isInitialized ) {
-            mapView.onResume()
-        }
+        mapView.onResume()
+        print("Tushdi ::::")
     }
 
     override fun onPause() {
         super.onPause()
-        if (this::mapView.isInitialized) {
-            mapView.onPause()
-        }
+        mapView.onPause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (this::mapView.isInitialized) {
-            mapView.onDestroy()
-        }
+        mapView.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        if (this::mapView.isInitialized) {
-            mapView.onLowMemory()
-        }
+        mapView.onLowMemory()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if (this::mapView.isInitialized) {
 
-            mapView.onSaveInstanceState(outState)
-        }
+        mapView.onSaveInstanceState(outState)
     }
 
     private fun applyMapStyleBasedOnTheme(context: Context, googleMap: GoogleMap) {

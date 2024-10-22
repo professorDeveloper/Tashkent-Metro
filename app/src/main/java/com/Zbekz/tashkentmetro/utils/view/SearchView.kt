@@ -84,19 +84,19 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
 
     }
 
-  private  fun localizeNoRsult(text: String): String  {
+    private fun localizeNoRsult(text: String): String {
         val appReference = AppReference(binding.root.context)
         return when (appReference.language) {
             Language.ENGLISH -> {
-                 "No Result For \"${text.toString()}\""
+                "No Result For \"${text.toString()}\""
             }
 
             Language.UZBEK -> {
-                 "Qidirish \"${text.toString()}\" topilmadi"
+                "Qidirish \"${text.toString()}\" topilmadi"
             }
 
             Language.RUSSIAN -> {
-                 "Нет результатов для \"${text.toString()}\""
+                "Нет результатов для \"${text.toString()}\""
             }
         }
     }
@@ -159,7 +159,7 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
             width.toFloat(),
             0f
         )
-
+        hideKeyboard(binding.searchInputText)
         hideKeyboard(binding.searchInputText)
         circularConceal.duration = 300
         circularConceal.start()
