@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
-import com.Zbekz.tashkentmetro.R
+import com.zbekz.tashkentmetro.R
 import com.zbekz.tashkentmetro.app.App
 
 class FadingEdgeRecyclerView : RecyclerView {

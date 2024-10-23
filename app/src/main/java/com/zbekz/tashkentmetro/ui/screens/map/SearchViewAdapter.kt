@@ -8,7 +8,7 @@ import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.Zbekz.tashkentmetro.databinding.SearchViewItemBinding
+import com.zbekz.tashkentmetro.databinding.SearchViewItemBinding
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.data.local.shp.Language
 import com.zbekz.tashkentmetro.data.model.station.Line

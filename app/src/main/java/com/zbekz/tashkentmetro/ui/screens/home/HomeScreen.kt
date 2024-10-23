@@ -1,7 +1,7 @@
 package com.zbekz.tashkentmetro.ui.screens.home
 
 import android.os.Bundle
-import com.Zbekz.tashkentmetro.databinding.HomeScreenBinding
+import com.zbekz.tashkentmetro.databinding.HomeScreenBinding
 import com.zbekz.tashkentmetro.utils.BaseFragment
 import com.zbekz.tashkentmetro.utils.LocalData
 

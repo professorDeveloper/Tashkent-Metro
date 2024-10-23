@@ -3,7 +3,7 @@ package com.zbekz.tashkentmetro.ui.screens.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.Zbekz.tashkentmetro.databinding.ItemTrainStatusBinding
+import com.zbekz.tashkentmetro.databinding.ItemTrainStatusBinding
 import com.zbekz.tashkentmetro.data.model.TrainStatusModel
 
 class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {

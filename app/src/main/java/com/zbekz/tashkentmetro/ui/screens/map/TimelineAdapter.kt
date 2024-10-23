@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
-import com.Zbekz.tashkentmetro.databinding.ItemLineEndBinding
-import com.Zbekz.tashkentmetro.databinding.ItemLineMiddleBinding
-import com.Zbekz.tashkentmetro.databinding.ItemTimelineStationBinding
+import com.zbekz.tashkentmetro.databinding.ItemLineEndBinding
+import com.zbekz.tashkentmetro.databinding.ItemLineMiddleBinding
+import com.zbekz.tashkentmetro.databinding.ItemTimelineStationBinding
 import com.lriccardo.timelineview.TimelineAdapter
 import com.lriccardo.timelineview.TimelineView
 import com.zbekz.tashkentmetro.data.local.shp.AppReference

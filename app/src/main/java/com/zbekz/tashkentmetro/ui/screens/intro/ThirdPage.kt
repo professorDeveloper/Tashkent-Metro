@@ -6,7 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.Zbekz.tashkentmetro.databinding.ThirdPageBinding
+import com.zbekz.tashkentmetro.databinding.ThirdPageBinding
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.ui.activity.MainActivity
 import com.zbekz.tashkentmetro.utils.BaseFragment

@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import com.Zbekz.tashkentmetro.R
+import com.zbekz.tashkentmetro.R
 import com.zbekz.tashkentmetro.app.App
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.card.MaterialCardView

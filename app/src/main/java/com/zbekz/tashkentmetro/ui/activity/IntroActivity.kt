@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
-import com.Zbekz.tashkentmetro.R
-import com.Zbekz.tashkentmetro.databinding.ActivityIntroBinding
+import com.zbekz.tashkentmetro.R
+import com.zbekz.tashkentmetro.databinding.ActivityIntroBinding
 import com.zbekz.tashkentmetro.utils.initActivity
 import com.zbekz.tashkentmetro.utils.visible
 import com.zbekz.tashkentmetro.viewmodel.imp.IntroViewModelImpl

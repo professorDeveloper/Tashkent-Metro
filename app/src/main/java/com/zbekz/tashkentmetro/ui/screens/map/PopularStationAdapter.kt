@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.Zbekz.tashkentmetro.databinding.ItemPopularStationsBinding
+import com.zbekz.tashkentmetro.databinding.ItemPopularStationsBinding
 import com.zbekz.tashkentmetro.data.model.station.Line
 import com.zbekz.tashkentmetro.data.model.station.Station
 import com.zbekz.tashkentmetro.data.model.station.StationState

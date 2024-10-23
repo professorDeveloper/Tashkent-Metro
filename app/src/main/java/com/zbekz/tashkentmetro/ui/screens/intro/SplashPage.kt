@@ -6,8 +6,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.Zbekz.tashkentmetro.R
-import com.Zbekz.tashkentmetro.databinding.SplashPageBinding
+import com.zbekz.tashkentmetro.R
+import com.zbekz.tashkentmetro.databinding.SplashPageBinding
 import com.zbekz.tashkentmetro.ui.activity.MainActivity
 import com.zbekz.tashkentmetro.utils.BaseFragment
 import com.zbekz.tashkentmetro.utils.alphaAnim

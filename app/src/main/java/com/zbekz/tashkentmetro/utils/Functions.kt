@@ -13,7 +13,7 @@ import android.view.animation.TranslateAnimation
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
-import com.Zbekz.tashkentmetro.R
+import com.zbekz.tashkentmetro.R
 import com.zbekz.tashkentmetro.utils.enums.CurrentScreenEnum
 
 fun initActivity(a: Activity) {

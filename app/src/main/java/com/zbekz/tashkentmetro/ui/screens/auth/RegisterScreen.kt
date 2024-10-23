@@ -11,8 +11,8 @@ import android.view.WindowManager
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import com.Zbekz.tashkentmetro.R
-import com.Zbekz.tashkentmetro.databinding.RegisterScreenBinding
+import com.zbekz.tashkentmetro.R
+import com.zbekz.tashkentmetro.databinding.RegisterScreenBinding
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.ui.activity.MainActivity
 import com.zbekz.tashkentmetro.utils.BaseFragment

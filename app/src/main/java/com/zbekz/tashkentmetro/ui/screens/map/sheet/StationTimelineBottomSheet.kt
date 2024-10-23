@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.Zbekz.tashkentmetro.databinding.LineBottomsheetDialogBinding
+import com.zbekz.tashkentmetro.databinding.LineBottomsheetDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zbekz.tashkentmetro.data.model.station.EndStation

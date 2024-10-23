@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.Zbekz.tashkentmetro.R
-import com.Zbekz.tashkentmetro.databinding.ProfilePageBinding
+import com.zbekz.tashkentmetro.R
+import com.zbekz.tashkentmetro.databinding.ProfilePageBinding
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.data.local.shp.Language
 import com.zbekz.tashkentmetro.data.local.shp.ThemeStyle

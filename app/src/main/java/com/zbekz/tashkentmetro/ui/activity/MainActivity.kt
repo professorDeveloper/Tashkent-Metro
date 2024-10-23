@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.Zbekz.tashkentmetro.R
-import com.Zbekz.tashkentmetro.databinding.ActivityMainBinding
+import com.zbekz.tashkentmetro.R
+import com.zbekz.tashkentmetro.databinding.ActivityMainBinding
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.utils.ViewUtils
 import dagger.hilt.android.AndroidEntryPoint

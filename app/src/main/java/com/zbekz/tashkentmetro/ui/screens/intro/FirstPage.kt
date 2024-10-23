@@ -2,8 +2,8 @@ package com.zbekz.tashkentmetro.ui.screens.intro
 
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
-import com.Zbekz.tashkentmetro.R
-import com.Zbekz.tashkentmetro.databinding.FirstPageBinding
+import com.zbekz.tashkentmetro.R
+import com.zbekz.tashkentmetro.databinding.FirstPageBinding
 import com.zbekz.tashkentmetro.utils.BaseFragment
 import com.zbekz.tashkentmetro.utils.alphaAnim
 import com.zbekz.tashkentmetro.utils.animationTransaction

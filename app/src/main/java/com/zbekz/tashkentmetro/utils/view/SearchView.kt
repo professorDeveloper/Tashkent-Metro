@@ -11,7 +11,7 @@ import android.view.ViewAnimationUtils
 import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.core.widget.addTextChangedListener
-import com.Zbekz.tashkentmetro.databinding.ViewSearchBinding
+import com.zbekz.tashkentmetro.databinding.ViewSearchBinding
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.data.local.shp.Language
 import com.zbekz.tashkentmetro.data.model.station.Station

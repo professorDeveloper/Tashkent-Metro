@@ -25,7 +25,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.NavOptions
-import com.Zbekz.tashkentmetro.R
+import com.zbekz.tashkentmetro.R
 import com.google.android.material.snackbar.Snackbar
 import com.zbekz.tashkentmetro.app.App
 
