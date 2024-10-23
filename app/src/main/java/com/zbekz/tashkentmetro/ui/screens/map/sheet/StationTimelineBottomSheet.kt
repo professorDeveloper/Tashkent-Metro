@@ -90,7 +90,7 @@ class StationTimelineBottomSheet(val result: MutableList<StationLine>) : BottomS
                                 EndStation(
                                     name = formatString(station.name,requireContext()),
                                     line = formatString(line.name,requireContext()),
-                                    time = getTimeAfterSeconds(totalTime)
+                                    time = getTimeAfterSeconds(totalTime + ending)
                                 )
                             )
                             endTime = false
@@ -105,7 +105,7 @@ class StationTimelineBottomSheet(val result: MutableList<StationLine>) : BottomS
                         }
                     }
                 }
-                ending = totalTime + 120
+                ending += totalTime + 120
                 totalTime = 0
             }
         }
