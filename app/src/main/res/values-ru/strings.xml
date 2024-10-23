@@ -30,7 +30,7 @@
     <string name="colored_text_intro">Все <font color="#FF8C00">Вклады</font> размещаются в:</string>
     <string name="settings">Настройки</string>
     <string name="maps">Карты</string>
-    <string name="enable_desc">Разрешите ташкентскому метрополитену получить\n доступ к вашему местоположению, чтобы найти ближайшие станции.</string>
+    <string name="enable_desc">Разрешите приложению Toshkent Metro использовать ваше местоположение, чтобы найти ближайшие станции.</string>
     <string name="english">Английский</string>
     <string name="theme">Тема</string>
     <string name="system">Система</string>

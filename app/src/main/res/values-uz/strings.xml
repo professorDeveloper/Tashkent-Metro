@@ -13,7 +13,7 @@
     <string name="login_register">Kirish / Ro\'yxatdan o\'tish</string>
     <string name="contribute_join_leaderboard">Reytingga qo\'shilish</string>
     <string name="leaderboard">Reyting</string>
-    <string name="colored_text"><font color="#FF8C00">poyezd</font> kelishini va eng so‘nggi ma’lumotlarni olishingizni tekshiring.</string>
+    <string name="colored_text"><font color="#FF8C00">Eng so\'ngi</font> ma\'lumotlar bilan poyezd kelayaptimi yoki keladimi tekshiring.</string>
     <string name="home">Asosiy</string>
     <string name="came">Kelib keldi</string>
     <string name="cancel">Bekor qilish</string>
@@ -27,7 +27,7 @@
     <string name="theme_icon">Mavzu belgisi</string>
     <string name="language_icon">Til belgisi</string>
     <string name="colored_text_intro">Barcha <font color="#FF8C00">Hissalar</font> quyidagi manzilda joylashgan:</string>
-    <string name="enable_desc">Yaqin-atrofdagi bekatlarni topish uchun Toshkent metropoliteniga joylashuvingizdan foydalanishga ruxsat bering.</string>
+    <string name="enable_desc">Yaqin-atrofdagi bekatlarni topish uchun Toshkent Metro ilovasiga joylashuvingizdan foydalanishga ruxsat bering.</string>
     <string name="language">Til</string>
     <string name="maps">Xarita</string>
     <string name="settings">Sozlamalar</string>
