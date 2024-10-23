@@ -108,11 +108,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private lateinit var mapView: MapView
     private lateinit var mMap: GoogleMap
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onViewCreate(savedInstanceState: Bundle?) {
         mapView = binding.map
         bottomSheetDialog = BottomSheetDialog(requireContext())
@@ -460,9 +455,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     }
 
     private fun resetMarkerColor(marker: Marker, station: Station?) {
-        val icon =
-            station?.state?.let { createStationIcon(it) }
-
+        val defaultColor = station?.state?.let {
+            if (it == StationState.UNDERGROUND) Color.RED else Color.BLUE
+        }
+        val icon = station?.state?.let { createStationIcon(it, defaultColor) }
         marker.setIcon(icon)
     }
 
@@ -489,7 +485,14 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val orangeColor = Color.rgb(255, 165, 0) // Orange color
         val icon = station?.state?.let { createStationIcon(it, orangeColor) }
 
-        marker.setIcon(icon)
+        if (icon != null) {
+            marker.alpha = 1f
+            marker.setIcon(icon)
+            Log.d("marker", "changeMarkerIconColorToOrange: ")
+        } else {
+            Log.e("Marker", "Icon is null, check createStationIcon method")
+        }
+//        marker.setIcon(icon)
 
     }
 
@@ -659,19 +662,20 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
 
     private fun createStationIcon(
-        status: StationState, customTintColor: Int? = null
+        status: StationState,
+        customTintColor: Int? = null
     ): BitmapDescriptor? {
         val vectorDrawable = ContextCompat.getDrawable(
             requireContext(), R.drawable.icon_metro
         )
+
         vectorDrawable?.setBounds(
             0, 0, vectorDrawable.intrinsicWidth, vectorDrawable.intrinsicHeight
         )
 
-
-        val tintColor =
-            customTintColor ?: if (status == StationState.UNDERGROUND) Color.RED else Color.BLUE
+        val tintColor = customTintColor ?: if (status == StationState.UNDERGROUND) Color.RED else Color.BLUE
         vectorDrawable?.setTint(tintColor)
+
 
         val bitmap = vectorDrawable?.let {
             Bitmap.createBitmap(
@@ -692,7 +696,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         canvas?.drawCircle(centerX, centerY, radius, paint)
 
         canvas?.let { vectorDrawable.draw(it) }
-
+        Log.d("Bitmap", "Width: ${bitmap?.width}, Height: ${bitmap?.height}")
         return bitmap?.let { BitmapDescriptorFactory.fromBitmap(it) }
     }
 

@@ -1,3 +1,5 @@
+package com.zbekz.tashkentmetro.ui.screens.map
+
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable

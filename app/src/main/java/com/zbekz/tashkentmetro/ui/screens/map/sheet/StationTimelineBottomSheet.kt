@@ -1,7 +1,8 @@
 package com.zbekz.tashkentmetro.ui.screens.map.sheet
 
-import TimelineAdapter
+import com.zbekz.tashkentmetro.ui.screens.map.TimelineAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,8 +65,14 @@ class StationTimelineBottomSheet(val result: MutableList<StationLine>) : BottomS
         var firstTime = true
         var endTime = true
 
+        val waitingTime = 20
+        val travelTime = 120
+        var totalTime = 0
+        var ending = 0
         map.forEach { (line, stationLines) ->
             stationLines.forEach { stationLine ->
+
+                totalTime += (travelTime + waitingTime) * (stationLine.stations.size - 1)
                 stationLine.stations.forEachIndexed { index, station ->
                     when (index) {
                         0 -> {
@@ -73,7 +80,7 @@ class StationTimelineBottomSheet(val result: MutableList<StationLine>) : BottomS
                                 StartStation(
                                     name = formatString(station.name,requireContext()),
                                     line = formatString(line.name,requireContext()),
-                                    time = if (firstTime) getCurrentTime() else getTimeAfterMinutes(22)
+                                    time = if (firstTime) getCurrentTime() else getTimeAfterSeconds(ending)
                                 )
                             )
                             firstTime = false
@@ -83,7 +90,7 @@ class StationTimelineBottomSheet(val result: MutableList<StationLine>) : BottomS
                                 EndStation(
                                     name = formatString(station.name,requireContext()),
                                     line = formatString(line.name,requireContext()),
-                                    time = if (endTime) getTimeAfterMinutes(20) else getTimeAfterMinutes(42)
+                                    time = getTimeAfterSeconds(totalTime)
                                 )
                             )
                             endTime = false
@@ -98,6 +105,8 @@ class StationTimelineBottomSheet(val result: MutableList<StationLine>) : BottomS
                         }
                     }
                 }
+                ending = totalTime + 120
+                totalTime = 0
             }
         }
 
@@ -115,6 +124,15 @@ class StationTimelineBottomSheet(val result: MutableList<StationLine>) : BottomS
 
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.MINUTE, minutes)
+
+        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        return dateFormat.format(calendar.time)
+    }
+
+    private fun getTimeAfterSeconds(seconds: Int): String {
+
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.SECOND, seconds)
 
         val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         return dateFormat.format(calendar.time)
