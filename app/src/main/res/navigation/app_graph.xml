@@ -7,18 +7,18 @@
 
     <fragment
         android:id="@+id/registerPage"
-        android:name="com.Zbekz.tashkentmetro.ui.screens.auth.RegisterScreen"
+        android:name="com.zbekz.tashkentmetro.ui.screens.auth.RegisterScreen"
         android:label="register_screen"
         tools:layout="@layout/register_screen" />
 
     <fragment
         android:id="@+id/button_settings"
-        android:name="com.Zbekz.tashkentmetro.ui.screens.profile.ProfilePage"
+        android:name="com.zbekz.tashkentmetro.ui.screens.profile.ProfilePage"
         android:label="profile_screen"
         tools:layout="@layout/profile_page" />
     <fragment
         android:id="@+id/button_maps"
-        android:name="com.Zbekz.tashkentmetro.ui.screens.map.MapScreen"
+        android:name="com.zbekz.tashkentmetro.ui.screens.map.MapScreen"
         android:label="map_screen"
         tools:layout="@layout/map_screen" />
 </navigation>

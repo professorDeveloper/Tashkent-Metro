@@ -10,7 +10,7 @@ android {
     kapt {
         correctErrorTypes = true
     }
-    defaultConfig {
+    defaultConfig {//
         applicationId "com.zbekz.tashkentmetro"
         minSdk 26
         targetSdk 34
