@@ -20,7 +20,7 @@
             android:id="@+id/search_closed_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginBottom="@dimen/_2sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
             android:layout_gravity="center"
             android:background="@android:color/transparent">
 
