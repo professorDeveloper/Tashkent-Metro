@@ -168,6 +168,7 @@ public class FloatingMarkerTitlesOverlay extends View {
         synchronized (markerInfoList) {
             markerIdToMarkerInfoMap.put(_id, _markerInfo);
             markerInfoList.add(_markerInfo);
+            invalidate();
         }
     }
 

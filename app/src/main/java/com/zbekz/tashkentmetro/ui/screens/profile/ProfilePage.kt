@@ -4,16 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.zbekz.tashkentmetro.R
-import com.zbekz.tashkentmetro.databinding.ProfilePageBinding
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.data.local.shp.Language
 import com.zbekz.tashkentmetro.data.local.shp.ThemeStyle
-import com.zbekz.tashkentmetro.ui.activity.RegisterActivity
+import com.zbekz.tashkentmetro.databinding.ProfilePageBinding
 import com.zbekz.tashkentmetro.utils.BaseFragment
 import com.zbekz.tashkentmetro.utils.animationTransaction
 import com.zbekz.tashkentmetro.viewmodel.profile.ProfileViewModel
@@ -60,7 +58,10 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
         }
 
         binding.loginRegisterTxt.setOnClickListener {
-            openRegister()
+            findNavController().navigate(
+                R.id.registerPage, null,
+                animationTransaction().build()
+            )
         }
         binding.privacyPolicy.setOnClickListener {
             val tgContact = Uri.parse("https://zbekz.com/products/tashkent-metro/privacy-policy")
@@ -71,19 +72,6 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
         }
     }
 
-    private fun openRegister() {
-        val intent = Intent(requireContext(), RegisterActivity::class.java)
-        startActivity(intent)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        binding.loginTv.text =
-            if (userPreferenceManager.userName == "null") getString(R.string.login_register) else userPreferenceManager.userName
-        binding.phoneNumberTv.text =
-            if (userPreferenceManager.userName == "null") getString(R.string.contribute_join_leaderboard) else userPreferenceManager.userPhone
-
-    }
 
     private fun setAppLocale() {
         requireActivity().recreate()

@@ -68,5 +68,14 @@
         "visibility": "off"
       }
     ]
+  },
+  {
+    "featureType": "transit.station.rail",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
   }
 ]

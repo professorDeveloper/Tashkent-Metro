@@ -219,6 +219,16 @@
       }
     ]
   },
+
+  {
+    "featureType": "transit.station.rail",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
   {
     "featureType": "water",
     "elementType": "labels.text.stroke",
