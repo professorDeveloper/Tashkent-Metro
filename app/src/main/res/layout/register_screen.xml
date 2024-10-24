@@ -7,7 +7,7 @@
     android:background="@color/settings_background"
     tools:context=".ui.screens.auth.RegisterScreen">
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_45sdp"
@@ -41,14 +41,16 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/nunito_bold"
             android:text="@string/login_register"
             android:textColor="@color/black"
-            android:textSize="@dimen/_15sdp" />
-    </FrameLayout>
+            android:textSize="@dimen/_15ssp" />
+    </LinearLayout>
 
 
     <TextView
