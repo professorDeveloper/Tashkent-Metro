@@ -275,7 +275,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
 
     private fun hideBottomSheet() {
-        lastSelectedMarker = null
+
+
         val animator = ObjectAnimator.ofFloat(
             binding.bottomSheet, "translationY", binding.bottomSheet.height.toFloat()
         )
@@ -367,7 +368,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         binding.mapFloatingMarkersOverlay.setSource(mMap);
         applyMapStyleBasedOnTheme(requireContext(), mMap)
 
-        setupMetroLines()
+//        setupMetroLines()
 
         val southWest = LatLng(41.2000, 69.1200)  // Janubi-g'arbiy nuqta
         val northEast = LatLng(41.3800, 69.3700)  // Shimoli-sharqiy nuqta
@@ -436,7 +437,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
         lastSelectedMarker?.let { resetMarkerColor(it, station) }
-
 
         changeMarkerIconColorToOrange(marker, station)
 
