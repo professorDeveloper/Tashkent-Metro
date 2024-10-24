@@ -119,7 +119,6 @@ class StationTimelineBottomSheet(val result: MutableList<StationLine>) : BottomS
     }
 
 
-
     private fun getTimeAfterMinutes(minutes: Int): String {
 
         val calendar = Calendar.getInstance()

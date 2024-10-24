@@ -25,6 +25,9 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.Main"/>
+
+        <activity android:name=".ui.activity.RegisterActivity"
+            android:exported="false"/>
         <activity
             android:name="com.zbekz.tashkentmetro.ui.activity.IntroActivity"
             android:exported="true"
