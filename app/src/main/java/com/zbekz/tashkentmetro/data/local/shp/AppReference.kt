@@ -28,7 +28,7 @@ class AppReference @Inject constructor(
         }
 
     var mapStyle:String
-        get() = sharedPref.getString("mapStyle", "standart").toString()
+        get() = sharedPref.getString("mapStyle", "normal").toString()
         set(value) {
             sharedPref.edit().putString("mapStyle", value).apply()
         }
