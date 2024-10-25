@@ -926,6 +926,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             if (reference.mapStyle =="normal") {
                 mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             } else {
+                mMap.setMapStyle(null)
                 mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
             }
 
@@ -935,8 +936,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, styleRes))
             if (!success) {
                 Log.e("MapStyle", "Xarita uslubi muvaffaqiyatsiz o'rnatildi.")
-            }else{
-                Log.d("mapstyle", "applyMapStyleBasedOnTheme: ")
             }
         } catch (e: Resources.NotFoundException) {
             Log.e("MapStyle", "Xarita uslubini yuklashda xatolik yuz berdi: ", e)
