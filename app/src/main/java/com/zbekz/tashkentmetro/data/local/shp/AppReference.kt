@@ -54,8 +54,8 @@ class AppReference @Inject constructor(
 
     var language: Language
         get() {
-            val code = sharedPref.getString("language", Language.ENGLISH.code)!!
-            return Language.values().find { it.code == code } ?: Language.ENGLISH
+            val code = sharedPref.getString("language", Language.UZBEK.code)!!
+            return Language.values().find { it.code == code } ?: Language.UZBEK
         }
         set(value) {
             sharedPref.edit().putString("language", value.code).apply()

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">TashkentMetro</string>
     <string name="home">Home</string>
+    <style name="key_api">AIzaSyDpXaUsY2oeppw0g8qwYMnUWzXLfxp74Co</style>
     <string name="maps">Maps</string>
     <string name="settings">Settings</string>
     <string name="colored_text">Check if <font color="#FF8C00">train</font> is coming or will come with up-to-date information.</string>
