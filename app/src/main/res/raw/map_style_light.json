@@ -1,14 +1,5 @@
 [
   {
-    "featureType": "administrative.land_parcel",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
     "featureType": "poi",
     "elementType": "labels.text",
     "stylers": [
@@ -26,8 +17,7 @@
     ]
   },
   {
-    "featureType": "poi.park",
-    "elementType": "labels.text",
+    "featureType": "poi.place_of_worship",
     "stylers": [
       {
         "visibility": "off"
@@ -35,8 +25,7 @@
     ]
   },
   {
-    "featureType": "road.arterial",
-    "elementType": "labels",
+    "featureType": "poi.school",
     "stylers": [
       {
         "visibility": "off"
@@ -44,8 +33,7 @@
     ]
   },
   {
-    "featureType": "road.highway",
-    "elementType": "labels",
+    "featureType": "poi.sports_complex",
     "stylers": [
       {
         "visibility": "off"
@@ -53,95 +41,16 @@
     ]
   },
   {
-    "featureType": "road.local",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "road.local",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.land_parcel",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "labels.text",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.business",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.park",
-    "elementType": "labels.text",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "road.arterial",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "road.local",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "road.local",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "transit.station",
+    "featureType": "road",
     "elementType": "labels.icon",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
     "stylers": [
       {
         "visibility": "off"

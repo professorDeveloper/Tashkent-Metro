@@ -24,15 +24,6 @@
     ]
   },
   {
-    "featureType": "administrative.land_parcel",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
     "featureType": "administrative.locality",
     "elementType": "labels.text.fill",
     "stylers": [
@@ -78,7 +69,15 @@
   },
   {
     "featureType": "poi.park",
-    "elementType": "labels.text",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#6b9a76"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.place_of_worship",
     "stylers": [
       {
         "visibility": "off"
@@ -86,11 +85,18 @@
     ]
   },
   {
-    "featureType": "poi.park",
-    "elementType": "labels.text.fill",
+    "featureType": "poi.school",
     "stylers": [
       {
-        "color": "#6b9a76"
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.sports_complex",
+    "stylers": [
+      {
+        "visibility": "off"
       }
     ]
   },
@@ -114,19 +120,19 @@
   },
   {
     "featureType": "road",
-    "elementType": "labels.text.fill",
+    "elementType": "labels.icon",
     "stylers": [
       {
-        "color": "#9ca5b3"
+        "visibility": "off"
       }
     ]
   },
   {
-    "featureType": "road.arterial",
-    "elementType": "labels",
+    "featureType": "road",
+    "elementType": "labels.text.fill",
     "stylers": [
       {
-        "visibility": "off"
+        "color": "#9ca5b3"
       }
     ]
   },
@@ -150,15 +156,6 @@
   },
   {
     "featureType": "road.highway",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway",
     "elementType": "labels.text.fill",
     "stylers": [
       {
@@ -167,16 +164,7 @@
     ]
   },
   {
-    "featureType": "road.local",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "road.local",
-    "elementType": "labels",
+    "featureType": "transit",
     "stylers": [
       {
         "visibility": "off"
@@ -220,38 +208,11 @@
     ]
   },
   {
-    "featureType": "transit.station.rail",
-    "elementType": "labels.text",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
     "featureType": "water",
     "elementType": "labels.text.stroke",
     "stylers": [
       {
         "color": "#17263c"
-      }
-    ]
-  },
-  {
-    "featureType": "transit.station.bus",
-    "elementType": "labels.text",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "transit.station",
-    "elementType": "labels.icon",
-    "stylers": [
-      {
-        "visibility": "off"
       }
     ]
   }
