@@ -219,7 +219,6 @@
       }
     ]
   },
-
   {
     "featureType": "transit.station.rail",
     "elementType": "labels.text",
@@ -235,6 +234,24 @@
     "stylers": [
       {
         "color": "#17263c"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.station.bus",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.station",
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "visibility": "off"
       }
     ]
   }

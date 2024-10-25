@@ -82,7 +82,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-
+                    android:lines="1"
+                    android:singleLine="true"
                     android:layout_toEndOf="@id/close_search_button"
                     android:background="@android:color/transparent"
                     android:ellipsize="start"

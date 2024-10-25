@@ -34,6 +34,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.zbekz.tashkentmetro.R
+import com.zbekz.tashkentmetro.databinding.MapScreenBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -56,7 +58,6 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.divider.MaterialDivider
 import com.mostafa_anter.marker.CustomMarker
-import com.zbekz.tashkentmetro.R
 import com.zbekz.tashkentmetro.custom.markerWithText.MarkerInfo
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.data.local.shp.ThemeStyle
@@ -64,7 +65,6 @@ import com.zbekz.tashkentmetro.data.model.station.Line
 import com.zbekz.tashkentmetro.data.model.station.Station
 import com.zbekz.tashkentmetro.data.model.station.StationLine
 import com.zbekz.tashkentmetro.data.model.station.StationState
-import com.zbekz.tashkentmetro.databinding.MapScreenBinding
 import com.zbekz.tashkentmetro.ui.activity.MainActivity
 import com.zbekz.tashkentmetro.ui.screens.map.sheet.StationTimelineBottomSheet
 import com.zbekz.tashkentmetro.utils.BaseFragment
@@ -365,9 +365,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
 
-//        binding.mapFloatingMarkersOverlay.setSource(p0);
+        binding.mapFloatingMarkersOverlay.setSource(mMap)
         applyMapStyleBasedOnTheme(requireContext(), mMap)
-        binding.mapFloatingMarkersOverlay.setSource(mMap);
 
 //        setupMetroLines()
 
@@ -648,9 +647,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             binding.mapFloatingMarkersOverlay.addMarker(id, markerInfo)
             marker?.tag = station
 
-            marker?.let { markers.add(it)  }
-            Log.d("TUSHDI", "setupMetroLine: ")
-
+            marker?.let { markers.add(it) }
         }
 
         val polylineColor = getLineColor(line.line)  // Normal rang
@@ -659,7 +656,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         val polyline = mMap.addPolyline(polylineOptions.color(polylineColor).width(14f))
         line.stations.forEach { station ->
             polyline.tag = station
-
         }
         this.polyline.add(polyline)
     }
@@ -857,8 +853,9 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
             normalMapOption.select()
             satelliteMapOption.unSelect()
+//            bottomSheetDialog.dismiss()
         }
-
+//
         satelliteMapOption.setOnClickListener {
             mMap.setMapStyle(null)
             mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
@@ -866,6 +863,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
             normalMapOption.unSelect()
             satelliteMapOption.select()
+//            bottomSheetDialog.dismiss()
         }
 
         buttonClose.setOnClickListener {
@@ -928,7 +926,6 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             if (reference.mapStyle =="normal") {
                 mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             } else {
-                mMap.setMapStyle(null)
                 mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
             }
 
@@ -938,6 +935,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, styleRes))
             if (!success) {
                 Log.e("MapStyle", "Xarita uslubi muvaffaqiyatsiz o'rnatildi.")
+            }else{
+                Log.d("mapstyle", "applyMapStyleBasedOnTheme: ")
             }
         } catch (e: Resources.NotFoundException) {
             Log.e("MapStyle", "Xarita uslubini yuklashda xatolik yuz berdi: ", e)

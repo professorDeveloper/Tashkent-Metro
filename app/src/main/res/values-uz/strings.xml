@@ -13,7 +13,7 @@
     <string name="login_register">Kirish / Ro\'yxatdan o\'tish</string>
     <string name="contribute_join_leaderboard">Reytingga qo\'shilish</string>
     <string name="leaderboard">Reyting</string>
-    <string name="colored_text"><font color="#FF8C00">Eng so\'ngi</font> ma\'lumotlar bilan poyezd kelayaptimi yoki keladimi tekshiring.</string>
+    <string name="colored_text"><font color="#FF8C00">Eng so\'ngi</font> ma\'lumotlar bilan <font color="#FF8C00">poyezd</font> kelayaptimi yoki keladimi tekshiring.</string>
     <string name="home">Asosiy</string>
     <string name="came">Kelib keldi</string>
     <string name="cancel">Bekor qilish</string>
