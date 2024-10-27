@@ -8,6 +8,8 @@
       }
     ]
   },
+
+
   {
     "featureType": "poi.business",
     "stylers": [
@@ -51,6 +53,15 @@
   },
   {
     "featureType": "transit",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels",
     "stylers": [
       {
         "visibility": "off"

@@ -34,8 +34,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.zbekz.tashkentmetro.R
-import com.zbekz.tashkentmetro.databinding.MapScreenBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -58,6 +56,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.divider.MaterialDivider
 import com.mostafa_anter.marker.CustomMarker
+import com.zbekz.tashkentmetro.R
 import com.zbekz.tashkentmetro.custom.markerWithText.MarkerInfo
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.data.local.shp.ThemeStyle
@@ -65,6 +64,7 @@ import com.zbekz.tashkentmetro.data.model.station.Line
 import com.zbekz.tashkentmetro.data.model.station.Station
 import com.zbekz.tashkentmetro.data.model.station.StationLine
 import com.zbekz.tashkentmetro.data.model.station.StationState
+import com.zbekz.tashkentmetro.databinding.MapScreenBinding
 import com.zbekz.tashkentmetro.ui.activity.MainActivity
 import com.zbekz.tashkentmetro.ui.screens.map.sheet.StationTimelineBottomSheet
 import com.zbekz.tashkentmetro.utils.BaseFragment
@@ -857,7 +857,13 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 //
         satelliteMapOption.setOnClickListener {
-            mMap.setMapStyle(null)
+            val styleRes =
+                when (requireActivity().resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                    Configuration.UI_MODE_NIGHT_YES -> R.raw.map_style_dark
+                    Configuration.UI_MODE_NIGHT_NO -> R.raw.map_style_light
+                    else -> R.raw.map_style_light
+                }
+            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), styleRes))
             mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
             AppReference(requireContext()).mapStyle = "satellite"
 
@@ -926,7 +932,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             if (reference.mapStyle =="normal") {
                 mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             } else {
-                mMap.setMapStyle(null)
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, styleRes))
                 mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
             }
 
