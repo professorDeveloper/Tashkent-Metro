@@ -21,6 +21,31 @@
         android:layout_height="match_parent" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/premBtn"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/card_background"
+        app:cardCornerRadius="@dimen/_16sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/map_style"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/map_style">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha=".8"
+            android:padding="@dimen/_6sdp"
+            android:src="@drawable/crown_fill"
+            app:tint="@color/white_and_black" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/map_style"
         android:layout_width="@dimen/_32sdp"
         android:layout_height="@dimen/_32sdp"
@@ -210,8 +235,8 @@
         android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
         android:layout_marginBottom="@dimen/_4sdp"
-        android:layout_marginStart="@dimen/_8sdp"
         android:background="?selectableItemBackgroundBorderless"
         android:clickable="true"
         android:fitsSystemWindows="true"
@@ -219,7 +244,7 @@
 
         android:focusable="true"
         app:layout_constraintEnd_toStartOf="@+id/map_style"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/premBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
 
