@@ -166,6 +166,10 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             }
         }
 
+        binding.premBtn.setOnClickListener {
+
+        }
+
         binding.showDetailRouteButton.setOnClickListener {
             viewModel.bothValues.value?.let { it1 -> drawMapWithDirection(it1) }
         }
