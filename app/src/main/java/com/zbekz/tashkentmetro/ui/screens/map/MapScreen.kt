@@ -34,6 +34,11 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdSize.BANNER
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -81,6 +86,9 @@ import com.zbekz.tashkentmetro.utils.unSelect
 import com.zbekz.tashkentmetro.utils.visible
 import com.zbekz.tashkentmetro.viewmodel.search.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -270,6 +278,22 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         (activity as? MainActivity)?.hideBottomNavigation()
         binding.bottomSheet.visibility = View.VISIBLE
         binding.bottomSheet.translationY = binding.bottomSheet.height.toFloat()
+        val backgroundScope = CoroutineScope(Dispatchers.IO)
+        backgroundScope.launch {
+            MobileAds.initialize(requireContext()) {}
+        }
+
+
+        val adView = AdView(requireContext()).apply {
+            adUnitId = getString(R.string.unit_id)
+            setAdSize(AdSize.SMART_BANNER)
+        }
+
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+
+        binding.bottomDetailTwoStation.adViewContainer.removeAllViews()  // Avval mavjud bo‘lganlarni o‘chirish
+        binding.bottomDetailTwoStation.adViewContainer.addView(adView)
         val animator = ObjectAnimator.ofFloat(binding.bottomSheet, "translationY", 0f)
         animator.duration = 300
         animator.start()

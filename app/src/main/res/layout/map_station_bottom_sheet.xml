@@ -88,14 +88,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_30sdp"
         android:fontFamily="@font/nunito_bold"
         android:text="Uzbekistan"
         android:textColor="@color/white_and_black"
-        android:textSize="@dimen/_16sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="@dimen/_16ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
+
+    <FrameLayout
+        android:id="@+id/adViewContainer"
+        android:layout_width="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_height="@dimen/_40sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintTop_toBottomOf="@id/currentStation" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -125,5 +125,5 @@ dependencies {
     implementation 'com.github.MostafaAnter:MarkerWithAvatar:1.0'
     implementation "com.google.android.play:asset-delivery-ktx:2.2.2"
 
-
+    implementation 'com.google.android.gms:play-services-ads:23.4.0'
 }
