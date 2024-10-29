@@ -3,6 +3,7 @@
     <style name="Theme.TashkentMetro" parent="Theme.Material3.DayNight.NoActionBar">
          <!-- Customize your theme here. -->
         <item name="android:statusBarColor">@color/card_background</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="colorSecondaryContainer">@color/colorPrimary</item>
     </style>

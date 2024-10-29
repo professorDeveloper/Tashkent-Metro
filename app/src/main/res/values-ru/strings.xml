@@ -56,5 +56,16 @@
     <string name="from">От</string>
     <string name="to">До
     </string>
+    <string name="unlock_pro_access">Разблокировать профессиональный доступ</string>
+    <string name="get_access_to_all_of_our_features">Получите доступ ко всем нашим функциям</string>
+    <string name="faster_result_and_better_performance">Более быстрый результат и лучшая производительность</string>
+    <string name="find_nearby_stations">Найти ближайшие станции</string>
+    <string name="map_style_modification">Изменение стиля карты</string>
+    <string name="premium_customer_support">Премиум-поддержка клиентов</string>
+    <string name="remove_ads_and_enjoy_without_any_distractions">Уберите рекламу и наслаждайтесь, не отвлекаясь</string>
+    <string name="monthly_subscription">Ежемесячная подписка</string>
+    <string name="get_full_access_for_just_1_100">Получите полный доступ всего за ₩1100</string>
+    <string name="yearly_subscription">Yearly Subscription</string>
+    <string name="get_full_access_for_just_6_600">Получите полный доступ всего за ₩6600</string>
 
 </resources>

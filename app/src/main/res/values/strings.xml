@@ -74,4 +74,15 @@
     <string name="check_the_spelling_or_try_a_new_search">Check the spelling or try a new search</string>
     <string name="from">From</string>
     <string name="to">To</string>
+    <string name="unlock_pro_access">Unlock pro access</string>
+    <string name="get_access_to_all_of_our_features">Get access to all of our features</string>
+    <string name="faster_result_and_better_performance">Faster result and better performance</string>
+    <string name="find_nearby_stations">Find Nearby Stations</string>
+    <string name="map_style_modification">Map Style Modification</string>
+    <string name="premium_customer_support">Premium Customer Support</string>
+    <string name="remove_ads_and_enjoy_without_any_distractions">Remove ads and enjoy without any distractions</string>
+    <string name="monthly_subscription">Monthly Subscription</string>
+    <string name="get_full_access_for_just_1_100">Get full access for just ₩1,100</string>
+    <string name="yearly_subscription">Yearly Subscription</string>
+    <string name="get_full_access_for_just_6_600">Get full access for just ₩6,600</string>
 </resources>

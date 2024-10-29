@@ -55,6 +55,17 @@
     <string name="check_the_spelling_or_try_a_new_search">Izohni tekshiring yoki yangi qidiring</string>
     <string name="from">Dan</string>
     <string name="to">Gacha</string>
+    <string name="unlock_pro_access">Pro versiyada foydalanish</string>
+    <string name="get_access_to_all_of_our_features">Ushbu xizmatlarni barchaga olish</string>
+    <string name="faster_result_and_better_performance">Yuklash va yuqori natijalarni olish</string>
+    <string name="find_nearby_stations">Boshqa stansiyalarni qidirish</string>
+    <string name="map_style_modification">Xaritani tahrirlash</string>
+    <string name="premium_customer_support">Premium xizmat</string>
+    <string name="remove_ads_and_enjoy_without_any_distractions">Reklamlarni olib tashlash</string>
+    <string name="monthly_subscription">Oylik obuna</string>
+    <string name="get_full_access_for_just_1_100">Faqat ₩1100 evaziga toʻliq obuna</string>
+    <string name="yearly_subscription">Yillik obuna</string>
+    <string name="get_full_access_for_just_6_600">Faqat ₩6600 evaziga toʻliq obuna</string>
 
 
 </resources>

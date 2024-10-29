@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="card_background">#282829</color>
+    <color name="prem_bg">#303032</color>
     <color name="white_and_black">#FFFFFF</color>
     <color name="white_and_black_hint">#99FFFFFF</color>
 
