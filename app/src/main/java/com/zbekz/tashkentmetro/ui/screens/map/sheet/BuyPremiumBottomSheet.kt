@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zbekz.tashkentmetro.databinding.BuypremiumBottomSheetBinding
 
@@ -22,6 +23,9 @@ class BuyPremiumBottomSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val bottomSheetBehavior = BottomSheetBehavior.from(binding.root.parent as View)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED // or STATE_EXPANDED
+        bottomSheetBehavior.peekHeight = 2000 // Set your desired peek height
 
         // Close button action
         binding.closeButton.setOnClickListener {

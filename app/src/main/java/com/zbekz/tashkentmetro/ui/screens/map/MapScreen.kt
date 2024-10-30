@@ -175,8 +175,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
         binding.premBtn.setOnClickListener {
-//            val buyPremiumBottomSheet = BuyPremiumBottomSheet()
-//            buyPremiumBottomSheet.show(parentFragmentManager, "BuyPremiumBottomSheet")
+            val buyPremiumBottomSheet = BuyPremiumBottomSheet()
+            buyPremiumBottomSheet.show(parentFragmentManager, "BuyPremiumBottomSheet")
 //            val paywallView = AdaptyUI.getPaywallView(
 //                activity,
 //                viewConfiguration,

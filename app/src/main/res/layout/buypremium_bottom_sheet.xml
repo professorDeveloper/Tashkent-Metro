@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_20sdp"
+    android:layout_gravity="bottom"
+    app:cardElevation="0dp"
     android:backgroundTint="@android:color/transparent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -158,117 +164,117 @@
             </LinearLayout>
         </LinearLayout>
 
-            <!-- Wrap in a RadioGroup to manage radio button selection -->
-            <RadioGroup
+        <!-- Wrap in a RadioGroup to manage radio button selection -->
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Monthly Subscription Card with RadioButton -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/monthlyCardBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginBottom="@dimen/_8sdp"
+                app:strokeWidth="@dimen/_1sdp"
+                app:cardBackgroundColor="@color/card_background"
+                app:strokeColor="@color/whiteGray"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp">
 
-                <!-- Monthly Subscription Card with RadioButton -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/monthlyCardBtn"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_8sdp"
-                    app:strokeWidth="@dimen/_1sdp"
-                    app:cardBackgroundColor="@color/card_background"
-                    app:strokeColor="@color/whiteGray"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp">
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_8sdp"
+                    android:gravity="center_vertical">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/_8sdp"
-                        android:gravity="center_vertical">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/monthlyText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/monthly_subscription"
-                                            android:textSize="@dimen/_12ssp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/get_full_access_for_just_1_100"
-                                android:textColor="@color/colorGray"
-                                android:textSize="@dimen/_11ssp"
-                                android:layout_marginTop="@dimen/_2sdp"/>
-                        </LinearLayout>
-
-                        <RadioButton
+                        <TextView
+                            android:id="@+id/monthlyText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="#00AEEF"
-                            android:background="@android:color/transparent"
-                            android:layout_gravity="center"
-                            android:checked="false" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                            android:text="@string/monthly_subscription"
+                            android:textSize="@dimen/_12ssp"
+                            android:textStyle="bold" />
 
-                <!-- Yearly Subscription Card with RadioButton -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/yearlyCardBtn"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/get_full_access_for_just_1_100"
+                            android:textColor="@color/colorGray"
+                            android:textSize="@dimen/_11ssp"
+                            android:layout_marginTop="@dimen/_2sdp"/>
+                    </LinearLayout>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#00AEEF"
+                        android:background="@android:color/transparent"
+                        android:layout_gravity="center"
+                        android:checked="false" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Yearly Subscription Card with RadioButton -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/yearlyCardBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:strokeWidth="@dimen/_1sdp"
+                app:cardBackgroundColor="@color/card_background"
+                app:strokeColor="@color/whiteGray"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:strokeWidth="@dimen/_1sdp"
-                    app:cardBackgroundColor="@color/card_background"
-                    app:strokeColor="@color/whiteGray"
-                    app:cardCornerRadius="@dimen/_12sdp"
-                    app:cardElevation="0dp">
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_8sdp"
+                    android:gravity="center_vertical">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/_8sdp"
-                        android:gravity="center_vertical">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/yearlyText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/yearly_subscription"
-                                            android:textSize="@dimen/_12ssp"
-                                android:textStyle="bold" />
-
-                            <TextView
-
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/get_full_access_for_just_6_600"
-                                android:textColor="@color/colorGray"
-                                android:textSize="@dimen/_10ssp"
-                                android:layout_marginTop="@dimen/_2sdp"/>
-                        </LinearLayout>
-
-                        <RadioButton
+                        <TextView
+                            android:id="@+id/yearlyText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="#00AEEF"
-                            android:background="@android:color/transparent"
-                            android:layout_gravity="center"
-                            android:checked="false" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                            android:text="@string/yearly_subscription"
+                            android:textSize="@dimen/_12ssp"
+                            android:textStyle="bold" />
 
-            </RadioGroup>
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/get_full_access_for_just_6_600"
+                            android:textColor="@color/colorGray"
+                            android:textSize="@dimen/_10ssp"
+                            android:layout_marginTop="@dimen/_2sdp"/>
+                    </LinearLayout>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#00AEEF"
+                        android:background="@android:color/transparent"
+                        android:layout_gravity="center"
+                        android:checked="false" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </RadioGroup>
 
 
 
@@ -290,3 +296,4 @@
             android:text="Subscribe Now" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
