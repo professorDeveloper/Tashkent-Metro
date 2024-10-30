@@ -36,7 +36,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdSize.BANNER
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -71,6 +70,7 @@ import com.zbekz.tashkentmetro.data.model.station.StationLine
 import com.zbekz.tashkentmetro.data.model.station.StationState
 import com.zbekz.tashkentmetro.databinding.MapScreenBinding
 import com.zbekz.tashkentmetro.ui.activity.MainActivity
+import com.zbekz.tashkentmetro.ui.screens.map.sheet.BuyPremiumBottomSheet
 import com.zbekz.tashkentmetro.ui.screens.map.sheet.StationTimelineBottomSheet
 import com.zbekz.tashkentmetro.utils.BaseFragment
 import com.zbekz.tashkentmetro.utils.LocalData
@@ -175,7 +175,18 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
 
         binding.premBtn.setOnClickListener {
-
+//            val buyPremiumBottomSheet = BuyPremiumBottomSheet()
+//            buyPremiumBottomSheet.show(parentFragmentManager, "BuyPremiumBottomSheet")
+//            val paywallView = AdaptyUI.getPaywallView(
+//                activity,
+//                viewConfiguration,
+//                products,
+//                eventListener,
+//                insets,
+//                personalizedOfferResolver,
+//                tagResolver,
+//                timerResolver,
+//            )
         }
 
         binding.showDetailRouteButton.setOnClickListener {
@@ -429,6 +440,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
         return Pair(null, null)
     }
+
 
 
     private fun handleMarkerClick(marker: Marker) {

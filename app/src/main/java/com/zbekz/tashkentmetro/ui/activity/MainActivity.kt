@@ -82,7 +82,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     fun hideBottomNavigation() {
         viewBinding.homeNavigation.visibility = View.GONE
     }

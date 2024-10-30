@@ -78,7 +78,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="@string/faster_result_and_better_performance"
-                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/_12ssp" />
             </LinearLayout>
 
@@ -98,7 +97,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="@string/find_nearby_stations"
-                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/_12ssp" />
             </LinearLayout>
 
@@ -118,7 +116,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="@string/map_style_modification"
-                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/_12ssp" />
             </LinearLayout>
 
@@ -138,7 +135,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="@string/premium_customer_support"
-                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/_12ssp" />
             </LinearLayout>
 
@@ -158,7 +154,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_4sdp"
                     android:text="@string/remove_ads_and_enjoy_without_any_distractions"
-                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/_12ssp" />
             </LinearLayout>
         </LinearLayout>
@@ -195,18 +190,18 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/monthlyText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/monthly_subscription"
-                                android:textColor="#FFFFFF"
-                                android:textSize="@dimen/_12ssp"
+                                            android:textSize="@dimen/_12ssp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/get_full_access_for_just_1_100"
-                                android:textColor="#CCCCCC"
+                                android:textColor="@color/colorGray"
                                 android:textSize="@dimen/_11ssp"
                                 android:layout_marginTop="@dimen/_2sdp"/>
                         </LinearLayout>
@@ -246,18 +241,19 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/yearlyText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/yearly_subscription"
-                                android:textColor="#FFFFFF"
-                                android:textSize="@dimen/_12ssp"
+                                            android:textSize="@dimen/_12ssp"
                                 android:textStyle="bold" />
 
                             <TextView
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/get_full_access_for_just_6_600"
-                                android:textColor="#CCCCCC"
+                                android:textColor="@color/colorGray"
                                 android:textSize="@dimen/_10ssp"
                                 android:layout_marginTop="@dimen/_2sdp"/>
                         </LinearLayout>
@@ -284,7 +280,7 @@
             android:layout_height="wrap_content"
             android:insetTop="0dp"
             android:enabled="true"
-            android:textColor="@color/white_and_black"
+            android:textColor="@color/white"
             android:insetBottom="0dp"
             android:insetLeft="0dp"
             app:cornerRadius="@dimen/_8sdp"
