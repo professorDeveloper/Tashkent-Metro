@@ -127,4 +127,8 @@ dependencies {
     implementation 'com.revenuecat.purchases:purchases:5.3.0'
 
     implementation 'com.google.android.gms:play-services-ads:23.4.0'
+
+
+    // FuckPurchase
+    implementation 'com.android.billingclient:billing:6.1.0'
 }

@@ -213,8 +213,10 @@
                     </LinearLayout>
 
                     <RadioButton
+                        android:id="@+id/monthlyRadioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="false"
                         android:buttonTint="#00AEEF"
                         android:background="@android:color/transparent"
                         android:layout_gravity="center"
@@ -265,12 +267,14 @@
                     </LinearLayout>
 
                     <RadioButton
+                        android:id="@+id/yearlyRadioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="#00AEEF"
+                        android:enabled="false"
                         android:background="@android:color/transparent"
                         android:layout_gravity="center"
-                        android:checked="false" />
+                        android:checked="true" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

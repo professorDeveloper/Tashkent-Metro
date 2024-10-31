@@ -4,13 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zbekz.tashkentmetro.databinding.BuypremiumBottomSheetBinding
+import com.zbekz.tashkentmetro.viewmodel.subscription.SubscriptionViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class BuyPremiumBottomSheet : BottomSheetDialogFragment() {
 
     private var _binding: BuypremiumBottomSheetBinding? = null
+    private val viewModel by viewModels<SubscriptionViewModel>()
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -21,56 +27,42 @@ class BuyPremiumBottomSheet : BottomSheetDialogFragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bottomSheetBehavior = BottomSheetBehavior.from(binding.root.parent as View)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED // or STATE_EXPANDED
-        bottomSheetBehavior.peekHeight = 2000 // Set your desired peek height
 
-        // Close button action
-        binding.closeButton.setOnClickListener {
-            dismiss()
-        }
-
-        // Load offerings
-
-        // Handle subscription selection
         binding.monthlyCardBtn.setOnClickListener {
-            binding.monthlyCardBtn.isChecked = true
-            binding.yearlyCardBtn.isChecked = false
-//            selectedPackage = null // Clear selection
+            viewModel.selectSubscription(SubscriptionViewModel.SubscriptionType.MONTHLY)
         }
-
         binding.yearlyCardBtn.setOnClickListener {
-            binding.yearlyCardBtn.isChecked = true
-            binding.monthlyCardBtn.isChecked = false
-//            selectedPackage = null // Clear selection
+            viewModel.selectSubscription(SubscriptionViewModel.SubscriptionType.YEARLY)
+        }
+        binding.closeButton.setOnClickListener { dismiss() }
+
+        lifecycleScope.launch {
+            viewModel.selectedSubscription.collect { selectedType ->
+                when (selectedType) {
+                    SubscriptionViewModel.SubscriptionType.MONTHLY -> {
+                        binding.monthlyRadioButton.isChecked = true
+                        binding.yearlyRadioButton.isChecked = false
+                    }
+                    SubscriptionViewModel.SubscriptionType.YEARLY -> {
+                        binding.monthlyRadioButton.isChecked = false
+                        binding.yearlyRadioButton.isChecked = true
+                    }
+                    else -> {
+                        binding.monthlyRadioButton.isChecked = false
+                        binding.yearlyRadioButton.isChecked = false
+                    }
+                }
+            }
         }
 
         binding.subscribeButton.setOnClickListener {
-//            if (selectedPackage != null) {
-//            purchaseSubscription()
-//            } else {
-//                Toast.makeText(requireContext(), "Please select a subscription plan", Toast.LENGTH_SHORT).show()
-//            }
-            dismiss()
+            viewModel.initiatePurchase()
         }
     }
 
-
-    private fun purchaseSubscription() {
-
-    }
-
-//        selectedPackage?.let { packageToPurchase ->
-//            Purchases.sharedInstance.purchasePackage(requireActivity(), packageToPurchase,({error-> })) { purchase ->
-//
-//                if (purchase?.isPurchased == true) {
-//                    Toast.makeText(requireContext(), "Purchase successful!", Toast.LENGTH_SHORT).show()
-//                    // Handle successful purchase (e.g., unlock features)
-//                }
-//            }
-//        }
 
     override fun onDestroyView() {
         super.onDestroyView()
