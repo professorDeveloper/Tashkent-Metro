@@ -10,8 +10,8 @@ import com.zbekz.tashkentmetro.data.model.station.StationState
 
 object LocalData {
 
-    val monthlyId = ""
-    val yearlyId = ""
+    const val monthlyId = ""
+    const val yearlyId = ""
 
     val trainsStatusList = arrayListOf(
         TrainStatusModel(from = "Mirzo Ulug'bek", to = "Chilonzor", status = "Keldi"),
