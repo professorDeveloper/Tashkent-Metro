@@ -274,7 +274,7 @@
                         android:enabled="false"
                         android:background="@android:color/transparent"
                         android:layout_gravity="center"
-                        android:checked="true" />
+                         />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -289,9 +289,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:insetTop="0dp"
-            android:enabled="true"
+            android:enabled="false"
             android:textColor="@color/white"
             android:insetBottom="0dp"
+
             android:insetLeft="0dp"
             app:cornerRadius="@dimen/_8sdp"
             android:backgroundTint="@color/btn_enable_"

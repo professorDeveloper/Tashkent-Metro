@@ -43,14 +43,17 @@ class BuyPremiumBottomSheet : BottomSheetDialogFragment() {
             viewModel.selectedSubscription.collect { selectedType ->
                 when (selectedType) {
                     SubscriptionViewModel.SubscriptionType.MONTHLY -> {
+                        binding.subscribeButton.isEnabled=true
                         binding.monthlyRadioButton.isChecked = true
                         binding.yearlyRadioButton.isChecked = false
                     }
                     SubscriptionViewModel.SubscriptionType.YEARLY -> {
+                        binding.subscribeButton.isEnabled=true
                         binding.monthlyRadioButton.isChecked = false
                         binding.yearlyRadioButton.isChecked = true
                     }
                     else -> {
+                        binding.subscribeButton.isEnabled=false
                         binding.monthlyRadioButton.isChecked = false
                         binding.yearlyRadioButton.isChecked = false
                     }
