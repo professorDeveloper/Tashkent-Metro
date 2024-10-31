@@ -12,6 +12,7 @@ import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
+import com.zbekz.tashkentmetro.utils.LocalData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -66,7 +67,7 @@ class SubscriptionViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            val productIds = listOf("android.test.purchased_monthly", "android.test.purchased_yearly")
+            val productIds = listOf(LocalData.monthlyId, LocalData.yearlyId)
             val products = productIds.map { productId ->
                 QueryProductDetailsParams.Product.newBuilder()
                     .setProductId(productId)
@@ -81,8 +82,8 @@ class SubscriptionViewModel @Inject constructor(
             billingClient.queryProductDetailsAsync(params) { billingResult, productDetailsList ->
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productDetailsList.isNotEmpty()) {
                     val selectedProductId = when (_selectedSubscription.value) {
-                        SubscriptionType.MONTHLY -> "android.test.purchased_monthly"
-                        SubscriptionType.YEARLY -> "android.test.purchased_yearly"
+                        SubscriptionType.MONTHLY -> LocalData.monthlyId
+                        SubscriptionType.YEARLY -> LocalData.yearlyId
                         else -> return@queryProductDetailsAsync
                     }
 
