@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">TashkentMetro</string>
     <string name="unit_id" translatable="false">ca-app-pub-9328127676050018/2265175107</string>
+    <string name="inertsial_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+
     <string name="home">Home</string>
     <style name="key_api">AIzaSyDpXaUsY2oeppw0g8qwYMnUWzXLfxp74Co</style>
     <string name="maps">Maps</string>

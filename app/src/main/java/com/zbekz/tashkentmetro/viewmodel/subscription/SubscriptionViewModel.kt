@@ -34,15 +34,22 @@ class SubscriptionViewModel @Inject constructor(
     }
 
     private fun connectBillingClient() {
+        if (billingClient.isReady) return  // Agar allaqachon ulangan bo'lsa qayta ulanmang
+
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    // Billing client is ready
+                    Log.d("tekshirish", "onBillingSetupFinished: ")
+                    // Ulanish muvaffaqiyatli tugallanganidan keyin sotib olish funksiyasini chaqiring
+                    initiatePurchase()
+                } else {
+                    Log.e("Billing", "Billing setup failed: ${billingResult.debugMessage}")
                 }
             }
 
             override fun onBillingServiceDisconnected() {
-                // Handle disconnection
+                // Ulanish uzilgan, qayta ulanishga harakat qiling
+                connectBillingClient()
             }
         })
     }
@@ -52,12 +59,18 @@ class SubscriptionViewModel @Inject constructor(
     }
 
     fun initiatePurchase() {
+        if (!billingClient.isReady) {
+            // Agar hali BillingClient tayyor bo'lmasa, avval ulaning
+            connectBillingClient()
+            return
+        }
+
         viewModelScope.launch {
-            val productIds = listOf("monthly_subscription", "yearly_subscription") // replace with your actual product IDs
+            val productIds = listOf("android.test.purchased_monthly", "android.test.purchased_yearly")
             val products = productIds.map { productId ->
                 QueryProductDetailsParams.Product.newBuilder()
                     .setProductId(productId)
-                    .setProductType(BillingClient.ProductType.SUBS) // for subscriptions
+                    .setProductType(BillingClient.ProductType.SUBS)
                     .build()
             }
 
@@ -68,8 +81,8 @@ class SubscriptionViewModel @Inject constructor(
             billingClient.queryProductDetailsAsync(params) { billingResult, productDetailsList ->
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productDetailsList.isNotEmpty()) {
                     val selectedProductId = when (_selectedSubscription.value) {
-                        SubscriptionType.MONTHLY -> "monthly_subscription"
-                        SubscriptionType.YEARLY -> "yearly_subscription"
+                        SubscriptionType.MONTHLY -> "android.test.purchased_monthly"
+                        SubscriptionType.YEARLY -> "android.test.purchased_yearly"
                         else -> return@queryProductDetailsAsync
                     }
 

@@ -37,7 +37,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -109,7 +112,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     private var lastSelectedMarker: Marker? = null
     private var isPopular = true
     private var isSheetVisible = false
-
+    private var interstitialAd: InterstitialAd? = null
 
     @Inject
     lateinit var userPreferenceManager: AppReference
@@ -123,7 +126,11 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         mapView.getMapAsync(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         binding.bottomSheet.gone()
-
+        val backgroundScope = CoroutineScope(Dispatchers.IO)
+        backgroundScope.launch {
+            MobileAds.initialize(requireContext()) {}
+        }
+        loadInterstitialAd()
         binding.mapStyle.setOnClickListener {
             showMapTypeBottomSheet()
         }
@@ -155,6 +162,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             updateUiToStation(it)
         }
 
+
         viewModel.bothValues.observe(viewLifecycleOwner) { pair ->
             if (pair != null) {
                 drawMapWithDirection(pair)
@@ -162,6 +170,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
                 clearMap()
             }
         }
+
+
 
         binding.buttonFrom.setOnClickListener {
             if (lastSelectedMarker == null) {
@@ -211,6 +221,31 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             viewModel.clearToValue()
         }
 
+    }
+
+    private fun showInterstitialAd() {
+        interstitialAd?.let { ad ->
+            ad.show(requireActivity())
+        } ?: Log.d("InterstitialAd", "Interstitial reklama hali yuklanmagan")
+    }
+    private fun loadInterstitialAd() {
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(
+            requireContext(),
+            getString(R.string.inertsial_id),
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    interstitialAd = ad
+                    Log.d("InterstitialAd", "Interstitial reklama yuklandi")
+                }
+
+                override fun onAdFailedToLoad(error: LoadAdError) {
+                    interstitialAd = null
+                    Log.e("InterstitialAd", "Interstitial yuklanmadi: ${error.message}")
+                }
+            }
+        )
     }
 
     @SuppressLint("InflateParams")
@@ -289,10 +324,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         (activity as? MainActivity)?.hideBottomNavigation()
         binding.bottomSheet.visibility = View.VISIBLE
         binding.bottomSheet.translationY = binding.bottomSheet.height.toFloat()
-        val backgroundScope = CoroutineScope(Dispatchers.IO)
-        backgroundScope.launch {
-            MobileAds.initialize(requireContext()) {}
-        }
+
 
 
         val adView = AdView(requireContext()).apply {
@@ -314,6 +346,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
 
     private fun hideBottomSheet() {
+        showInterstitialAd()
 
 
         val animator = ObjectAnimator.ofFloat(
