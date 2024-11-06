@@ -2,7 +2,6 @@ package com.zbekz.tashkentmetro.ui.screens.map.sheet
 
 import com.zbekz.tashkentmetro.ui.screens.map.TimelineAdapter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

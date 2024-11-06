@@ -40,7 +40,7 @@ class SubscriptionViewModel @Inject constructor(
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    Log.d("tekshirish", "onBillingSetupFinished: ")
+                    Log.d("tekshirish", "onBil lingSetupFinished: ")
                     // Ulanish muvaffaqiyatli tugallanganidan keyin sotib olish funksiyasini chaqiring
                     initiatePurchase()
                 } else {

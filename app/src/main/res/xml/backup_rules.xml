@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <full-backup-content>
     # This rule includes all files in the directory.
-    /data/data/com.example.yourapp/files/
+    /data/data/com.zbekz.yourapp/files/
     # This rule excludes the cache directory.
-    -/data/data/com.example.yourapp/cache/
+    -/data/data/com.zbekz.yourapp/cache/
 </full-backup-content>
