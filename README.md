@@ -46,7 +46,7 @@ Download the project on your preferred platform:
     <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" alt="Download on the App Store" width="200">
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://play.google.com/store/apps/details?id=XXXXXXXXXX">
+  <a href="https://play.google.com/store/apps/details?id=com.zbekz.tashkentmetro">
     <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" width="200">
   </a>
 </div>
