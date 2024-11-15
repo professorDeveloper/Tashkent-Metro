@@ -29,4 +29,8 @@ class ProfileViewModel @Inject constructor(
     fun loadCurrentLanguage() {
         _language.value = appReference.language
     }
+
+    fun getSelectedLanguage(): Language{
+        return appReference.language
+    }
 }
