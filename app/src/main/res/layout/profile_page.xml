@@ -164,6 +164,7 @@
                         </FrameLayout>
 
                         <TextView
+                            android:id="@+id/leaderBoardTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -245,6 +246,7 @@
                     </FrameLayout>
 
                     <TextView
+                        android:id="@+id/languageTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
@@ -334,6 +336,7 @@
                     </FrameLayout>
 
                     <TextView
+                        android:id="@+id/themeTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
@@ -433,6 +436,7 @@
                     </FrameLayout>
 
                     <TextView
+                        android:id="@+id/contactUsTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
@@ -546,6 +550,8 @@
                     </FrameLayout>
 
                     <TextView
+                        android:id="@+id/privacyPolicyTv"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"

@@ -41,11 +41,17 @@ class MainActivity : AppCompatActivity() {
         viewBinding.homeNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.button_maps -> {
+                    ViewUtils.setLanguageForService(this, userPreferenceManager)
+                    val fragment = supportFragmentManager.findFragmentByTag("MAP_FRAGMENT")
+                    if (fragment is MapScreen) {
+                        fragment.updateUi()
+                    }
                     showFragment(mapFragment)
                     true
                 }
 
                 R.id.button_settings -> {
+                    ViewUtils.setLanguageForService(this, userPreferenceManager)
                     showFragment(profileFragment)
                     true
                 }
@@ -84,6 +90,12 @@ class MainActivity : AppCompatActivity() {
 
     fun hideBottomNavigation() {
         viewBinding.homeNavigation.visibility = View.GONE
+    }
+    fun updateBottomNavigationTitles() {
+        val menu = viewBinding.homeNavigation.menu
+
+        menu.findItem(R.id.button_maps)?.title = getString(R.string.maps)
+        menu.findItem(R.id.button_settings)?.title = getString(R.string.settings)
     }
 
     fun showBottomNavigation() {

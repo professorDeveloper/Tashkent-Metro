@@ -79,6 +79,7 @@ import com.zbekz.tashkentmetro.utils.BaseFragment
 import com.zbekz.tashkentmetro.utils.LocalData
 import com.zbekz.tashkentmetro.utils.LocalData.metro
 import com.zbekz.tashkentmetro.utils.LocalData.popularStations
+import com.zbekz.tashkentmetro.utils.ViewUtils
 import com.zbekz.tashkentmetro.utils.custom.StationFilter
 import com.zbekz.tashkentmetro.utils.formatString
 import com.zbekz.tashkentmetro.utils.gone
@@ -118,6 +119,7 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
     lateinit var userPreferenceManager: AppReference
     private lateinit var mapView: MapView
     private lateinit var mMap: GoogleMap
+
 
     override fun onViewCreate(savedInstanceState: Bundle?) {
         mapView = binding.map
@@ -688,6 +690,23 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centralStation, 11.5f))
     }
 
+    fun updateMarker(){
+        metro.forEach { line ->
+            line.stations.forEach { station ->
+                val id = station.id.toLong()
+                val latLang = LatLng(station.location.latitude, station.location.longitude)
+                val title = formatString(station.name, requireContext())
+                val color = if (userPreferenceManager.theme == ThemeStyle.DARK) ContextCompat.getColor(
+                    requireContext(),
+                    R.color.white
+                )else ContextCompat.getColor(requireContext(), R.color.black)
+                val markerInfo = MarkerInfo(latLang, title, color)
+                binding.mapFloatingMarkersOverlay.removeMarker(id)
+                binding.mapFloatingMarkersOverlay.addMarker(id, markerInfo)
+                binding.mapFloatingMarkersOverlay.restart()
+            }
+        }
+    }
     private fun setupMetroLine(line: StationLine, isReducedOpacity: Boolean = false) {
         val polylineOptions = PolylineOptions()
 
@@ -959,6 +978,14 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         if (this::mapView.isInitialized ) {
             mapView.onResume()
         }
+    }
+
+    fun updateUi() {
+        updateMarker()
+        binding.buttonFrom.text = getString(R.string.from)
+        binding.buttonTo.text = getString(R.string.to)
+        binding.searchView.updateTextSearch()
+
     }
 
     override fun onPause() {

@@ -171,6 +171,9 @@ public class FloatingMarkerTitlesOverlay extends View {
             invalidate();
         }
     }
+    public void restart(){
+        invalidate();
+    }
 
     /**
      * Removes a marker from the overlay by ID.

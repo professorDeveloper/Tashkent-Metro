@@ -5,8 +5,7 @@ import com.zbekz.tashkentmetro.databinding.HomeScreenBinding
 import com.zbekz.tashkentmetro.utils.BaseFragment
 import com.zbekz.tashkentmetro.utils.LocalData
 
-class HomeScreen : BaseFragment<HomeScreenBinding>(HomeScreenBinding::inflate)
-     {
+class HomeScreen : BaseFragment<HomeScreenBinding>(HomeScreenBinding::inflate) {
 
     private val adapter by lazy { HomeAdapter() }
     private var screenWidth = 0f

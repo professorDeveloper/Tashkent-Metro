@@ -1,6 +1,7 @@
 package com.zbekz.tashkentmetro.ui.screens.profile
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,6 +13,7 @@ import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.data.local.shp.Language
 import com.zbekz.tashkentmetro.data.local.shp.ThemeStyle
 import com.zbekz.tashkentmetro.databinding.ProfilePageBinding
+import com.zbekz.tashkentmetro.ui.activity.MainActivity
 import com.zbekz.tashkentmetro.ui.activity.RegisterActivity
 import com.zbekz.tashkentmetro.utils.BaseFragment
 import com.zbekz.tashkentmetro.utils.ViewUtils
@@ -87,6 +89,7 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
         requireActivity().recreate()
     }
 
+
     private fun showPopupMenuLanguage() {
         val popupMenu = PopupMenu(requireActivity(), binding.dropdownIcon)
         popupMenu.menuInflater.inflate(R.menu.language_menu, popupMenu.menu)
@@ -99,7 +102,7 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
                 R.id.language_russian -> viewModel.setLanguage(Language.RUSSIAN)
                 R.id.language_uzbek -> viewModel.setLanguage(Language.UZBEK)
             }
-            updateAppLocale()
+            updateAppLocale(viewModel.getSelectedLanguage().code)
             true
         }
 
@@ -107,48 +110,51 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
         popupMenu.show()
     }
 
-    private fun updateAppLocale() {
-//        val selectedLanguage = viewModel.getSelectedLanguage() // Assuming this fetches the current language from ViewModel
-//        val locale = when (selectedLanguage) {
-//            Language.ENGLISH -> Locale("en")
-//            Language.RUSSIAN -> Locale("ru")
-//            Language.UZBEK -> Locale("uz")
-//        }
-//
-//        val resources = requireContext().resources
-//        val configuration = resources.configuration
-//        val displayMetrics = resources.displayMetrics
-//
-//        // Update the locale in the configuration
-//        configuration.setLocale(locale)
-//        configuration.setLayoutDirection(locale) // Adjust layout direction for RTL languages
-//
-//        val context = requireContext().createConfigurationContext(configuration)
-//
-//        context.resources.updateConfiguration(configuration, context.resources.displayMetrics)
-//
-//        requireActivity().resources.updateConfiguration(configuration, requireContext().resources.displayMetrics)
-//        val fragmentManager = parentFragmentManager
-//        val currentFragment = this
-//
-//        // Fragmentni qayta yuklash
-//        fragmentManager.beginTransaction().apply {
-//            detach(currentFragment) // Fragmentni ajratib olish
-//            attach(currentFragment) // Fragmentni qayta ulash
-//            commit() // O'zgarishlarni bajarish
-//        }
-//        ViewUtils.setLanguageForService(requireContext(), userPreferenceManager)
-//        ViewUtils.setLanguage(requireContext(), userPreferenceManager.language)
-
-        requireActivity().recreate()
+    private fun updateAppLocale(languageCode: String) {
+        ViewUtils.updateLocale(requireContext(), languageCode)
+        refreshUI()
 
     }
-    private fun refreshLocaleDependentUI() {
-        // Update any UI components that are dependent on the locale
-//        binding.textViewTitle.text = getString(R.string.title)
-//        binding.buttonSubmit.text = getString(R.string.submit)
-        // Update other UI elements as needed
+
+    private fun refreshUI() {
+
+        binding.textView9.text = getString(R.string.settings)
+        binding.textView10.text = getString(R.string.account)
+
+        // Login/Register matni va foydalanuvchi raqami
+        binding.loginTv.text =
+            if (userPreferenceManager.userName == "null") getString(R.string.login_register)
+            else userPreferenceManager.userName
+
+        binding.phoneNumberTv.text =
+            if (userPreferenceManager.userPhone == "null") getString(R.string.contribute_join_leaderboard)
+            else userPreferenceManager.userPhone
+
+        // Tillar va mavzu o'zgarishlari
+        binding.languageText.text = getLanguageString(userPreferenceManager.language)
+        binding.themeTxt.text = getThemeText()
+        binding.flagImage.setImageResource(getFlagDrawable(userPreferenceManager.language))
+
+        // Kontakt biz bilan bo'limi
+        binding.contactUsTv.text = getString(R.string.contact_us)
+        binding.leaderBoardTv.text = getString(R.string.leaderboard)
+        binding.languageTv.text = getString(R.string.language)
+        binding.themeTv.text = getString(R.string.theme)
+        // Maxfiylik siyosati matni
+        binding.privacyPolicyTv.text = getString(R.string.privacy_policy)
+
+
+        // Qo'shimcha UI elementlarini yangilash
+        binding.leaderboardIcon.setImageResource(R.drawable.ic_trophy_fill)
+        binding.icMail.setImageResource(R.drawable.mail)
+        binding.icSec.setImageResource(R.drawable.shield_fill)
+        binding.themeIcon.setImageResource(R.drawable.ic_theme)
+        binding.languageIcon.setImageResource(R.drawable.icon_language)
+
+        (requireActivity() as MainActivity).updateBottomNavigationTitles()
+
     }
+
     private fun showPopupMenuTheme() {
         val popupMenu = PopupMenu(requireActivity(), binding.dropdownIconTheme)
         popupMenu.menuInflater.inflate(R.menu.theme_menu, popupMenu.menu)

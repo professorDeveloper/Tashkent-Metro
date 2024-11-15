@@ -10,7 +10,9 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.widget.EditText
 import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
+import com.zbekz.tashkentmetro.R
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.databinding.ViewSearchBinding
 import com.zbekz.tashkentmetro.data.local.shp.Language
@@ -55,6 +57,10 @@ class SearchView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
         }
     }
 
+    fun updateTextSearch(){
+        binding.searchInputText.hint = context.getString(R.string.search_hint)
+        binding.checkingTv.text = context.getString(R.string.check_the_spelling_or_try_a_new_search)
+    }
     private fun initTextChanged() {
         binding.searchInputText.addTextChangedListener {
             if (it.toString().isEmpty()) {
