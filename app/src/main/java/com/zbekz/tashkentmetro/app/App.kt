@@ -25,7 +25,7 @@ class App : MultiDexApplication() {
 
         ViewUtils.setLanguage(this, userPreferenceManager.language)
         ViewUtils.applyTheme(userPreferenceManager.theme)
-
+        // ?
 
 
     }
