@@ -9,14 +9,20 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import com.zbekz.tashkentmetro.R
+import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.databinding.ActivityIntroBinding
+import com.zbekz.tashkentmetro.utils.ViewUtils
 import com.zbekz.tashkentmetro.utils.initActivity
 import com.zbekz.tashkentmetro.utils.visible
 import com.zbekz.tashkentmetro.viewmodel.imp.IntroViewModelImpl
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class IntroActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var userPreferenceManager: AppReference
 
     private val model by viewModels<IntroViewModelImpl>()
     private lateinit var viewBinding: ActivityIntroBinding
@@ -26,6 +32,7 @@ class IntroActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ViewUtils.setLanguageForService(this, userPreferenceManager)
 
         viewBinding = ActivityIntroBinding.inflate(layoutInflater)
 

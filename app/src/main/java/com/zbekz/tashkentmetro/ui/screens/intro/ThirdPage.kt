@@ -6,8 +6,9 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.zbekz.tashkentmetro.databinding.ThirdPageBinding
+import com.zbekz.tashkentmetro.R
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
+import com.zbekz.tashkentmetro.databinding.ThirdPageBinding
 import com.zbekz.tashkentmetro.ui.activity.MainActivity
 import com.zbekz.tashkentmetro.utils.BaseFragment
 import com.zbekz.tashkentmetro.utils.enums.CurrentScreenEnum
@@ -62,7 +63,7 @@ class ThirdPage : BaseFragment<ThirdPageBinding>(ThirdPageBinding::inflate) {
     }
 
     fun getLocation() {
-       binding.contractNextBtnText.text="Next"
+       binding.contractNextBtnText.text=requireContext().getString(R.string.next)
         binding.nextContract.setSafeOnClickListener {
             userPreferenceManager.currentScreenEnum = CurrentScreenEnum.HOME
             val intent = Intent(requireActivity(), MainActivity::class.java)
