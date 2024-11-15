@@ -34,7 +34,6 @@ class RegisterScreen : BaseFragment<RegisterScreenBinding>(RegisterScreenBinding
     lateinit var userPreferenceManager: AppReference
 
     override fun onViewCreate(savedInstanceState: Bundle?) {
-        requireActivity().window.statusBarColor = Color.parseColor("#F2F2F7")
         binding.maskPhone.setupPhoneNumberEditText(
             onChangedToEnable = { enableButton(binding.nextBtn) },
             onChangedToDisable = { disableButton(binding.nextBtn) })

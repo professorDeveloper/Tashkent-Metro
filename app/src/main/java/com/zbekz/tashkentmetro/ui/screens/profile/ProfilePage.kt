@@ -63,6 +63,12 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
                 animationTransaction().build()
             )
         }
+        binding.loginTv.setOnClickListener {
+            findNavController().navigate(
+                R.id.registerPage, null,
+                animationTransaction().build()
+            )
+        }
         binding.privacyPolicy.setOnClickListener {
             val tgContact = Uri.parse("https://zbekz.com/products/tashkent-metro/privacy-policy")
             val intent = Intent(Intent.ACTION_VIEW, tgContact)
@@ -156,8 +162,8 @@ class ProfilePage : BaseFragment<ProfilePageBinding>(ProfilePageBinding::inflate
     private fun getThemeText(): String {
         return when (userPreferenceManager.theme) {
             ThemeStyle.AUTO -> getString(R.string.auto)
-            ThemeStyle.DARK -> getString(R.string.night)
-            ThemeStyle.LIGHT -> getString(R.string.day)
+            ThemeStyle.DARK -> getString(R.string.dark)
+            ThemeStyle.LIGHT -> getString(R.string.light)
         }
     }
 

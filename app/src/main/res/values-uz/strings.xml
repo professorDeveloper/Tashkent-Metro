@@ -66,6 +66,10 @@
     <string name="get_full_access_for_just_1_100">Faqat ₩1100 evaziga toʻliq obuna</string>
     <string name="yearly_subscription">Yillik obuna</string>
     <string name="get_full_access_for_just_6_600">Faqat ₩6600 evaziga toʻliq obuna</string>
+    <string name="dark" >Tungi</string>
+    <string name="light" >Yorug</string>
+    <string name="auto">Tizim</string>
+
 
 
 </resources>

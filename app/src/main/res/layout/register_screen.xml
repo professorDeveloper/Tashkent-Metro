@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/settings_background"
+    android:background="@color/card_background"
     tools:context=".ui.screens.auth.RegisterScreen">
 
     <LinearLayout
@@ -48,7 +48,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/nunito_bold"
             android:text="@string/login_register"
-            android:textColor="@color/black"
+            android:textColor="@color/colorGray"
             android:textSize="@dimen/_15ssp" />
     </LinearLayout>
 
@@ -252,7 +252,7 @@
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="@string/next"
-        android:textColor="@color/card_background"
+        android:textColor="@color/colorGray"
         android:textSize="@dimen/_12ssp"
         app:cornerRadius="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"

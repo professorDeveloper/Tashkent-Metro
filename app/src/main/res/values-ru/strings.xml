@@ -67,5 +67,8 @@
     <string name="get_full_access_for_just_1_100">Получите полный доступ всего за ₩1100</string>
     <string name="yearly_subscription">Yearly Subscription</string>
     <string name="get_full_access_for_just_6_600">Получите полный доступ всего за ₩6600</string>
+    <string name="dark" >Tемный</string>
+    <string name="light" >световой</string>
+    <string name="auto">Cистема</string>
 
 </resources>

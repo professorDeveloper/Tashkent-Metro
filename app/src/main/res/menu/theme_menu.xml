@@ -5,8 +5,8 @@
         android:title="@string/auto" />
     <item
         android:id="@+id/theme_day"
-        android:title="@string/day" />
+        android:title="@string/light" />
     <item
         android:id="@+id/theme_night"
-        android:title="@string/night" />
+        android:title="@string/dark" />
 </menu>
