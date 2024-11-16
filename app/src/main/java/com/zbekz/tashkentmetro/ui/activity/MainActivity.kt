@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mapFragment: MapScreen
     private lateinit var profileFragment: ProfilePage
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         ViewUtils.setLanguageForService(this, userPreferenceManager)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)

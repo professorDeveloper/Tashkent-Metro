@@ -2,7 +2,6 @@ package com.zbekz.tashkentmetro.ui.activity
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
-import android.graphics.Color
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
@@ -37,7 +36,7 @@ class RegisterActivity: AppCompatActivity() {
         binding = RegisterScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.statusBarColor = Color.parseColor("#F2F2F7")
+        window.statusBarColor = getColor(R.color.card_background)
         binding.maskPhone.setupPhoneNumberEditText(
             onChangedToEnable = { enableButton(binding.nextBtn) },
             onChangedToDisable = { disableButton(binding.nextBtn) })

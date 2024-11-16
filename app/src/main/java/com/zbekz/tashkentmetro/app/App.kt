@@ -5,16 +5,15 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import androidx.multidex.MultiDex
-import androidx.multidex.MultiDexApplication
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.utils.ViewUtils
+import com.zeugmasolutions.localehelper.LocaleAwareApplication
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 @HiltAndroidApp
 @SuppressLint("StaticFieldLeak")
-class App : MultiDexApplication() {
+class App : LocaleAwareApplication() {
 
     @Inject
     lateinit var userPreferenceManager: AppReference
@@ -40,10 +39,10 @@ class App : MultiDexApplication() {
 
     val mFTActivityLifecycleCallbacks = FTActivityLifecycleCallbacks()
 
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
-        MultiDex.install(this)
-    }
+//    override fun attachBaseContext(base: Context?) {
+//        super.attachBaseContext(base)
+//        MultiDex.install(this)
+//    }
 
     inner class FTActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
         var currentActivity: Activity? = null
