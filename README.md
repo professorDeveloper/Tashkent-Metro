@@ -1,6 +1,6 @@
 # **Tashkent Metro**
 
-<h2> Soon ! ) </h2>
+<h2> Beta Release </h2>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/860fcbc9-43a5-44d3-b9fd-8add505a0e80" alt="Project Image" width="400">
 </p>
