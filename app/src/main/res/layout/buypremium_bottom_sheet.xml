@@ -298,7 +298,7 @@
             android:backgroundTint="@color/btn_enable_"
             android:insetRight="0dp"
             android:layout_marginTop="16dp"
-            android:text="Subscribe Now" />
+            android:text="@string/subscribe_now" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

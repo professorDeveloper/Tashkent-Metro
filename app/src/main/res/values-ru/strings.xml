@@ -70,5 +70,6 @@
     <string name="dark" >Tемный</string>
     <string name="light" >Светлый</string>
     <string name="auto">Cистема</string>
+    <string name="subscribe_now">Подпишитесь сейчас</string>
 
 </resources>

@@ -25,11 +25,7 @@
             android:exported="true"
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.Main">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.zbekz.tashkentmetro.ui.activity.RegisterActivity"
@@ -41,7 +37,11 @@
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.Intro">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <provider
             android:name="androidx.startup.InitializationProvider"
