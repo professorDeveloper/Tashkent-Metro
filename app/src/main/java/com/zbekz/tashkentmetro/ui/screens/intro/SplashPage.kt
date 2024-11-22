@@ -23,15 +23,14 @@ class SplashPage : BaseFragment<SplashPageBinding>(SplashPageBinding::inflate) {
     private val model by viewModels<IntroViewModelImpl>()
     override fun onViewCreate(savedInstanceState: Bundle?) {
 
-        lifecycleScope.launch {
-            binding.appLogo.visible()
-            binding.appLogo.alphaAnim()
-            delay(1000)
-            model.loginScreenLiveData.observe(viewLifecycleOwner, getStartedScreenObserver)
-            model.homeScreenLiveData.observe(viewLifecycleOwner, openHomeScreenObserver)
-            model.checkPage()
-
-        }
+//        lifecycleScope.launch {
+//            binding.appLogo.visible()
+//            binding.appLogo.alphaAnim()
+//            delay(1000)
+//            model.loginScreenLiveData.observe(viewLifecycleOwner, getStartedScreenObserver)
+//            model.homeScreenLiveData.observe(viewLifecycleOwner, openHomeScreenObserver)
+//            model.checkPage()
+//        }
 
     }
 
@@ -40,13 +39,13 @@ class SplashPage : BaseFragment<SplashPageBinding>(SplashPageBinding::inflate) {
         startActivity(intent)
         requireActivity().finish()
     }
-    private val getStartedScreenObserver = Observer<Unit> {
-
-        findNavController().navigate(
-            R.id.firstPage,
-            null,
-            animationTransactionClearStack(R.id.splashPage).build()
-        )
-    }
+//    private val getStartedScreenObserver = Observer<Unit> {
+//
+//        findNavController().navigate(
+//            R.id.firstPage,
+//            null,
+//            animationTransactionClearStack(R.id.splashPage).build()
+//        )
+//    }
 
 }

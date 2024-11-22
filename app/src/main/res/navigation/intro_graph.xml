@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/intro_graph"
-    app:startDestination="@id/splashPage">
+    app:startDestination="@id/firstPage">
 
     <fragment
         android:id="@+id/firstPage"
@@ -28,13 +28,4 @@
         tools:layout="@layout/third_page"
         android:name="com.zbekz.tashkentmetro.ui.screens.intro.ThirdPage"
         android:label="ThirdPage" />
-    <fragment
-        android:id="@+id/splashPage"
-        android:name="com.zbekz.tashkentmetro.ui.screens.intro.SplashPage"
-        android:label="splash_page"
-        tools:layout="@layout/splash_page" >
-        <action
-            android:id="@+id/action_splashPage_to_firstPage"
-            app:destination="@id/firstPage" />
-    </fragment>
 </navigation>
