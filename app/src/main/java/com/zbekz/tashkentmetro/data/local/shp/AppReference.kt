@@ -1,11 +1,8 @@
 package com.zbekz.tashkentmetro.data.local.shp
 
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
-import com.zbekz.tashkentmetro.utils.enums.CurrentScreenEnum
-import com.zbekz.tashkentmetro.utils.screenCurrentEnum
+import androidx.preference.PreferenceManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,17 +12,19 @@ class AppReference @Inject constructor(
     @ApplicationContext
     context: Context,
 ) {
-    private var sharedPref: SharedPreferences =
-        context.getSharedPreferences("metr_shp", MODE_PRIVATE)
-    private var editor: SharedPreferences.Editor = sharedPref.edit()
+
+    private val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
 
 
-    var currentScreenEnum: CurrentScreenEnum
-        get() = sharedPref.getString("current_screen", CurrentScreenEnum.INTRO.name)!!
-            .screenCurrentEnum()
-        set(value) {
-            sharedPref.edit().putString("current_screen", value.name).apply()
-        }
+
+    fun setCurrentScreen(value:String){
+        sharedPref.edit().putString("current_screen", value).apply()
+    }
+
+    fun getCurrentScreen():String?{
+      return  sharedPref.getString("current_screen", "intro")
+    }
+
 
     var mapStyle:String
         get() = sharedPref.getString("mapStyle", "normal").toString()

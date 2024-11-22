@@ -14,7 +14,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import com.zbekz.tashkentmetro.R
-import com.zbekz.tashkentmetro.utils.enums.CurrentScreenEnum
 
 fun initActivity(a: Activity) {
     val window = a.window
@@ -29,12 +28,7 @@ fun hideKeyboard(view: View) {
 }
 
 
-fun String.screenCurrentEnum(): CurrentScreenEnum {
-    return when (this) {
-        "HOME" -> CurrentScreenEnum.HOME
-        else -> CurrentScreenEnum.INTRO
-    }
-}
+
 @Suppress("DEPRECATION")
 fun Activity.hideSystemBars() {
     window.decorView.systemUiVisibility = (

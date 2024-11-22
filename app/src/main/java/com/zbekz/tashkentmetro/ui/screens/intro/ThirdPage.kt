@@ -11,7 +11,6 @@ import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.databinding.ThirdPageBinding
 import com.zbekz.tashkentmetro.ui.activity.MainActivity
 import com.zbekz.tashkentmetro.utils.BaseFragment
-import com.zbekz.tashkentmetro.utils.enums.CurrentScreenEnum
 import com.zbekz.tashkentmetro.utils.setSafeOnClickListener
 import com.zbekz.tashkentmetro.utils.slideStart
 import com.zbekz.tashkentmetro.utils.slideUp
@@ -54,7 +53,7 @@ class ThirdPage : BaseFragment<ThirdPageBinding>(ThirdPageBinding::inflate) {
         }
 
         binding.notNowTxt.setSafeOnClickListener {
-            userPreferenceManager.currentScreenEnum = CurrentScreenEnum.HOME
+            userPreferenceManager.setCurrentScreen("home")
             val intent = Intent(requireActivity(), MainActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
@@ -65,7 +64,7 @@ class ThirdPage : BaseFragment<ThirdPageBinding>(ThirdPageBinding::inflate) {
     fun getLocation() {
        binding.contractNextBtnText.text=requireContext().getString(R.string.next)
         binding.nextContract.setSafeOnClickListener {
-            userPreferenceManager.currentScreenEnum = CurrentScreenEnum.HOME
+            userPreferenceManager.setCurrentScreen("home")
             val intent = Intent(requireActivity(), MainActivity::class.java)
             startActivity(intent)
             requireActivity().finish()

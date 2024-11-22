@@ -13,37 +13,40 @@ import com.zbekz.tashkentmetro.data.local.shp.AppReference
 import com.zbekz.tashkentmetro.databinding.SplashPageBinding
 import com.zbekz.tashkentmetro.ui.activity.IntroActivity
 import com.zbekz.tashkentmetro.ui.activity.MainActivity
-import com.zbekz.tashkentmetro.utils.enums.CurrentScreenEnum
+import com.zbekz.tashkentmetro.utils.ViewUtils
 import com.zbekz.tashkentmetro.utils.initActivity
 import com.zbekz.tashkentmetro.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var userPreferenceManager: AppReference
+
 
     private lateinit var binding: SplashPageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = SplashPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val userPreferenceManager = AppReference(this)
+        ViewUtils.setLanguageForService(this, userPreferenceManager)
         initActivity(this)
+
 
         lifecycleScope.launch {
             binding.appLogo.visible()
             binding.appLogo.alphaAnim(this@SplashActivity)
             delay(1000)
+            if (userPreferenceManager.getCurrentScreen() == "home") {
 
-            if (userPreferenceManager.currentScreenEnum == CurrentScreenEnum.HOME) {
+
                 openHome()
             } else {
                 openIntro()
+
             }
         }
 
