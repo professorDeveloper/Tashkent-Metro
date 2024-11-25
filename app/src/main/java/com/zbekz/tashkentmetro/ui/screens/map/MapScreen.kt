@@ -79,7 +79,6 @@ import com.zbekz.tashkentmetro.utils.BaseFragment
 import com.zbekz.tashkentmetro.utils.LocalData
 import com.zbekz.tashkentmetro.utils.LocalData.metro
 import com.zbekz.tashkentmetro.utils.LocalData.popularStations
-import com.zbekz.tashkentmetro.utils.ViewUtils
 import com.zbekz.tashkentmetro.utils.custom.StationFilter
 import com.zbekz.tashkentmetro.utils.formatString
 import com.zbekz.tashkentmetro.utils.gone
@@ -614,6 +613,8 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         }
     }
 
+    private var currentMarker: Marker? = null
+
     private fun enableUserLocation() {
         if (ActivityCompat.checkSelfPermission(
                 requireActivity(),
@@ -629,14 +630,24 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             if (location != null) {
                 val currentLatLng = LatLng(location.latitude, location.longitude)
-                addCustomMarker(currentLatLng, "you")
-                myLoc =currentLatLng
+
+                // Eski markerni o'chirish
+                currentMarker?.remove()
+
+                currentMarker = mMap.addMarker(
+                    MarkerOptions()
+                        .position(currentLatLng)
+                        .title("You")
+                )
+
+                myLoc = currentLatLng
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
             } else {
                 snackString("Unable to get current location")
             }
         }
     }
+
 
     private fun addCustomMarker(location: LatLng, timeText: String) {
 
