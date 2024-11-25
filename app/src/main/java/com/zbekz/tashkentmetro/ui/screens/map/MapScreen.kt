@@ -62,7 +62,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.divider.MaterialDivider
-import com.mostafa_anter.marker.CustomMarker
 import com.zbekz.tashkentmetro.R
 import com.zbekz.tashkentmetro.custom.markerWithText.MarkerInfo
 import com.zbekz.tashkentmetro.data.local.shp.AppReference
@@ -627,19 +626,11 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
             return
         }
 
+
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             if (location != null) {
                 val currentLatLng = LatLng(location.latitude, location.longitude)
-
-                // Eski markerni o'chirish
-                currentMarker?.remove()
-
-                currentMarker = mMap.addMarker(
-                    MarkerOptions()
-                        .position(currentLatLng)
-                        .title("You")
-                )
-
+                addCustomMarker(currentLatLng, "you")
                 myLoc = currentLatLng
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
             } else {
@@ -650,17 +641,32 @@ class MapScreen : BaseFragment<MapScreenBinding>(MapScreenBinding::inflate), OnM
 
 
     private fun addCustomMarker(location: LatLng, timeText: String) {
+        currentMarker?.remove()
 
-        CustomMarker.Builder()
-            .context(requireActivity())
-            .avatar("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&s") //your avatar url
-            .googleMap(mMap)
+        val markerOptions = MarkerOptions()
+            .position(location)
+            .title(timeText)
+            .icon(BitmapDescriptorFactory.fromBitmap(getCustomMarkerBitmap()))
 
-            .lat(location.latitude) // your latitude
-            .long(location.longitude)
-            .googleMap(mMap)// your longitude
-            .build()
+        currentMarker = mMap.addMarker(markerOptions)
     }
+
+    private fun getCustomMarkerBitmap(): Bitmap {
+
+        val markerView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_marker_layout, null)
+        markerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        markerView.layout(0, 0, markerView.measuredWidth, markerView.measuredHeight)
+        val bitmap = Bitmap.createBitmap(
+            markerView.measuredWidth,
+            markerView.measuredHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        markerView.draw(canvas)
+
+        return bitmap
+    }
+
 
 
 
