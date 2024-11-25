@@ -122,7 +122,6 @@ dependencies {
     implementation "com.github.naz013:gradient-view-kit:1.0.1"
     implementation 'com.github.lriccardo:TimelineView:1.1.2'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
-    implementation 'com.github.MostafaAnter:MarkerWithAvatar:1.0'
     implementation "com.google.android.play:asset-delivery-ktx:2.2.2"
     implementation 'com.revenuecat.purchases:purchases:5.3.0'
 
